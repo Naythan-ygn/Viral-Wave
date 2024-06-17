@@ -4,6 +4,8 @@
 /* To set static color value. */
 :root {
     --primary: #F73718;
+    --light: #F6F7F8;
+    --dark: #11181d;
 }
 
 * {
@@ -13,11 +15,15 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+    height: 500vh;
+}
+
 /* This is the toppest Black Bar. */
 .info-bar {
     padding: 10px 50px;
-    background-color: #000;
-    color: #fff;
+    background-color: var(--dark);
+    color: var(--light);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33,16 +39,16 @@
 }
 
 .info-bleft {
-    width: 32%;
+    width: 440px;
 }
 
 .info-bright {
-    width: 27%;
+    width: 380px;
 }
 
 /* Customising the Dropdown. */
 .text-drop a {
-    color: #fff;
+    color: var(--light);
     text-decoration: none;
 }
 
@@ -51,6 +57,32 @@
 }
 
 .drop-bg a:hover {
-    color: #fff;
+    color: var(--light);
     background-color: var(--primary);
 }
+
+.info-btext {
+    font-size: 12px;
+    text-align: center;
+    padding-left: 5px;
+}
+
+/* Responsive Navbar */
+@media (max-width: 991px) {
+    #offcanvasNavbar {
+        background-color: rgba(255, 255, 255, .15);
+        backdrop-filter: blur(10px);
+    }
+
+    /* To Fix media query responsive Body text color Change */
+
+    #resp-text{
+        color: #fff;
+    }
+}
+/* 
+@media (min-width: 992px) {
+    #resp-text ul li a {
+        color: #000;
+    }
+} */

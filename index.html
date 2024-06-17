@@ -45,7 +45,7 @@
                                     <path
                                         d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                                 </svg>
-                                <span class="info-btext">U Wisara Rd, Myaynigone Tsp, Yangon</span>
+                                <span>U Wisara Rd, Myaynigone Tsp, Yangon</span>
                             </div>
                         </div>
 
@@ -54,7 +54,7 @@
 
                             <!-- This is for the Working Hour. -->
                             <div class="info-bhour">
-                                <span class="info-btext">
+                                <span>
                                     We're Available Daily 9:00 am - 9:00 pm
                                 </span>
                             </div>
@@ -72,22 +72,24 @@
                                             <path d="M 12.5,0 V 15 M 0,7.5 H 25" stroke="#fff" stroke-width="5" />
                                             <path d="M 12.5,0 V 15 M 0,7.5 H 25" stroke="#cf142b" stroke-width="3" />
                                         </svg>
-                                        <span class="info-btext">
+                                        <span>
                                             English
                                         </span>
                                     </a>
                                     <div class="drop-bg dropdown-menu bg-dark" aria-labelledby="triggerId">
                                         <a class="dropdown-item" href="#">
-                                            <img src="/Images/Flag_of_Myanmar.png" alt="flag" width="20" height="20">
+                                            <img src="https://i.pinimg.com/564x/24/a3/af/24a3af7fc241c6c75bd0e5e8447a8c1e.jpg"
+                                                alt="flag" width="20" height="15">
                                             <span class="info-btext">
-                                                Myanmar
+                                                Burmese
                                             </span>
                                         </a>
 
                                         <a class="dropdown-item" href="#">
-                                            <img src="/Images/Flag_of_China.png" alt="Flag" width="20" height="20">
+                                            <img src="https://i.pinimg.com/564x/80/65/aa/8065aae906a04fd786b80aeaa551e74f.jpg"
+                                                alt="Flag" width="20" height="15">
                                             <span class="info-btext">
-                                                China
+                                                Chinese
                                             </span>
                                         </a>
                                     </div>
@@ -96,45 +98,75 @@
                         </div>
                     </div>
 
-                    <nav class="navbar navbar-expand-lg bg-emphasis-color">
+                    <nav class="navbar navbar-expand-lg">
                         <div class="container-fluid">
+                            
+                            <!-- This is the Logo -->
                             <a class="navbar-brand" href="#">
-                                <img src="/Images/Viral_Wave.png" alt="logo" width="150px">
+                                <img src="/Images/Web-logo.png" alt="logo" width="150">
                             </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                            <!-- This is Toggle -->
+                            <button 
+                                class="navbar-toggler shadow-none border-0" 
+                                type="button" 
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasNavbar" 
+                                aria-controls="offcanvasNavbar"
+                                aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false">
-                                            Dropdown
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Action</a></li>
-                                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                                    </li>
-                                </ul>
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
-                                </form>
+
+                            <!-- This is SideBar -->
+                            <div
+                                class="sidebar offcanvas offcanvas-end" 
+                                tabindex="-1" 
+                                id="offcanvasNavbar"
+                                aria-labelledby="offcanvasNavbarLabel">
+
+                                <!-- Sidebar Head -->
+                                <div class="offcanvas-header text-white border-bottom">
+                                    <h3 class="offcanvas-title" id="offcanvasNavbarLabel">Viral Wave</h3>
+
+                                    <!-- The Close Button -->
+                                    <button 
+                                        type="button" 
+                                        class="btn-close btn-close-white shadow-none" 
+                                        data-bs-dismiss="offcanvas"
+                                        aria-label="Close">
+                                    </button>
+                                </div>
+
+                                <!-- Sidebar Body -->
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" id="resp-text">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">Link</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Dropdown
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <form class="d-flex" role="search">
+                                        <input class="form-control me-2" type="search" placeholder="Search"
+                                            aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </nav>
