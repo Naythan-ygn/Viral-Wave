@@ -1,2 +1,56 @@
 /* To initialise the Poppins font. */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* To set static color value. */
+:root {
+    --primary: #F73718;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* This is the toppest Black Bar. */
+.info-bar {
+    padding: 10px 50px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* sizing and aligning the two edges. */
+.info-bleft,
+.info-bright {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.info-bleft {
+    width: 32%;
+}
+
+.info-bright {
+    width: 27%;
+}
+
+/* Customising the Dropdown. */
+.text-drop a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.drop-bg a {
+    transition: 0.25s all ease-in-out;
+}
+
+.drop-bg a:hover {
+    color: #fff;
+    background-color: var(--primary);
+}
