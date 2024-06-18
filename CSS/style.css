@@ -17,6 +17,11 @@
 
 body {
     height: 500vh;
+    background: url("/Images/background.png") rgba(0, 0, 0, 1.5);
+    background-blend-mode: multiply;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* This is the toppest Black Bar. */
@@ -69,15 +74,13 @@ body {
 
 /* Responsive Navbar */
 @media (max-width: 991px) {
+    .info-bar {
+        display: none
+    }
+
     #offcanvasNavbar {
         background-color: rgba(255, 255, 255, .15);
         backdrop-filter: blur(10px);
-    }
-
-    /* To Fix media query responsive Body text color Change */
-
-    #resp-text{
-        color: #fff;
     }
 }
 /* 
