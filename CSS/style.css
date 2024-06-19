@@ -15,15 +15,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body {
-    height: 500vh;
-    background: url("/Images/background.png") rgba(0, 0, 0, 1.5);
-    background-blend-mode: multiply;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 /* This is the toppest Black Bar. */
 .info-bar {
     padding: 10px 50px;
@@ -83,9 +74,7 @@ body {
         backdrop-filter: blur(10px);
     }
 }
-/* 
-@media (min-width: 992px) {
-    #resp-text ul li a {
-        color: #000;
-    }
-} */
+
+nav {
+    margin: 0 40px;
+}
