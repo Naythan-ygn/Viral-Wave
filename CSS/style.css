@@ -69,12 +69,126 @@
         display: none
     }
 
+    nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .login {
+        color: var(--light);
+        text-decoration: none !important;
+    }
+
+    /* sidebar Body text animation */
+    #tcolor {
+        color: #f6f7f8c5;
+    }
+
+    .active {
+        color: #fff !important;
+    }
+
+    #tcolor:hover {
+        color: #fff;
+    }
+
+    /* Bluring the side bar nav */
     #offcanvasNavbar {
         background-color: rgba(255, 255, 255, .15);
         backdrop-filter: blur(10px);
+    }
+
+    /* Sizing the Main Section's background */
+    .right {
+        background-size: 300px !important;
+    }
+
+    .moto {
+        font-size: 12px;
+    }
+
+    /* Second h1 under Section from main. */
+    #long {
+        width: 300px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* learn More Button */
+    #lmore {
+        padding: 10px 20px;
     }
 }
 
 nav {
     margin: 0 40px;
+    position: relative;
+}
+
+/* Login & SignUp */
+.login {
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none !important;
+    transition: all .25s ease-in-out;
+}
+
+.login:hover {
+    color: var(--primary);
+}
+
+.signup {
+    color: var(--light);
+    background-color: #dc3545;
+    transition: all .5s ease-in-out;
+}
+
+.signup:hover {
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+/* Background Illustration for Main. */
+.right {
+    background: url('/Images/undraw_Group_chat_re_frmo.png') no-repeat right center;
+    background-size: 38% !important;
+}
+
+/* Welcome Intro */
+.header {
+    margin-right: 200px;
+}
+
+/* learn More Button */
+#lmore {
+    margin-top: 30px;
+    padding: 20px 45px;
+}
+
+/* Social Links */
+.social {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.social-link .bi-twitter-x {
+    border: 1px solid;
+    padding: 6px 10px;
+    border-radius: 20px;
+    margin: 0 25px;
+}
+
+.social-link .Isize {
+    margin: 0 25px;
+    font-size: 37px;
 }
