@@ -386,69 +386,57 @@ nav {
 }
 
 /* This is for SponsorShip */
-/* .slideshow-container {
+.sponsorship {
+    margin-top: 20px;
+}
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.logos {
     position: relative;
-    max-width: 1000px;
-    margin: auto;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 50px 0;
+    background: url("/Images/footBG.jpg");
+    border-radius: 30px;
+    white-space: nowrap;
 }
 
-.mySlides {
-    display: none;
-    width: 100%;
-}
-
-.mySlides img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-@keyframes slideshow {
-    0% {
-        transform: translateX(0%);
-    }
-
-    20% {
-        transform: translateX(0%);
-    }
-
-    25% {
-        transform: translateX(-100%);
-    }
-
-    45% {
-        transform: translateX(-100%);
-    }
-
-    50% {
-        transform: translateX(-200%);
-    }
-
-    70% {
-        transform: translateX(-200%);
-    }
-
-    75% {
-        transform: translateX(-300%);
-    }
-
-    95% {
-        transform: translateX(-300%);
-    }
-
-    100% {
-        transform: translateX(-400%);
-    }
-}
-
-.slideshow-container .mySlides {
+.logos:before,
+.logos:after {
     position: absolute;
-    width: 100%;
+    top: 0;
+    width: 200px;
     height: 100%;
-    animation: slideshow 15s infinite;
-} */
+    content: "";
+    z-index: 2;
+}
+
+.logos:before {
+    left: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), #270305);
+}
+
+.logos:after {
+    right: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #270305);
+}
+
+.long-slide {
+    display: inline-block;
+    animation: slide 25s infinite linear;
+}
+
+.long-slide img {
+    height: 50px;
+    margin: 0 40px;
+}
 
 /* Scroll Back to Top */
 #topBtn {
