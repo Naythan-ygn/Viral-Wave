@@ -92,6 +92,14 @@ body {
         color: #fff;
     }
 
+    .login {
+        color: #fff !important;
+    }
+
+    .login:hover {
+        color: #dc3545 !important;
+    }
+
     /* Bluring the side bar nav */
     #offcanvasNavbar {
         background-color: rgba(255, 255, 255, .15);
@@ -377,8 +385,8 @@ nav {
     background-color: #0056b3;
 }
 
-This is for SponsorShip
-.slideshow-container {
+/* This is for SponsorShip */
+/* .slideshow-container {
     position: relative;
     max-width: 1000px;
     margin: auto;
@@ -395,30 +403,6 @@ This is for SponsorShip
 .mySlides img {
     width: 100%;
     border-radius: 10px;
-}
-
-.fade {
-    animation-name: fade;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-}
-
-@keyframes fade {
-    0% {
-        opacity: 0;
-    }
-
-    33% {
-        opacity: 1;
-    }
-
-    66% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
 }
 
 @keyframes slideshow {
@@ -464,7 +448,7 @@ This is for SponsorShip
     width: 100%;
     height: 100%;
     animation: slideshow 15s infinite;
-}
+} */
 
 /* Scroll Back to Top */
 #topBtn {
