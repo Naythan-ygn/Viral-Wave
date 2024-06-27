@@ -6,6 +6,7 @@
     --primary: #F73718;
     --light: #F6F7F8;
     --dark: #11181d;
+    scroll-behavior: smooth;
 }
 
 * {
@@ -18,6 +19,11 @@
 body {
     width: 100%;
     height: 100vh;
+}
+
+/* To change color of checkbox */
+.form-check-input {
+    accent-color: #dc3545;
 }
 
 /* This is the toppest Black Bar. */
@@ -141,6 +147,20 @@ nav {
     text-decoration: none !important;
     transition: all .25s ease-in-out;
 }
+
+/* .log .btn {
+    background-color: #6f42c1;
+    color: var(--light);
+}
+
+.log .btn:hover {
+    background-color: #6610f2;
+    color: #fff;
+}
+
+.log a {
+    color: #6610f2;
+} */
 
 .login:hover {
     color: var(--primary);
