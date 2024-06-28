@@ -1,195 +1,252 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Viral Wave | Social Media Campaigns Ltd. | Admin Page</title>
+    <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="/Images/FavtIcon-removebg-preview.png">
     <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="/CSS/vwstyle.css">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- Bootstrap Icon Cdn -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- flatIcon Cdn -->
+    <!-- FlatIcons Cdn -->
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/CSS/AdminDashboard.css">
 </head>
 
 <body>
-    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
-        <!-- Sidebar Start -->
-        <aside class="left-sidebar">
-            <!-- Sidebar scroll-->
-            <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="/Images/Web-logo-removebg-preview.png" width="180" alt="" />
-                    </a>
-                    <!-- The Close Button -->
-                    <button type="button" class="btn-close btn-close-secondary shadow-none" data-bs-dismiss="offcanvas"
-                        aria-label="Close"">
-                    </button>
+
+
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <img src="/Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
+            <span class="text text-dark mx-3">
+                Viral Wave
+            </span>
+        </a>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="#">
+                    <i class="fi fi-rr-layout-fluid"></i>
+                    <span class="text">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="SocialMediaSetup.html">
+                    <i class="fi fi-rr-bookmark"></i>
+                    <span class="text">Social Media Setup</span>
+                </a>
+            </li>
+            <li>
+                <a href="ParentHubSetup.html">
+                    <i class="fi fi-rr-family"></i>
+                    <span class="text">Parent Hub Setup</span>
+                </a>
+            </li>
+            <li>
+                <a href="ServiceSetup.html">
+                    <i class="fi fi-rr-404"></i>
+                    <span class="text">Service Setup</span>
+                </a>
+            </li>
+            <li>
+                <a href="NewsletterSetup.html">
+                    <i class="fi fi-rr-add-document"></i>
+                    <span class="text">Newsletter Setup</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="#">
+                    <i class="fi fi-rr-settings"></i>
+                    <span class="text">Settings</span>
+                </a>
+            </li>
+            <li>
+                <a href="/Log/logout.php" class="logout">
+                    <i class="fi fi-rr-power"></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class="fi fi-rr-menu-burger"></i>
+            <a href="#" class="nav-link">Categories</a>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                    <ul id="sidebarnav">
-                            <span class="hide-menu">Home</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link active" href="Adminindex.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-layout-fluid"></i>
-                                </span>
-                                <span class="hide-menu">Dashboard</span>
-                            </a>
-                        </li>
+            </form>
+            <input type="checkbox" id="switch-mode" hidden>
+            <label for="switch-mode" class="switch-mode"></label>
+            <a href="#" class="notification">
+                <i class="fi fi-rr-bell"></i>
+                <span class="num">8</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="/Images/UploadedImages/AdminProfile.jpg">
+            </a>
+        </nav>
+        <!-- NAVBAR -->
 
-                            <span class="hide-menu">NEWS COMPONENTS</span>
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Dashboard</a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="SocialMediaSetup.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-mobile-notch"></i>
-                                </span>
-                                <span class="hide-menu">Social Media SetUp</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="ParentHubSetup.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-family-dress"></i>
-                                </span>
-                                <span class="hide-menu">Parent Hub</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="ServiceSetup.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-chatbot-speech-bubble"></i>
-                                </span>
-                                <span class="hide-menu">Service SetUp</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="NewsletterSetup.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-document"></i>
-                                </span>
-                                <span class="hide-menu">Newsletter SetUp</span>
-                            </a>
-                        </li>
-
-                            <span class="hide-menu">AUTH</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-power"></i>
-                                </span>
-                                <span class="hide-menu">Log Out</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-user-add"></i>
-                                </span>
-                                <span class="hide-menu">Register</span>
-                            </a>
-                        </li>
-                            <span class="hide-menu">EXTRA</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-employees"></i>
-                                </span>
-                                <span class="hide-menu">User List</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                                <span>
-                                    <i class="fi fi-rr-folder"></i>
-                                </span>
-                                <span class="hide-menu">Contact List</span>
-                            </a>
+                        <li><i class="fi fi-rr-angle-small-right"></i></li>
+                        <li>
+                            <a class="active" href="#">Home</a>
                         </li>
                     </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
+                </div>
+                
             </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-        <!--  Sidebar End -->
-    </div>
-    <!--  Header Start -->
-    <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item d-block d-xl-none">
-                    <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                        <i class="ti ti-menu-2"></i>
-                    </a>
+
+            <ul class="box-info">
+                <li>
+                    <i class='bx bxs-calendar-check'></i>
+                    <span class="text">
+                        <h3>1020</h3>
+                        <p>New Order</p>
+                    </span>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                        <i class="ti ti-bell-ringing"></i>
-                        <div class="notification bg-primary rounded-circle"></div>
-                    </a>
+                <li>
+                    <i class='bx bxs-group'></i>
+                    <span class="text">
+                        <h3>2834</h3>
+                        <p>Visitors</p>
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bxs-dollar-circle'></i>
+                    <span class="text">
+                        <h3>$2543</h3>
+                        <p>Total Sales</p>
+                    </span>
                 </li>
             </ul>
-            <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-                <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <img src="/Images/UploadedImages/AdminProfile.jpg" alt="" width="35" height="35"
-                                class="rounded-circle">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                            <div class="message-body">
-                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                    <i class="ti ti-user fs-6"></i>
-                                    <p class="text-dark mb-0">My Profile</p>
-                                </a>
-                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                    <i class="ti ti-mail fs-6"></i>
-                                    <p class="text-dark mb-0">My Account</p>
-                                </a>
-                                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                    <i class="ti ti-list-check fs-6"></i>
-                                    <p class="text-dark mb-0">My Task</p>
-                                </a>
-                                <a href="/log/login.html" class="btn btn-danger pt-2 m-2 d-block rounded-2" role="button" data-bs-toggle="button">Log Out</a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Recent Orders</h3>
+                        <i class='bx bx-search'></i>
+                        <i class='bx bx-filter'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date Order</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status process">Process</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="img/people.png">
+                                    <p>John Doe</p>
+                                </td>
+                                <td>01-10-2021</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="todo">
+                    <div class="head">
+                        <h3>Todos</h3>
+                        <i class='bx bx-plus'></i>
+                        <i class='bx bx-filter'></i>
+                    </div>
+                    <ul class="todo-list">
+                        <li class="completed">
+                            <p>Todo List</p>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="completed">
+                            <p>Todo List</p>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="not-completed">
+                            <p>Todo List</p>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="completed">
+                            <p>Todo List</p>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="not-completed">
+                            <p>Todo List</p>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </nav>
-    </header>
-    <!--  Header End -->
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
-
-    <!-- Main JS -->
     <script src="/JS/sidebarmenu.js"></script>
 </body>
 

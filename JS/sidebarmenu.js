@@ -1,45 +1,79 @@
-// Auto select left navbar
-// ==============================================================
-$(function () {
-    "use strict";
-    var url = window.location + "";
-    var path = url.replace(
-      window.location.protocol + "//" + window.location.host + "/",
-      ""
-    );
-    var element = $("ul#sidebarnav a").filter(function () {
-      return this.href === url || this.href === path; // || url.href.indexOf(this.href) === 0;
-    });
-    element.parentsUntil(".sidebar-nav").each(function (index) {
-      if ($(this).is("li") && $(this).children("a").length !== 0) {
-        $(this).children("a").addClass("active");
-        $(this).parent("ul#sidebarnav").length === 0
-          ? $(this).addClass("active")
-          : $(this).addClass("selected");
-      } else if (!$(this).is("ul") && $(this).children("a").length === 0) {
-        $(this).addClass("selected");
-      } else if ($(this).is("ul")) {
-        $(this).addClass("in");
-      }
-    });
-  
-    element.addClass("active");
-    $("#sidebarnav a").on("click", function (e) {
-      if (!$(this).hasClass("active")) {
-        // hide any open menus and remove all other classes
-        $("ul", $(this).parents("ul:first")).removeClass("in");
-        $("a", $(this).parents("ul:first")).removeClass("active");
-  
-        // open our new menu and add the open class
-        $(this).next("ul").addClass("in");
-        $(this).addClass("active");
-      } else if ($(this).hasClass("active")) {
-        $(this).removeClass("active");
-        $(this).parents("ul:first").removeClass("active");
-        $(this).next("ul").removeClass("in");
-      }
-    });
-    $("#sidebarnav >li >a.has-arrow").on("click", function (e) {
-      e.preventDefault();
-    });
-  });
+// This is for Admin Dashboard
+// ----------------------------------------------------------------
+
+const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+
+allSideMenu.forEach(item => {
+  const li = item.parentElement;
+
+  item.addEventListener('click', function () {
+    allSideMenu.forEach(i => {
+      i.parentElement.classList.remove('active');
+    })
+    li.classList.add('active');
+  })
+});
+
+
+
+
+// TOGGLE SIDEBAR
+const menuBar = document.querySelector('#content nav .fi.fi-rr-menu-burger');
+const sidebar = document.getElementById('sidebar');
+
+menuBar.addEventListener('click', function () {
+  sidebar.classList.toggle('hide');
+})
+
+
+
+
+
+
+
+const searchButton = document.querySelector('#content nav form .form-input button');
+const searchButtonIcon = document.querySelector('#content nav form .form-input button .fi');
+const searchForm = document.querySelector('#content nav form');
+
+searchButton.addEventListener('click', function (e) {
+  if (window.innerWidth < 576) {
+    e.preventDefault();
+    searchForm.classList.toggle('show');
+    if (searchForm.classList.contains('show')) {
+      searchButtonIcon.classList.replace('fi-rr-search', 'bx-x');
+    } else {
+      searchButtonIcon.classList.replace('bx-x', 'fi-rr-search');
+    }
+  }
+})
+
+
+
+
+
+if (window.innerWidth < 768) {
+  sidebar.classList.add('hide');
+} else if (window.innerWidth > 576) {
+  searchButtonIcon.classList.replace('bx-x', 'fi-rr-search');
+  searchForm.classList.remove('show');
+}
+
+
+window.addEventListener('resize', function () {
+  if (this.innerWidth > 576) {
+    searchButtonIcon.classList.replace('bx-x', 'fi-rr-search');
+    searchForm.classList.remove('show');
+  }
+})
+
+
+
+const switchMode = document.getElementById('switch-mode');
+
+switchMode.addEventListener('change', function () {
+  if (this.checked) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+})
