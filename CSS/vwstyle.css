@@ -132,12 +132,19 @@ body {
     #lmore {
         padding: 10px 20px;
     }
+
+    /* Contact US's Wrapper */
+    .contact-wrap .contact-info {
+        height: 400px !important;
+    }
 }
 
 nav {
     margin: 0 40px;
     position: relative;
 }
+
+
 
 /* Login & SignUp */
 .login {
@@ -707,12 +714,6 @@ a:hover {
     bottom: 0;
     left: 0;
     right: 0;
-}
-
-@media (max-width: 1199.98px) {
-    .contact-wrap .contact-info {
-        height: 400px !important;
-    }
 }
 
 .contact-wrap .contact-info h3 {
