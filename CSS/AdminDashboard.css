@@ -152,7 +152,7 @@ body {
 }
 
 #sidebar .side-menu.top li.active a {
-    color: var(--blue);
+    color: var(--red);
 }
 
 #sidebar.hide .side-menu li a {
@@ -165,7 +165,7 @@ body {
 }
 
 #sidebar .side-menu.top li a:hover {
-    color: var(--blue);
+    color: var(--red);
 }
 
 #sidebar .side-menu li a .fi {
@@ -237,7 +237,7 @@ body {
 }
 
 #content nav .nav-link:hover {
-    color: var(--blue);
+    color: var(--red);
 }
 
 #content nav form {
@@ -380,24 +380,9 @@ body {
 }
 
 #content main .head-title .left .breadcrumb li a.active {
-    color: var(--blue);
+    color: var(--red);
     pointer-events: unset;
 }
-
-#content main .head-title .btn-download {
-    height: 36px;
-    padding: 0 16px;
-    border-radius: 36px;
-    background: var(--blue);
-    color: var(--light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-gap: 10px;
-    font-weight: 500;
-}
-
-
 
 
 #content main .box-info {
