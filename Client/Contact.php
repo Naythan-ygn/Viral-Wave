@@ -10,15 +10,17 @@
 
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/CSS/vwstyle.css">
+    <link rel="stylesheet" href="../CSS/vwstyle.css">
+
+    <!-- FlatIcon Cdn -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
     <!-- Bootstrap Icon Cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
     <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -34,20 +36,16 @@
 
                             <!-- This is for the Phone No. info. -->
                             <div class="info-bph">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)"
-                                    class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
                                 </svg>
                                 <span class="info-btext">+(95)9 888 218 097</span>
                             </div>
 
                             <!-- This is for the Address info. -->
                             <div class="info-badd">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)"
-                                    class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                                 </svg>
                                 <span>U Wisara Rd, Myaynigone Tsp, Yangon</span>
                             </div>
@@ -66,11 +64,8 @@
                             <!-- This is for the Language Dropdown. -->
                             <div class="infolang">
                                 <div class="dropdown open text-drop">
-                                    <a class="dropdown-toggle dropdown" type="button" id="triggerId"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0,0 25,15">
+                                    <a class="dropdown-toggle dropdown" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0,0 25,15">
                                             <rect width="25" height="15" fill="#00247d" />
                                             <path d="M 0,0 L 25,15 M 25,0 L 0,15" stroke="#fff" stroke-width="3" />
                                             <path d="M 12.5,0 V 15 M 0,7.5 H 25" stroke="#fff" stroke-width="5" />
@@ -82,16 +77,14 @@
                                     </a>
                                     <div class="drop-bg dropdown-menu bg-dark" aria-labelledby="triggerId">
                                         <a class="dropdown-item" href="#">
-                                            <img src="https://i.pinimg.com/564x/24/a3/af/24a3af7fc241c6c75bd0e5e8447a8c1e.jpg"
-                                                alt="flag" width="20" height="15">
+                                            <img src="https://i.pinimg.com/564x/24/a3/af/24a3af7fc241c6c75bd0e5e8447a8c1e.jpg" alt="flag" width="20" height="15">
                                             <span class="info-btext">
                                                 မြန်မာ
                                             </span>
                                         </a>
 
                                         <a class="dropdown-item" href="#">
-                                            <img src="https://i.pinimg.com/564x/80/65/aa/8065aae906a04fd786b80aeaa551e74f.jpg"
-                                                alt="Flag" width="20" height="15">
+                                            <img src="https://i.pinimg.com/564x/80/65/aa/8065aae906a04fd786b80aeaa551e74f.jpg" alt="Flag" width="20" height="15">
                                             <span class="info-btext">
                                                 中文
                                             </span>
@@ -106,73 +99,74 @@
                         <div class="container-fluid">
 
                             <!-- This is the Logo -->
-                            <a class="navbar-brand" href="Home.html">
-                                <img src="/Images/Web-logo-removebg-preview.png" alt="logo" width="150">
+                            <a class="navbar-brand" href="Home.php">
+                                <img src="../Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 
                             <!-- This is Toggle -->
-                            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
-                                aria-label="Toggle navigation">
+                            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
                             <!-- This is SideBar -->
-                            <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                                aria-labelledby="offcanvasNavbarLabel">
+                            <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
                                 <!-- Sidebar Head -->
                                 <div class="offcanvas-header text-white border-bottom">
                                     <h3 class="offcanvas-title" id="offcanvasNavbarLabel">Viral Wave</h3>
 
                                     <!-- The Close Button -->
-                                    <button type="button" class="btn-close btn-close-white shadow-none"
-                                        data-bs-dismiss="offcanvas" aria-label="Close"
-                                        onclick="event.preventDefault();">
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" onclick="event.preventDefault();">
                                     </button>
                                 </div>
 
                                 <!-- Sidebar Body -->
                                 <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-                                    <ul
-                                        class="navbar-nav justify-content-center align-items-center fs-8 flex-grow-1 pe-3">
+                                    <ul class="navbar-nav justify-content-center align-items-center fs-8 flex-grow-1 pe-3">
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Home.html">Home</a>
+                                            <a id="tcolor" class="nav-link" href="Home.php">Home</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Services.html">Services</a>
+                                            <a id="tcolor" class="nav-link" href="Services.php">Services</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.html">Social Media Apps</a>
+                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social Media Apps</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="ParentHub.html">Parent Hub</a>
+                                            <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="liveStreaming.html">LiveStreaming</a>
+                                            <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Information.html">Information</a>
+                                            <a id="tcolor" class="nav-link" href="Information.php">Information</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link active" aria-current="page"
-                                                href="Contact.html">Contact Us</a>
+                                            <a id="tcolor" class="nav-link active" aria-current="page" href="#">Contact Us</a>
                                         </li>
                                     </ul>
 
-                                    <!-- login / Signup -->
-                                    <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
-                                        <a href="#" class="login">Log In</a>
-                                        <a href="#" class="signup text-decoration-none px-3 py-1 rounded-4">
-                                            Sign Up
+                                    <!-- User Account -->
+                                    <div class="dropdown open">
+                                        <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
+                                            administrator
                                         </a>
+                                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                                            <a class="dropdown-item" href="#">
+                                                <i class="fi fi-rr-circle-user"></i>
+                                                &nbsp;Profile</a>
+                                            <a class="dropdown-item" href="../Log/logout.php">
+                                                <i class="fi fi-rr-power"></i>
+                                                &nbsp;Log Out</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -195,27 +189,23 @@
                                 <div class="row">
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">Name *</label>
-                                        <input type="text" class="form-control" name="name" id="name"
-                                            placeholder="Your name">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Your name">
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
                                         <label for="" class="col-form-label">Email *</label>
-                                        <input type="text" class="form-control" name="email" id="email"
-                                            placeholder="Your email">
+                                        <input type="text" class="form-control" name="email" id="email" placeholder="Your email">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="message" class="col-form-label">Message *</label>
-                                        <textarea class="form-control" name="message" id="message" cols="30" rows="3"
-                                            placeholder="Write your message"></textarea>
+                                        <textarea class="form-control" name="message" id="message" cols="30" rows="3" placeholder="Write your message"></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 form-group mt-4">
-                                        <input type="submit" value="Send Message"
-                                            class="btn btn-danger rounded-4 py-2 px-4">
+                                        <input type="submit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4">
                                         <span class="submitting"></span>
                                     </div>
                                 </div>
@@ -230,10 +220,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1350.3765435649884!2d96.14146588512875!3d16.804432573562547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb5b34c3e1e7%3A0x3868066c7b2c32d3!2sStrategy%20First%20University%20-%20Teaching%20Centre%202%20(UWisara)!5e0!3m2!1sen!2smm!4v1719323267399!5m2!1sen!2smm"
-                            width="100%" height="100%" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade" class="py-2"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1350.3765435649884!2d96.14146588512875!3d16.804432573562547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb5b34c3e1e7%3A0x3868066c7b2c32d3!2sStrategy%20First%20University%20-%20Teaching%20Centre%202%20(UWisara)!5e0!3m2!1sen!2smm!4v1719323267399!5m2!1sen!2smm" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="py-2"></iframe>
                     </div>
                 </div>
             </div>
@@ -244,30 +231,23 @@
 
                 <div class="logos">
                     <div class="long-slide">
-                        <img src="https://purepng.com/public/uploads/large/purepng.com-ibm-logologobrand-logoiconslogos-251519939176ka7y8.png"
-                            alt="IBM">
+                        <img src="https://purepng.com/public/uploads/large/purepng.com-ibm-logologobrand-logoiconslogos-251519939176ka7y8.png" alt="IBM">
 
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1280px-Cisco_logo_blue_2016.svg.png"
-                            alt="CISCO">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1280px-Cisco_logo_blue_2016.svg.png" alt="CISCO">
 
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/F-Secure_Logo.png/1200px-F-Secure_Logo.png"
-                            alt="F-SECURE">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/F-Secure_Logo.png/1200px-F-Secure_Logo.png" alt="F-SECURE">
 
                         <img src="https://companieslogo.com/img/orig/NVDA_BIG.D-ffbdc3fe.png?t=1633073585" alt="Nvidia">
 
-                        <img src="/Images/microsoft_PNG16.png" alt="Microsoft">
+                        <img src="../Images/microsoft_PNG16.png" alt="Microsoft">
 
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Blackberry_Logo.svg/2560px-Blackberry_Logo.svg.png"
-                            class="bg-white" alt="BlackBerry">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Blackberry_Logo.svg/2560px-Blackberry_Logo.svg.png" class="bg-white" alt="BlackBerry">
 
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Logo_da_Rolex.png/2560px-Logo_da_Rolex.png"
-                            alt="ROLEX">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Logo_da_Rolex.png/2560px-Logo_da_Rolex.png" alt="ROLEX">
 
-                        <img src="https://seeklogo.com/images/R/rolls-royce-logo-24811DB90B-seeklogo.com.png"
-                            class="bg-white" alt="RR">
+                        <img src="https://seeklogo.com/images/R/rolls-royce-logo-24811DB90B-seeklogo.com.png" class="bg-white" alt="RR">
 
-                        <img src="https://i0.wp.com/precisiondriversunlimited.com/wp-content/uploads/2018/03/toyota-logo-free-download-png.png?fit=1200%2C852&ssl=1&w=640"
-                            alt="toyota" height="100px">
+                        <img src="https://i0.wp.com/precisiondriversunlimited.com/wp-content/uploads/2018/03/toyota-logo-free-download-png.png?fit=1200%2C852&ssl=1&w=640" alt="toyota" height="100px">
 
                         <img src="https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19711.png" alt="bmw">
                     </div>
@@ -275,10 +255,13 @@
             </div>
         </section>
     </main>
+
+    <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
+
     <footer>
         <section id="footer">
             <div class="foot-logo">
-                <img src="/Images/Web-logo-removebg-textwhite.png" alt="logo">
+                <img src="../Images/Web-logo-removebg-textwhite.png" alt="logo">
             </div>
             <div class="foot-info mb-3">
 
@@ -287,10 +270,8 @@
 
                     <!-- This is for the Phone No. info. -->
                     <div class="info-bph">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)"
-                            class="bi bi-telephone-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
                         </svg>
                         <p class="d-inline info-subtext ms-2">
                             <strong>Call us 24/7</strong><br>
@@ -300,10 +281,8 @@
 
                     <!-- This is for the Address info. -->
                     <div class="info-badd">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)"
-                            class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                            <path
-                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="var(--primary)" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
                         </svg>
                         <p class="d-inline info-subtext ms-2">
                             <strong>We are Here</strong><br>
@@ -339,15 +318,11 @@
         </section>
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
-    <script src="/JS/script.js"></script>
+    <script src="../JS/script.js"></script>
 </body>
 
 </html>

@@ -301,6 +301,12 @@ body {
     align-items: center;
 }
 
+/* Profile DropDown */
+a.dropdown-item:hover {
+    color: var(--light);
+    background-color: #dc3545;
+}
+
 #content nav .profile img {
     width: 36px;
     height: 36px;

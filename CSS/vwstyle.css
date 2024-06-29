@@ -74,6 +74,21 @@ body {
     padding-left: 5px;
 }
 
+/* Profile DropDown */
+a.dropdown-item:hover {
+    color: var(--light);
+    background-color: #dc3545;
+}
+
+/* Profile Picture */
+.dropdown .profile {
+    cursor: context-menu;
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
 /* Responsive Navbar */
 @media (max-width: 991px) {
     .info-bar {
@@ -136,6 +151,12 @@ body {
     /* Contact US's Wrapper */
     .contact-wrap .contact-info {
         height: 400px !important;
+    }
+
+    /* Profile in sidebar */
+    .profile img {
+        width: 70px !important;
+        height: 70px !important;
     }
 }
 
@@ -231,7 +252,7 @@ nav {
 
 /* Background Illustration for Main. */
 .right {
-    background: url('/Images/undraw_Group_chat_re_frmo.png') no-repeat right center;
+    background: url("http://i.pinimg.com/originals/99/c1/56/99c15619c0d895def12cfb17f9d19461.jpg") no-repeat right center;
     background-size: 38% !important;
 }
 
@@ -496,7 +517,7 @@ nav {
     position: relative;
     overflow: hidden;
     padding: 50px 0;
-    background: url("/Images/footBG.jpg");
+    background: url("http://i.pinimg.com/originals/26/0f/50/260f5013c337daa5b93e81829cac4adf.jpg");
     border-radius: 30px;
     white-space: nowrap;
 }
@@ -758,7 +779,7 @@ label.error {
 
 /* Footer Background */
 #footer {
-    background: url('/Images/footBG.jpg') no-repeat;
+    background: url("http://i.pinimg.com/originals/26/0f/50/260f5013c337daa5b93e81829cac4adf.jpg") no-repeat;
     background-size: cover !important;
     z-index: 2;
     padding-top: 50px;

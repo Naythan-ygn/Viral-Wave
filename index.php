@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="en">
 
+<?php 
+    include 'Config\DBconnect.php';
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
-    <link rel="icon" href="/Images/FavtIcon-removebg-preview.png">
+    <link rel="icon" href="./Images/FavtIcon-removebg-preview.png">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -68,7 +72,6 @@
                                 <div class="dropdown open text-drop">
                                     <a class="dropdown-toggle dropdown" type="button" id="triggerId"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <?xml version="1.0" encoding="UTF-8"?>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0,0 25,15">
                                             <rect width="25" height="15" fill="#00247d" />
@@ -107,7 +110,7 @@
 
                             <!-- This is the Logo -->
                             <a class="navbar-brand" href="#">
-                                <img src="/Images/Web-logo-removebg-preview.png" alt="logo" width="150">
+                                <img src="Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 
                             <!-- This is Toggle -->
@@ -156,8 +159,8 @@
 
                                     <!-- login / Signup -->
                                     <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
-                                        <a href="/Log/login.html" class="login">Log In</a>
-                                        <a href="/Log/signup.html"
+                                        <a href="Log/login.php" class="login">Log In</a>
+                                        <a href="Log/signup.php"
                                             class="signup text-decoration-none px-3 py-1 rounded-4">
                                             Sign Up
                                         </a>
@@ -200,7 +203,7 @@
                             <h1 class="w-530 fw-bold text-dark" id="long">
                                 Social Media Campaigns Ltd.
                             </h1>
-                            <a id="lmore" class="btn btn-outline-danger" role="button" href="#">Learn More</a>
+                            <a id="lmore" class="btn btn-outline-danger" role="button" href="#information">Learn More</a>
                         </div>
                         <div class="w-300 header social mt-5">
                             <span>
@@ -259,7 +262,7 @@
                                     <img src="https://companieslogo.com/img/orig/NVDA_BIG.D-ffbdc3fe.png?t=1633073585"
                                         alt="Nvidia">
 
-                                    <img src="/Images/microsoft_PNG16.png" alt="Microsoft">
+                                    <img src="Images/microsoft_PNG16.png" alt="Microsoft">
 
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Blackberry_Logo.svg/2560px-Blackberry_Logo.svg.png"
                                         class="bg-white" alt="BlackBerry">
@@ -340,7 +343,7 @@
                                                     <li class="text-muted"><del>24/7 Support</del></li>
                                                     <li>Free Upgrades</li>
                                                 </ul>
-                                                <a href="#" class="btn btn-primary mt-3">Subscribe Now</a>
+                                                <a href="Log/login.php" class="btn btn-primary mt-3">Subscribe Now</a>
                                             </div>
                                         </div>
                                     </div>
@@ -473,11 +476,6 @@
                                 </div>
                             </form>
 
-                            <div id="form-message-warning mt-4"></div>
-                            <div id="form-message-success">
-                                Your message was sent, thank you!
-                            </div>
-
                         </div>
                     </div>
 
@@ -500,7 +498,7 @@
     <footer>
         <section id="footer">
             <div class="foot-logo">
-                <img src="/Images/Web-logo-removebg-textwhite.png" alt="logo">
+                <img src="Images/Web-logo-removebg-textwhite.png" alt="logo">
             </div>
             <div class="foot-info mb-3">
 
@@ -572,7 +570,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Main JS -->
-    <script src="/JS/script.js"></script>
+    <script src="JS/script.js"></script>
 </body>
 
 </html>
