@@ -3,18 +3,20 @@
 
 <?php
 include '../Config/DBconnect.php';
-// session_start();
-// $email = $_SESSION['email'];
+session_start();
+$email = $_SESSION['email'];
+
 
 // Create user
 if (isset($_POST['btnAddUser'])) {
-    $name = $_POST['name'];
+    $name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $city = $_POST['city'];
     $subs = $_POST['subscription'];
-    $u_type = $_POST['user_type'];
+    $u_type = $_POST['utype'];
 
+    // File upload Variable
     if (isset($_FILES['ufile']) && $_FILES['ufile']['error'] == 0) {
         // Read the file name
         $uProfile = $_FILES['ufile']['name'];
@@ -27,14 +29,83 @@ if (isset($_POST['btnAddUser'])) {
 
     if ($result_sql) {
         echo "<script>alert('User added successfully!');</script>";
+
+        // Upload the image to the UploadedImages folder
         move_uploaded_file($tmp_name, "../Images/UploadedImages/" . $uProfile);
+
+        // Redirect to User List Page
         header("Location: UserList.php");
     } else {
         echo "<script>alert('Failed to add user!');</script>";
     }
 }
 
+
 // Edit User Profile
+// the id of the row will be selected (and show in url) when Edit button is clicked
+if (isset($_GET['edit_id'])) {
+    $Eid = $_GET['edit_id'];
+    $sql_show = "SELECT * FROM user WHERE id = '$Eid'";
+    $editResult = $conn->query($sql_show);
+    $card = $editResult->fetch_assoc();
+}
+
+// the related data row will be updated when Update button is clicked
+if (isset($_POST['btnEditUser'])) {
+
+    $name = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $city = $_POST['city'];
+    $subs = $_POST['subscription'];
+    $u_type = $_POST['utype'];
+
+    // File upload Variable
+    if (isset($_FILES['ufile']) && $_FILES['ufile']['error'] == 0) {
+        // Read the file name
+        $uProfile = $_FILES['ufile']['name'];
+        // Read the file Path
+        $tmp_name = $_FILES['ufile']['tmp_name'];
+    }
+
+    if (!empty($uProfile)) {
+        $sql_update = "UPDATE user SET profile = '$uProfile', name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+    } else {
+        $sql_update = "UPDATE user SET name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+    }
+    $result_query = $conn->query($sql_update);
+
+    if ($result_query) {
+        echo "<script>alert('User Updated');</script>";
+
+        // delete the existing image if a new image is uploaded
+        if (!empty($uProfile)) {
+            unlink("../Images/UploadedImages/" . $card['profile']);
+        }
+
+        // Upload to UploadedImages Folder
+        move_uploaded_file($tmp_name, "../Images/UploadedImages/" . $uProfile);
+
+        // Redirect to UserList.php After the update is completed
+        header("Location: UserList.php");
+    } else {
+        echo "Error: " . $sql_update . "<br>" . $conn->error;
+    }
+}
+
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql = "DELETE FROM user WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Deleted Successfully";
+        header("Location: UserList.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
 
 
 $sql = "SELECT * FROM user";
@@ -213,7 +284,7 @@ $result = mysqli_query($conn, $sql);
                                 <!-- City DropDown -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="">Enter City *</label>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" name="city" aria-label="Default select example">
                                         <?php
                                         if (isset($_GET['edit_id'])) {
                                         ?>
@@ -239,11 +310,13 @@ $result = mysqli_query($conn, $sql);
                             </div>
 
                             <div class="row">
+                                <!-- Email -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="email" class="col-form-label">Email *</label>
                                     <input type="text" class="form-control" name="email" id="email" placeholder="Enter user's email" value="<?php echo (isset($card['email']) ? $card['email'] : ""); ?>">
                                 </div>
 
+                                <!-- Password -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password *</label>
                                     <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter password" value="<?php echo (isset($card['password']) ? $card['password'] : ""); ?>" aria-describedby="emailHelp">
@@ -263,44 +336,96 @@ $result = mysqli_query($conn, $sql);
                                 <!-- Subscriptions Radio button for User -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="" class="col-form-label">Newsletter Subscription *</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault1" value="1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Yes
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            No
-                                        </label>
-                                    </div>
+                                    <?php
+                                    if (isset($_GET['edit_id'])) {
+                                        if ($card['subscription'] == 1) {
+                                    ?>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Yes
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0">
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    No
+                                                </label>
+                                            </div>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault1" value="1">
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Yes
+                                                </label>
+                                            </div>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" checked>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    No
+                                                </label>
+                                            </div>
+                                        <?php
+                                        }
+                                    } else {
+                                        ?>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Yes
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                No
+                                            </label>
+                                        </div>
+                                    <?php } ?>
                                 </div>
 
                                 <!-- Checking the User Type -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="">Enter User Type *</label>
-                                    <select class="form-select" aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example" name="utype">
                                         <?php
                                         if (isset($_GET['edit_id'])) {
                                         ?>
-                                            <option value="<?php echo ($card['user_type']); ?>"> <?php echo ($card['user_type']); ?> </option>
+                                            <option value="<?php echo ($card['user_type']); ?>" selected disabled> <?php echo ($card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin"))); ?> </option>
                                         <?php
                                         } else {
                                         ?>
-                                            <option selected disabled hidden>--- Select the User Type ---</option>
+                                            <option selected hidden disabled>--- Select the User Type ---</option>
                                         <?php } ?>
-                                        <option value="0">Administrator</option>
-                                        <option value="1">Standard</option>
-                                        <option value="2">Premium</option>
+                                        <option value="0">Admin</option>
+                                        <option value="1">Free</option>
+                                        <option value="2">Standard</option>
+                                        <option value="3">Premium</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-md-12 form-group mt-4">
-                                <input type="submit" value="Add User" name="btnAddUser" class="btn btn-danger rounded-4 py-2 px-4">
-                                <span class="submitting"></span>
+                                <?php if (isset($_GET['edit_id'])) {
+                                ?>
+                                    <input type="submit" value="Update User" name="btnEditUser" class="btn btn-danger rounded-4 py-2 px-4">
+                                    <span class="submitting"></span>
+                                <?php
+                                } else {
+                                ?>
+                                    <input type="submit" value="Add User" name="btnAddUser" class="btn btn-danger rounded-4 py-2 px-4">
+                                    <span class="submitting"></span>
+                                <?php
+                                }
+                                ?>
                             </div>
+
+
                         </form>
                     </div>
 
@@ -312,8 +437,7 @@ $result = mysqli_query($conn, $sql);
                                 <?php
                                 while ($card = $result->fetch_assoc()) {
                                 ?>
-
-                                    <div class="d-flex flex-wrap">
+                                    <div class="col-md-6">
                                         <!-- User's Profile will Display as a Card. -->
                                         <div class="card ser-card m-2">
                                             <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
@@ -340,19 +464,19 @@ $result = mysqli_query($conn, $sql);
                                                         </tr>
                                                         <tr>
                                                             <th>User Type :</th>
-                                                            <td><?php echo $card['user_type'] == 1 ? "Standard" : ($card['user_type'] == 2 ? "Premium" : "Administrator"); ?></td>
+                                                            <td><?php echo $card['user_type'] == 1 ? "Standard" : ($card['user_type'] == 2 ? "Premium" : "Admin"); ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <!-- Edit Button -->
-                                                                <a class="btn btn-secondary" role="button" href="#?edit_id=<?php echo $card['id']; ?>">
+                                                                <a class="btn btn-secondary" role="button" href="UserList.php?edit_id=<?php echo $card['id']; ?>">
                                                                     <i class="fi fi-rr-edit"></i>
                                                                     &nbsp;Edit
                                                                 </a>
                                                             </td>
                                                             <td>
                                                                 <!-- Delete Button -->
-                                                                <a class="btn btn-secondary" role="button" href="#?delete_id=<?php echo $card['id']; ?>">
+                                                                <a class="btn btn-secondary" role="button" href="UserList.php?delete_id=<?php echo $card['id']; ?>">
                                                                     <i class="fi fi-rr-trash"></i>
                                                                     &nbsp;Delete
                                                                 </a>

@@ -6,7 +6,7 @@ include '../Config/DBconnect.php';
 $email = $_POST['email'];
 $password = $_POST['password'];
 $admin = 0;
-$user = array(1,2);
+$user = array(1,2,3);
 
 
 
@@ -18,15 +18,28 @@ if ($showAdmin->num_rows > 0) {
     header('Location: ../Server/Adminindex.php');
 } 
 elseif (!isset($_SESSION['email'])) {
-    $sqlUser = "SELECT * FROM user WHERE email='$email' AND password = '$password' AND user_type = '$user[1]'";
-    $showUser = $conn -> query($sqlUser);
+    // For user type 1
+    $sqlUser1 = "SELECT * FROM user WHERE email='$email' AND password = '$password' AND user_type = '$user[0]'";
+    $showUser1 = $conn -> query($sqlUser1);
 
-    if ($showUser -> num_rows > 0 && isset($user[1])) {
+    // For user type 2
+    $sqlUser2 = "SELECT * FROM user WHERE email='$email' AND password = '$password' AND user_type = '$user[1]'";
+    $showUser2 = $conn -> query($sqlUser2);
+
+    // For user type 3
+    $sqlUser3 = "SELECT * FROM user WHERE email='$email' AND password = '$password' AND user_type = '$user[2]'";
+    $showUser3 = $conn -> query($sqlUser3);
+
+    if ($showUser1 -> num_rows > 0 && isset($user[0])) {
         $_SESSION['email'] = $email;
         header('Location: ../Client/Home.php');
     }
-    else if (isset($user[2])){
+    else if ($showUser2->num_rows > 0 && isset($user[1])){
         $_SESSION['email'] = $email;
         header('Location: ../Client/Home.php');
+    }
+    else if ($showUser3->num_rows > 0 && isset($user[2])){
+        $_SESSION['email'] = $email;
+        header('Location:../Client/Home.php');
     }
 }
