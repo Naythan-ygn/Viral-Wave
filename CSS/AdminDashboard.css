@@ -302,7 +302,47 @@ body {
 }
 
 /* Profile DropDown */
-a.dropdown-item:hover {
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+    background-color: #0c0c1e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ser-card {
+    font-size: 14px;
+    cursor: context-menu;
+    margin: 10px;
+    width: 18rem;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all.5s ease-in-out;
+}
+
+.ser-card:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-item {
+    color: var(--dark);
+    transition: all 0s ease-in-out;
+}
+
+.dropdown-item:hover {
     color: var(--light);
     background-color: #dc3545;
 }
@@ -342,7 +382,28 @@ a.dropdown-item:hover {
 
 /* NAVBAR */
 
+/* Scroll Back to Top */
+#topBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    display: none;
+    font-size: 40px;
+    background-color: transparent;
+    transition: all.5s ease-in-out;
+}
 
+#topBtn i {
+    color: #dc3545;
+}
+
+#topBtn i:hover {
+    color: #f71827;
+}
 
 
 

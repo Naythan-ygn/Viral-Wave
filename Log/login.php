@@ -31,14 +31,14 @@
                                     <img src="../Images/Web-logo-removebg-preview.png" width="180" alt="logo">
                                 </a>
                                 <p class="text-center text-dark">Social Media Campaigns Ltd.</p>
-                                <form class="log" action="#" method="POST">
+                                <form class="log" action="login-success.php" method="POST">
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Username</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <div class="form-check">
@@ -49,7 +49,7 @@
                                         </div>
                                         <a class="text-danger text-decoration-underline" href="#">Forgot Password ?</a>
                                     </div>
-                                    <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="button" value="Sign In">
+                                    <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" value="Sign In">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="text-dark mb-0">New to Viral Wave?</p>
                                         <a class="text-danger text-decoration-underline ms-2" href="signup.php">Create an

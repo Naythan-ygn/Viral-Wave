@@ -164,7 +164,7 @@
                                             <a class="dropdown-item" href="#">
                                                 <i class="fi fi-rr-circle-user"></i>
                                                 &nbsp;Profile</a>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="../Log/logout.php">
                                                 <i class="fi fi-rr-power"></i>
                                                 &nbsp;Log Out</a>
                                         </div>

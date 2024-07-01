@@ -1,10 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<?php 
-    include 'Config\DBconnect.php';
-?>
-
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="./Images/FavtIcon-removebg-preview.png">
