@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="en">
 
+<?php 
+    include '../Config/DBconnect.php';
+    session_start();
+    $email = $_SESSION['email'];
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -157,8 +163,8 @@
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                                            administrator
+                                            <img src="#" width="36" height="36" class="rounded-5">
+                                            <?php echo $email ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">

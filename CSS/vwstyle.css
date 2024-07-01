@@ -552,6 +552,24 @@ nav {
     margin: 0 40px;
 }
 
+/* Live Streaming Article */
+.streaming h2 {
+    color: #333;
+}
+
+.streaming ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.streaming ul li {
+    background: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Scroll Back to Top */
 #topBtn {
     position: fixed;

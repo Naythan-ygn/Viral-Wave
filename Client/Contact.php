@@ -1,6 +1,25 @@
 <!doctype html>
 <html lang="en">
 
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+if (isset($_POST['btnSubmit'])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $msg = $_POST['message'];
+
+    $sql = "INSERT INTO contact (firstname, lastname, email, message) VALUES ('$fname', '$lname', '$email', '$msg')";
+    if (mysqli_query($conn, $sql)) {
+        header("Location: Contact.php");
+        echo "Message send successfully.";
+    }
+}
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -156,8 +175,8 @@
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                                            administrator
+                                            <img src="#" width="36" height="36" class="rounded-5">
+                                            <?php echo $email ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
@@ -185,36 +204,37 @@
 
                         <div class="form h-100">
                             <h3>Contact Us from HERE!</h3>
-                            <form class="mb-5" method="post" id="contactForm" name="contactForm">
+                            <form class="mb-5" method="POST" id="contactForm" name="contactForm" action="#">
                                 <div class="row">
                                     <div class="col-md-6 form-group mb-3">
-                                        <label for="" class="col-form-label">Name *</label>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="Your name">
+                                        <label for="fname" class="col-form-label">First Name *</label>
+                                        <input type="text" class="form-control" name="fname" id="fname" placeholder="Your First name" required>
                                     </div>
                                     <div class="col-md-6 form-group mb-3">
+                                        <label for="lname" class="col-form-label">Last Name *</label>
+                                        <input type="text" class="form-control" name="lname" id="lname" placeholder="Your Last name" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 form-group mb-3">
                                         <label for="" class="col-form-label">Email *</label>
-                                        <input type="text" class="form-control" name="email" id="email" placeholder="Your email">
+                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $email ?>" disabled>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-12 form-group mb-3">
                                         <label for="message" class="col-form-label">Message *</label>
-                                        <textarea class="form-control" name="message" id="message" cols="30" rows="3" placeholder="Write your message"></textarea>
+                                        <textarea class="form-control" name="message" id="message" cols="30" rows="3" placeholder="Write your message" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 form-group mt-4">
-                                        <input type="submit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4">
-                                        <span class="submitting"></span>
+                                        <input type="submit" name="btnSubmit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4">
                                     </div>
                                 </div>
                             </form>
-
-                            <div id="form-message-warning mt-4"></div>
-                            <div id="form-message-success">
-                                Your message was sent, thank you!
-                            </div>
 
                         </div>
                     </div>

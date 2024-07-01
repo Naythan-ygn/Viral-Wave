@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="en">
 
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -157,8 +163,8 @@
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                                            administrator
+                                            <img src="#" width="36" height="36" class="rounded-5">
+                                            <?php echo $email ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
@@ -178,8 +184,68 @@
         </div>
     </header>
 
-    <main></main>
-    <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
+    <main>
+        <section id="liveTips">
+            <div class="container-article mt-5 h-100vh">
+                <div class="row">
+                    <div class="col-md-12 text-center mb-4">
+                        <h1>Live Streaming Tips for Teenagers</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 px-4 text-center">
+                        <figure class="figure">
+                            <img src="https://manycam.com/blog/wp-content/uploads/2020/09/17-09-Blog-live-streaming-tips.png" alt="Live Streaming Tips" class="figure-img img-fluid rounded-4">
+                            <figcaption class="figure-caption text-decoration-underline fw-bold text-center">Tips while Live Streaming.</figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-md-8 p-5">
+                        <h2>Tips and Tricks</h2>
+                        <ul>
+                            <li><strong class="">Set Up Your Space:</strong> Ensure good lighting, check your background, and use a quiet location.</li>
+                            <li><strong>Check Your Technology:</strong> Test your internet connection, use headphones with a microphone, and familiarize yourself with the platform.</li>
+                            <li><strong>Presentation Tips:</strong> Dress appropriately, maintain eye contact, and speak clearly.</li>
+                            <li><strong>Engagement:</strong> Use chat and reactions, stay active, and participate actively.</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 mt-4 d-flex flex-row-reverse">
+                        <div class="col-md-6">
+                            <figure class="figure">
+                                <img src="https://storage.googleapis.com/100ms-cms-prod/cms/blog_1_548a4bbff4/blog_1_548a4bbff4.png" alt="Live Streaming Tips" class="figure-img img-fluid rounded-5">
+                                <figcaption class="figure-caption text-center fw-bold text-decoration-underline">Dos & Don'ts for Teenagers while Streaming.</figcaption>
+                            </figure>
+
+                        </div>
+
+                        <div class="col-md-6 px-5">
+                            <h2>Dos</h2>
+                            <ul>
+                                <li><strong>Do Prepare in Advance:</strong> Have your materials ready and set an agenda.</li>
+                                <li><strong>Do Mute When Not Speaking:</strong> Keep your microphone muted when you're not talking.</li>
+                                <li><strong>Do Be Punctual:</strong> Join the meeting a few minutes early.</li>
+                                <li><strong>Do Respect Privacy:</strong> Be mindful of what you share.</li>
+                                <li><strong>Do Use Visuals:</strong> Share your screen or use slides.</li>
+                            </ul>
+
+                            <h2>Don'ts</h2>
+                            <ul>
+                                <li><strong>Don’t Multitask:</strong> Stay focused on the meeting.</li>
+                                <li><strong>Don’t Interrupt:</strong> Wait for your turn to speak.</li>
+                                <li><strong>Don’t Use Distracting Backgrounds:</strong> Avoid virtual backgrounds that can be distracting.</li>
+                                <li><strong>Don’t Forget to Turn Off Notifications:</strong> Turn off or silence notifications.</li>
+                                <li><strong>Don’t Eat During Meetings:</strong> Avoid eating or drinking noisily.</li>
+                                <li><strong>Don’t Overlook Security:</strong> Use secure links and passwords.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a id="topBtn" href="#liveTips"><i class="bi bi-arrow-up-square-fill"></i></a>
 
     <footer>
         <section id="footer">
