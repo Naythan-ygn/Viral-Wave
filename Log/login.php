@@ -31,7 +31,7 @@
                                     <img src="../Images/Web-logo-removebg-preview.png" width="180" alt="logo">
                                 </a>
                                 <p class="text-center text-dark">Social Media Campaigns Ltd.</p>
-                                <form class="log" action="login-success.php" method="POST">
+                                <form class="log" action="login-granted.php" method="POST">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1" name="email">

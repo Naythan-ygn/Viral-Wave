@@ -106,7 +106,9 @@ if (isset($_GET['delete_id'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
+$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$show = $result_img->fetch_assoc();
 
 $sql = "SELECT * FROM user";
 $result = mysqli_query($conn, $sql);
@@ -124,6 +126,9 @@ $result = mysqli_query($conn, $sql);
 
     <!-- FlatIcons Cdn -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <!-- Bootstrap Cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -228,13 +233,13 @@ $result = mysqli_query($conn, $sql);
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                    Administrator
+                    <img src="<?php echo " ../Images/UploadedImages\\" . $show['profile']; ?>" width="36" height="36" class="rounded-5">
+                    <?php echo $show['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
                         <i class="fi fi-rr-circle-user"></i>
-                        &nbsp;Profile</a>
+                        &nbsp;<?php echo $email; ?></a>
                     <a class="dropdown-item" href="../Log/logout.php">
                         <i class="fi fi-rr-power"></i>
                         &nbsp;Log Out</a>
@@ -262,7 +267,7 @@ $result = mysqli_query($conn, $sql);
 
             <!-- User form -->
             <!-- Container Box -->
-            <div class="container px-4">
+            <div class="container-fluid px-4">
                 <div class="row">
 
                     <!-- User Creation Form -->
@@ -340,52 +345,53 @@ $result = mysqli_query($conn, $sql);
                                     if (isset($_GET['edit_id'])) {
                                         if ($card['subscription'] == 1) {
                                     ?>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" checked>
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    Yes
-                                                </label>
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" aria-label="Radio button for following text input" checked>
+                                                </div>
+                                                <input type="text" class="form-control" value="Yes" readonly aria-label="Text input with radio button">
                                             </div>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0">
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
-                                                </label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" aria-label="Radio button for following text input">
+                                                </div>
+                                                <input type="text" class="form-control" value="No" readonly aria-label="Text input with radio button">
                                             </div>
                                         <?php
                                         } else {
                                         ?>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault1" value="1">
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
-                                                </label>
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" aria-label="Radio button for following text input">
+                                                </div>
+                                                <input type="text" class="form-control" value="Yes" readonly aria-label="Text input with radio button">
                                             </div>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" checked>
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
-                                                </label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">
+                                                    <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" aria-label="Radio button for following text input" checked>
+                                                </div>
+                                                <input type="text" class="form-control" value="No" readonly aria-label="Text input with radio button">
                                             </div>
                                         <?php
                                         }
                                     } else {
                                         ?>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Yes
-                                            </label>
+                                        <div class="input-group mb-1">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="1" aria-label="Radio button for following text input">
+                                            </div>
+                                            <input type="text" class="form-control" value="Yes" readonly aria-label="Text input with radio button">
                                         </div>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" checked>
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                No
-                                            </label>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0" aria-label="Radio button for following text input" checked>
+                                            </div>
+                                            <input type="text" class="form-control" value="No" readonly aria-label="Text input with radio button">
                                         </div>
+
                                     <?php } ?>
                                 </div>
 
@@ -440,8 +446,16 @@ $result = mysqli_query($conn, $sql);
                                     <div class="col-md-6">
                                         <!-- User's Profile will Display as a Card. -->
                                         <div class="card ser-card m-2">
-                                            <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+
+                                            <!-- Default image will display if user didn't upload the image -->
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                            <?php } ?>
+
                                             <div class="card-body">
+
                                                 <h5 class="card-title"><?php echo $card['name']; ?></h5>
                                                 <p class="card-text text-black">
                                                 <table>
@@ -464,19 +478,19 @@ $result = mysqli_query($conn, $sql);
                                                         </tr>
                                                         <tr>
                                                             <th>User Type :</th>
-                                                            <td><?php echo $card['user_type'] == 1 ? "Standard" : ($card['user_type'] == 2 ? "Premium" : "Admin"); ?></td>
+                                                            <td><?php echo $card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin")); ?></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <!-- Edit Button -->
-                                                                <a class="btn btn-secondary" role="button" href="UserList.php?edit_id=<?php echo $card['id']; ?>">
+                                                                <a class="btn btn-success mt-3" role="button" href="UserList.php?edit_id=<?php echo $card['id']; ?>">
                                                                     <i class="fi fi-rr-edit"></i>
                                                                     &nbsp;Edit
                                                                 </a>
                                                             </td>
                                                             <td>
                                                                 <!-- Delete Button -->
-                                                                <a class="btn btn-secondary" role="button" href="UserList.php?delete_id=<?php echo $card['id']; ?>">
+                                                                <a class="btn btn-danger mt-3" role="button" href="UserList.php?delete_id=<?php echo $card['id']; ?>">
                                                                     <i class="fi fi-rr-trash"></i>
                                                                     &nbsp;Delete
                                                                 </a>
@@ -489,7 +503,6 @@ $result = mysqli_query($conn, $sql);
                                         </div>
                                     </div>
                                 <?php } ?>
-
                             </div>
 
                         </div>
@@ -501,7 +514,7 @@ $result = mysqli_query($conn, $sql);
         <!-- MAIN -->
     </section>
     <!-- CONTENT -->
-    <a id="topBtn" href="#user-input"><i class="bi bi-arrow-up-square-fill"></i></a>
+
 
 
     <!-- Bootstrap JavaScript Libraries -->

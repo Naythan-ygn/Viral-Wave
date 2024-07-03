@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+
+$sql_show = "SELECT * FROM contact";
+$result = mysqli_query($conn, $sql_show);
+
+$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
+
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql = "DELETE FROM contact WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Deleted Successfully";
+        header("Location: ContactList.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$row_num = 1;
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -13,6 +43,9 @@
 
     <!-- FlatIcons Cdn -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <!-- Bootstrap Cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -119,13 +152,13 @@
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                    Administrator
+                    <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
+                    <?php echo $card['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
                         <i class="fi fi-rr-circle-user"></i>
-                        &nbsp;Profile</a>
+                        &nbsp;<?php echo $email; ?></a>
                     <a class="dropdown-item" href="../Log/logout.php">
                         <i class="fi fi-rr-power"></i>
                         &nbsp;Log Out</a>
@@ -149,8 +182,38 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
+
+            <!-- Contact Message -->
+            <section id="Cont-list">
+                <table class="table table-striped table-wrap">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    <?php
+                    while ($row = $result->fetch_assoc()) {
+                    ?>
+                        <tr>
+                            <th scope="row"><?php echo $row_num; ?></th>
+                            <?php $row_num++; ?>
+                            <td><?php echo $row['firstname']; ?></td>
+                            <td><?php echo $row['lastname']; ?></td>
+                            <td><?php echo $row['email']; ?></td>
+                            <td><?php echo $row['message']; ?></td>
+                            <td>
+                                <a href="ContactList.php?delete_id=<?php echo $row['id']; ?>" role="button" class="btn btn-danger" type="submit" name="btnDelete">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </section>
         </main>
         <!-- MAIN -->
     </section>

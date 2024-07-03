@@ -1,6 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+// Create Social Account
+if (isset($_POST['btnSave'])) {
+    $name = $_POST['smName'];
+    $login = $_POST['loginLink'];
+    $privacy = $_POST['privacyLink'];
+
+    // File upload Variable
+    if (isset($_FILES['smfile']) && $_FILES['smfile']['error'] == 0) {
+        // Read the file name
+        $smProfile = $_FILES['smfile']['name'];
+        // Read the file Path
+        $tmp_name = $_FILES['smfile']['tmp_name'];
+    }
+
+    $insert_sql = "INSERT INTO socialmedia (name, loginlink, privacylink, logo) VALUES ('$name', '$login', '$privacy', '$smProfile')";
+    $result_sql = $conn->query($insert_sql);
+
+    if ($result_sql) {
+        echo "<script>alert('User added successfully!');</script>";
+
+        // Upload the image to the Safety_Media folder
+        move_uploaded_file($tmp_name, "../Images/Safety_Media/" . $smProfile);
+
+        // Redirect to Social privacy List Page
+        header("Location: SocialMediaSetup.php");
+    } else {
+        echo "<script>alert('Failed to add social privacy setting!');</script>";
+    }
+}
+
+// Edit Social Media Settings
+// the id of the row will be selected (and show in url) when Edit button is clicked
+if (isset($_GET['edit_id'])) {
+    $Eid = $_GET['edit_id'];
+    $sql_select = "SELECT * FROM socialmedia WHERE id = '$Eid'";
+    $editResult = $conn->query($sql_select);
+    $row = $editResult->fetch_assoc();
+}
+
+// the related data row will be updated when Update button is clicked
+if (isset($_POST['btnEdit'])) {
+
+    $name = $_POST['smName'];
+    $login = $_POST['loginLink'];
+    $privacy = $_POST['privacyLink'];
+
+    // File upload Variable
+    if (isset($_FILES['smfile']) && $_FILES['smfile']['error'] == 0) {
+        // Read the file name
+        $smProfile = $_FILES['smfile']['name'];
+        // Read the file Path
+        $tmp_name = $_FILES['smfile']['tmp_name'];
+    }
+
+    if (!empty($smProfile)) {
+        $sql_update = "UPDATE socialmedia SET name = '$name', loginlink = '$login', privacylink = '$privacy', logo = '$smProfile' WHERE id = " . $_GET['edit_id'];
+    } else {
+        $sql_update = "UPDATE socialmedia SET name = '$name', loginlink = '$login', privacylink = '$privacy' WHERE id = " . $_GET['edit_id'];
+    }
+    $result_query = $conn->query($sql_update);
+
+    if ($result_query) {
+        echo "<script>alert('Social Media Updated');</script>";
+
+        // delete the existing image if a new image is uploaded
+        if (!empty($smProfile)) {
+            unlink("../Images/Safety_Media/" . $row['logo']);
+        }
+
+        // Upload to Safety_Media Folder
+        move_uploaded_file($tmp_name, "../Images/Safety_Media/" . $smProfile);
+
+        // Redirect to SocialMediaSetup.php After the update is completed
+        header("Location: SocialMediaSetup.php");
+    } else {
+        echo "Error: " . $sql_update . "<br>" . $conn->error;
+    }
+}
+
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql = "DELETE FROM socialmedia WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Deleted Successfully";
+        header("Location: SocialMediaSetup.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Show Social Media Campaigns
+$sql_show = "SELECT * FROM socialmedia";
+$sql_output = $conn->query($sql_show);
+
+$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
+
+$row_num = 1;
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -13,6 +122,9 @@
 
     <!-- FlatIcons Cdn -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.2/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+
+    <!-- Bootstrap Cdn -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
@@ -119,13 +231,13 @@
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../Images/UploadedImages/AdminProfile.jpg" width="36" height="36" class="rounded-5">
-                    Administrator
+                    <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
+                    <?php echo $card['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
                         <i class="fi fi-rr-circle-user"></i>
-                        &nbsp;Profile</a>
+                        &nbsp;<?php echo $email; ?></a>
                     <a class="dropdown-item" href="../Log/logout.php">
                         <i class="fi fi-rr-power"></i>
                         &nbsp;Log Out</a>
@@ -150,11 +262,123 @@
                     </ul>
                 </div>
 
+                <!-- Social Media Setup Form -->
+                <div class="container-fluid" id="form-setup">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Setup Form</h3>
+                            <form action="#" class="mt-3" method="POST" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="formFile" class="form-label">Upload Image *</label>
+                                            <input class="form-control" type="file" id="formFile" accept="image/*" name="smfile">
+                                        </div>
+
+                                        <!-- Name of the Social App -->
+                                        <div class="mb-3">
+                                            <label for="smTitle" class="form-label">Social Media Name *</label>
+                                            <input type="text" class="form-control" id="smTitle" name="smName" placeholder="Enter Social Media Name" value="<?php echo (isset($row['name']) ? $row['name'] : ""); ?>" required>
+                                            <div class="invalid-feedback">
+                                                Please enter a title.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <!-- Login Link to the Social Media -->
+                                        <div class="mb-3">
+                                            <label for="basic-url" class="form-label">Login URL</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon3">https://example.com/</span>
+                                                <input type="text" name="loginLink" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" value="<?php echo (isset($row['loginlink']) ? $row['loginlink'] : ""); ?>">
+                                            </div>
+                                        </div>
+
+                                        <!-- Privacy Link of that Social Media -->
+                                        <div class="mb-3">
+                                            <label for="basic-url" class="form-label">Privacy Setting URL</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon3">https://example.com/</span>
+                                                <input type="text" name="privacyLink" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4" value="<?php echo (isset($row['privacylink']) ? $row['privacylink'] : ""); ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 text-end mb-4">
+                                            <?php
+                                            if (isset($_GET['edit_id'])) {
+                                            ?>
+                                                <input type="submit" id="submit" class="btn btn-danger mt-3 me-3 px-5 py-2" value="Update" name="btnEdit">
+                                                <a href="SocialMediaSetup.php"><input type="button" class="btn btn-secondary mt-3 ms-3 px-5 py-2" value="Cancel"></a>
+                                            <?php } else { ?>
+                                                <input type="submit" id="submit" class="btn btn-danger mt-3 me-3 px-5 py-2" value="Save" name="btnSave">
+                                                <input type="reset" class="btn btn-secondary mt-3 ms-3 px-5 py-2" value="Cancel">
+                                            <?php
+                                            } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+
+                        <!-- Social Media List -->
+                        <div class="col-md-12">
+                            <?php
+                            if ($sql_output->num_rows > 0) {
+                            ?>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Social Media</th>
+                                        <th>Platform Name</th>
+                                        <th>Login URL</th>
+                                        <th>Privacy Setting URL</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <?php
+                                    while ($row = $sql_output->fetch_assoc()) {
+                                    ?>
+                                        <tr>
+                                            <th scope="row"><?php echo $row_num; ?></th>
+                                            <?php $row_num++; ?>
+                                            <td>
+                                                <?php if (empty($row['logo'])) { ?>
+                                                    <img src="../Images/Default_image.png" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                                <?php } else { ?>
+                                                    <img src="<?php echo "../Images/Safety_Media\\" . $row['logo']; ?>" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                                <?php } ?>
+                                            </td>
+                                            <td><?php echo $row['name']; ?></td>
+                                            <td><?php echo $row['loginlink']; ?></td>
+                                            <td><?php echo $row['privacylink']; ?></td>
+                                            <td>
+                                                <!-- Edit Button -->
+                                                <a class="btn btn-success" role="button" href="SocialMediaSetup.php?edit_id=<?php echo $row['id']; ?>">
+                                                    <i class="fi fi-rr-edit"></i>
+                                                    &nbsp;Edit
+                                                </a>
+
+                                                <!-- Delete Button -->
+                                                <a class="btn btn-danger mt-3" role="button" href="SocialMediaSetup.php?delete_id=<?php echo $row['id']; ?>">
+                                                    <i class="fi fi-rr-trash"></i>
+                                                    &nbsp;Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </table>
+                        </div>
+                    <?php } ?>
+                    </div>
+                </div>
+
             </div>
         </main>
         <!-- MAIN -->
     </section>
     <!-- CONTENT -->
+
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

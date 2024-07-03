@@ -6,7 +6,9 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-
+$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
 ?>
 
 <head>
@@ -163,14 +165,14 @@ $email = $_SESSION['email'];
 
                                     <!-- User Account -->
                                     <div class="dropdown open">
-                                        <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="#" width="36" height="36" class="rounded-5">
-                                            <?php echo $email ?>
+                                        <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
+                                            <?php echo $card['name'] ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
                                                 <i class="fi fi-rr-circle-user"></i>
-                                                &nbsp;Profile</a>
+                                                &nbsp;<?php echo $email ?></a>
                                             <a class="dropdown-item" href="../Log/logout.php">
                                                 <i class="fi fi-rr-power"></i>
                                                 &nbsp;Log Out</a>

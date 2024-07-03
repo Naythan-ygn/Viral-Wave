@@ -1,10 +1,14 @@
 <!doctype html>
 <html lang="en">
 
-<?php 
-    include '../Config/DBconnect.php';
-    session_start();
-    $email = $_SESSION['email'];
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+$sql_img = "SELECT profile FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
 ?>
 
 <head>
@@ -163,7 +167,7 @@
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="#" width="36" height="36" class="rounded-5">
+                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
                                             <?php echo $email ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">

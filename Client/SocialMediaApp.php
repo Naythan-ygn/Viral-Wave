@@ -2,9 +2,18 @@
 <html lang="en">
 
 <?php
-    include '../Config/DBconnect.php';
-    session_start();
-    $email = $_SESSION['email'];
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+// Retrieve Social Privacy settings from database
+$sql_privacy = "SELECT * FROM socialmedia";
+$result_privacy = $conn->query($sql_privacy);
+
+// Retrieve user information from the database
+$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
 ?>
 
 <head>
@@ -161,14 +170,14 @@
 
                                     <!-- User Account -->
                                     <div class="dropdown open">
-                                        <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="#" width="36" height="36" class="rounded-5">
-                                            <?php echo $email ?>
+                                        <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
+                                            <?php echo $card['name'] ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
                                                 <i class="fi fi-rr-circle-user"></i>
-                                                &nbsp;Profile</a>
+                                                &nbsp;<?php echo $email; ?></a>
                                             <a class="dropdown-item" href="../Log/logout.php">
                                                 <i class="fi fi-rr-power"></i>
                                                 &nbsp;Log Out</a>
@@ -185,24 +194,47 @@
 
     <main>
         <!-- The Social Media LInks -->
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text text-dark">
-                            This is a wider card with supporting text below as a natural lead-in to additional
-                            content. This content is a little bit longer.</p>
-                        <a href="#">Go to ...</a>
-                        <a href="#">Privacy</a>
-                        <p class="card-text"><small class="text-body-secondary">
+        <div class="container">
+            <h2>
+                Most Popular Social Media Apps
+            </h2>
+            <p class="text-dark">
+                Search the online database for the latest techniques to stay safe.
+            </p>
+            <!-- The Search Bar -->
+            <div class="search-bar-wrapper w-10 text-center">
+                <input type="text" class="search-input" placeholder="Search...">
+                <button class="search-btn"><i class="bi bi-search"></i></button>
+            </div>
+
+            <div class="link-card d-flex flex-wrap">
+                <?php
+                while ($privacy = $result_privacy->fetch_assoc()) {
+                ?>
+                    <div class="col-md-4 card mb-2">
+                        <div class="row g-0">
+                            <div class="col-md-3">
+                                <?php if (empty($privacy['logo'])) { ?>
+                                    <img src="../Images/Default_image.png" class="img-fluid mx-3 mt-2 rounded-5" width="100" height="100" alt="..logo">
+                                <?php } else { ?>
+                                    <img src="<?php echo "../Images/Safety_Media\\" . $privacy['logo']; ?>" class="img-fluid mx-3 mt-2 rounded-5" width="100" height="100" alt="..logo">
+                                <?php } ?>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $privacy['name']; ?></h5>
+                                    <p class="card-text text-dark">
+                                        Learn the latest techniques to stay safe on <strong><?php echo $privacy['name']; ?></strong>. </p>
+                                    <a href="<?php echo $privacy['loginlink']; ?>" target="_blank" class="px-2 bg-danger text-white rounded-3">Login Here!</a>
+                                    <a href="<?php echo $privacy['privacylink']; ?>" target="_blank" class="ms-2 px-2 bg-primary text-white rounded-3">Privacy Setting</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
+
     </main>
     <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
 
