@@ -91,7 +91,7 @@ a.dropdown-item:hover {
 
 /* Responsive Navbar */
 @media (max-width: 991px) {
-    .info-bar {
+    .info-bar, .search-bar-wrapper {
         display: none
     }
 
@@ -592,6 +592,43 @@ nav {
 #topBtn i:hover {
     color: #f71827;
 }
+
+/* Parent Hub Content */
+
+.nav-tabs .nav-link {
+    color: #555;
+}
+
+.nav-tabs .nav-link.active {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.grid-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.post-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Parent Hub Content */
 
 /* This is for Contact Form */
 a {

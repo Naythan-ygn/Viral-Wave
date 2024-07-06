@@ -110,7 +110,7 @@ $sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $show = $result_img->fetch_assoc();
 
-$sql = "SELECT * FROM user";
+$sql = "SELECT * FROM user ORDER BY user_type";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -233,8 +233,12 @@ $result = mysqli_query($conn, $sql);
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo " ../Images/UploadedImages\\" . $show['profile']; ?>" width="36" height="36" class="rounded-5">
-                    <?php echo $show['name']; ?>
+                    <?php if (empty($show['profile'])) { ?>
+                        <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                    <?php } else { ?>
+                        <img src="<?php echo "../Images/UploadedImages\\" . $show['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                    <?php }
+                    echo $show['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
@@ -272,7 +276,7 @@ $result = mysqli_query($conn, $sql);
 
                     <!-- User Creation Form -->
                     <div class="col-md-6 p-3">
-                        <form id="user-input" method="post" action="#" enctype="multipart/form-data">
+                        <form id="user-input" class="sticky-top" method="post" action="#" enctype="multipart/form-data">
                             <legend>
                                 <h3>Add a New User</h3>
                             </legend>
@@ -283,7 +287,7 @@ $result = mysqli_query($conn, $sql);
                             <div class="row">
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="name" class="col-form-label">Name *</label>
-                                    <input type="text" class="form-control" name="username" id="name" placeholder="Enter username" value="<?php echo (isset($card['name']) ? $card['name'] : ""); ?>">
+                                    <input type="text" class="form-control" name="username" id="name" placeholder="Enter username" value="<?php echo (isset($card['name']) ? $card['name'] : ""); ?>" required>
                                 </div>
 
                                 <!-- City DropDown -->
@@ -300,8 +304,9 @@ $result = mysqli_query($conn, $sql);
                                             <option selected disabled hidden>--- Select Location ---</option>
                                         <?php } ?>
                                         <option value="Bago">Bago</option>
-                                        <option value="Dawei">Dawei</option>
-                                        <option value="Hpa-An">Hpa-An</option>
+                                        <option value="Beijing">Beijing</option>
+                                        <option value="Hong Kong">Hong Kong</option>
+                                        <option value="Kingstom">Kingstom</option>
                                         <option value="Kalaw">Kalaw</option>
                                         <option value="Kale">Kale</option>
                                         <option value="Lashio">Lashio</option>
@@ -318,13 +323,13 @@ $result = mysqli_query($conn, $sql);
                                 <!-- Email -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="email" class="col-form-label">Email *</label>
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter user's email" value="<?php echo (isset($card['email']) ? $card['email'] : ""); ?>">
+                                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter user's email" value="<?php echo (isset($card['email']) ? $card['email'] : ""); ?>" required>
                                 </div>
 
                                 <!-- Password -->
                                 <div class="col-md-6 form-group mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password *</label>
-                                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter password" value="<?php echo (isset($card['password']) ? $card['password'] : ""); ?>" aria-describedby="emailHelp">
+                                    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Enter password" value="<?php echo (isset($card['password']) ? $card['password'] : ""); ?>" aria-describedby="emailHelp" required>
                                     <div id="emailHelp" class="form-text">Maximum 8 Characters.</div>
                                 </div>
                             </div>
@@ -421,14 +426,21 @@ $result = mysqli_query($conn, $sql);
                                 ?>
                                     <input type="submit" value="Update User" name="btnEditUser" class="btn btn-danger rounded-4 py-2 px-4">
                                     <span class="submitting"></span>
+                                    <a href="UserList.php">
+                                        <input type="button" class="btn btn-secondary rounded-4 py-2 px-5 ms-4" value="Cancel">
+                                        <span class="submitting"></span>
+                                    </a>
                                 <?php
                                 } else {
                                 ?>
                                     <input type="submit" value="Add User" name="btnAddUser" class="btn btn-danger rounded-4 py-2 px-4">
                                     <span class="submitting"></span>
+                                    <input type="reset" class="btn btn-secondary rounded-4 py-2 px-5 ms-4" value="Cancel">
+                                    <span class="submitting"></span>
                                 <?php
                                 }
                                 ?>
+
                             </div>
 
 
@@ -441,7 +453,16 @@ $result = mysqli_query($conn, $sql);
                         <div class="p-3 d-flex flex-wrap">
                             <div class="row">
                                 <?php
+                                // Fetching data from the database and displaying it in a table.
                                 while ($card = $result->fetch_assoc()) {
+
+                                    if (isset($_GET['edit_id'])) {
+                                        // If the edit button is clicked, fetch the user details based on the ID.
+                                        $edit_id = $_GET['edit_id'];
+                                        $query = "SELECT * FROM user WHERE id = $edit_id";
+                                        $result = $conn->query($query);
+                                        $card = $result->fetch_assoc();
+                                    }
                                 ?>
                                     <div class="col-md-6">
                                         <!-- User's Profile will Display as a Card. -->

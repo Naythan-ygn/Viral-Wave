@@ -6,9 +6,11 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
+
+$user = array(1, 2);
 ?>
 
 <head>
@@ -147,9 +149,11 @@ $card = $result_img->fetch_assoc();
                                                 Media Apps</a>
                                         </li>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
-                                        </li>
+                                        <?php if (($card['user_type'] <> $user[1]) && ($card['user_type'] <> $user[0])) { ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
+                                            </li>
+                                        <?php } ?>
 
                                         <li class="nav-item mx-2">
                                             <a id="tcolor" class="nav-link active" aria-current="page" href="liveStreaming.php">LiveStreaming</a>
@@ -167,8 +171,12 @@ $card = $result_img->fetch_assoc();
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                                            <?php echo $card['name'] ?>
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php }
+                                            echo $card['name']; ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
@@ -213,7 +221,7 @@ $card = $result_img->fetch_assoc();
                         </ul>
                     </div>
 
-                    <div class="col-md-12 mt-4 d-flex flex-row-reverse">
+                    <div class="col-md-12 mt-4 d-flex flex-wrap flex-row-reverse">
                         <div class="col-md-6">
                             <figure class="figure">
                                 <img src="https://storage.googleapis.com/100ms-cms-prod/cms/blog_1_548a4bbff4/blog_1_548a4bbff4.png" alt="Live Streaming Tips" class="figure-img img-fluid rounded-5">
@@ -234,12 +242,12 @@ $card = $result_img->fetch_assoc();
 
                             <h2>Don'ts</h2>
                             <ul>
-                                <li><strong>Don’t Multitask:</strong> Stay focused on the meeting.</li>
-                                <li><strong>Don’t Interrupt:</strong> Wait for your turn to speak.</li>
-                                <li><strong>Don’t Use Distracting Backgrounds:</strong> Avoid virtual backgrounds that can be distracting.</li>
-                                <li><strong>Don’t Forget to Turn Off Notifications:</strong> Turn off or silence notifications.</li>
-                                <li><strong>Don’t Eat During Meetings:</strong> Avoid eating or drinking noisily.</li>
-                                <li><strong>Don’t Overlook Security:</strong> Use secure links and passwords.</li>
+                                <li><strong>Don&apos;t Multitask:</strong> Stay focused on the meeting.</li>
+                                <li><strong>Don&apos;t Interrupt:</strong> Wait for your turn to speak.</li>
+                                <li><strong>Don&apos;t Use Distracting Backgrounds:</strong> Avoid virtual backgrounds that can be distracting.</li>
+                                <li><strong>Don&apos;t Forget to Turn Off Notifications:</strong> Turn off or silence notifications.</li>
+                                <li><strong>Don&apos;t Eat During Meetings:</strong> Avoid eating or drinking noisily.</li>
+                                <li><strong>Don&apos;t Overlook Security:</strong> Use secure links and passwords.</li>
                             </ul>
                         </div>
 

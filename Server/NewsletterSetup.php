@@ -131,8 +131,12 @@ $card = $result_img->fetch_assoc();
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                    <?php echo $card['name']; ?>
+                    <?php if (empty($card['profile'])) { ?>
+                        <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                    <?php } else { ?>
+                        <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                    <?php }
+                    echo $card['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">

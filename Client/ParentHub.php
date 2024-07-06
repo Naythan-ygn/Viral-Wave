@@ -6,9 +6,16 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_img = "SELECT profile FROM user WHERE email = '$email'";
+// Fetch parent hub data
+$sql = "SELECT profile, name, title, description, image1, image2 FROM parenthub, user WHERE user_id = id";
+$result = $conn->query($sql);
+
+
+$sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
+
+$user = 3;
 ?>
 
 <head>
@@ -147,9 +154,11 @@ $card = $result_img->fetch_assoc();
                                                 Media Apps</a>
                                         </li>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link active" aria-current="page" href="ParentHub.php">Parent Hub</a>
-                                        </li>
+                                        <?php if ($card['user_type'] == $user) { ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link active" aria-current="page" href="ParentHub.php">Parent Hub</a>
+                                            </li>
+                                        <?php } ?>
 
                                         <li class="nav-item mx-2">
                                             <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
@@ -166,14 +175,18 @@ $card = $result_img->fetch_assoc();
 
                                     <!-- User Account -->
                                     <div class="dropdown open">
-                                        <a class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                                            <?php echo $email ?>
+                                        <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php }
+                                            echo $card['name']; ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
                                                 <i class="fi fi-rr-circle-user"></i>
-                                                &nbsp;Profile</a>
+                                                &nbsp;<?php echo $email ?></a>
                                             <a class="dropdown-item" href="../Log/logout.php">
                                                 <i class="fi fi-rr-power"></i>
                                                 &nbsp;Log Out</a>
@@ -188,7 +201,41 @@ $card = $result_img->fetch_assoc();
         </div>
     </header>
 
-    <main></main>
+    <main>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h1 class="text-center mb-5">Explore</h1>
+
+                    <!-- The Search Bar -->
+                    <div class="search-bar-wrapper float-end">
+                        <input type="text" class="search-input" placeholder="Search...">
+                        <button class="search-btn"><i class="bi bi-search"></i></button>
+                    </div>
+
+                    <?php
+                    while ($posts = $result->fetch_assoc()) {
+                    ?>
+                        <div class="card col-md-12 mb-3">
+                            <div class="card-img d-flex">
+                                <img src="<?php echo "../Images/Safety_Media\\" . $posts['image1']; ?>" class="img-fluid col-md-6 border-end" width="60" height="120" alt="Post Image 1">
+                                <img src="<?php echo "../Images/Safety_Media\\" . $posts['image2']; ?>" class="img-fluid col-md-6" width="60" height="120" alt="Post Image 2">
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex aligns-items-center">
+                                    <img src="<?php echo "../Images/UploadedImages\\" . $posts['profile']; ?>" width="36" height="36" class="border border-1 rounded-5" alt="profile">
+                                    <p class="text-dark ms-3"><strong><?php echo $posts['name']; ?></strong>&nbsp;</p>
+                                    <span>| <?php echo date("y/m/d"); ?></span>
+                                </div>
+                                <h5><?php echo $posts['title']; ?></h5>
+                                <p class="text-dark"><?php echo $posts['description']; ?></p>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </main>
     <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
 
     <footer>

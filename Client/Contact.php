@@ -6,6 +6,7 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
+// Send the message to Admins
 if (isset($_POST['btnSubmit'])) {
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
@@ -19,9 +20,11 @@ if (isset($_POST['btnSubmit'])) {
     }
 }
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
+
+$user = array(1, 2);
 ?>
 
 <head>
@@ -159,9 +162,13 @@ $card = $result_img->fetch_assoc();
                                             <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social Media Apps</a>
                                         </li>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
-                                        </li>
+                                        <?php
+                                        if (($card['user_type'] <> $user[1]) && ($card['user_type'] <> $user[0])) {
+                                        ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
+                                            </li>
+                                        <?php } ?>
 
                                         <li class="nav-item mx-2">
                                             <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
@@ -179,8 +186,12 @@ $card = $result_img->fetch_assoc();
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                                            <?php echo $card['name'] ?>
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php }
+                                            echo $card['name']; ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
@@ -235,7 +246,24 @@ $card = $result_img->fetch_assoc();
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 form-group mt-4">
-                                        <input type="submit" name="btnSubmit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4">
+                                        <button class="border-0 ">
+                                            <input type="submit" name="btnSubmit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        </button>
+                                    </div>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Message Sent Successfully</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Thanks for the feedback. We'll reply to you as soon as possible.
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

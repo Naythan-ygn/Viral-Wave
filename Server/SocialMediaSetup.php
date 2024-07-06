@@ -231,8 +231,12 @@ $row_num = 1;
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                    <?php echo $card['name']; ?>
+                    <?php if (empty($card['profile'])) { ?>
+                        <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                    <?php } else { ?>
+                        <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                    <?php }
+                    echo $card['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
@@ -263,9 +267,9 @@ $row_num = 1;
                 </div>
 
                 <!-- Social Media Setup Form -->
-                <div class="container-fluid" id="form-setup">
-                    <div class="row">
-                        <div class="col-md-12">
+                <div class="container-fluid">
+                    <div class="row sticky-top" id="form-setup">
+                        <div class="col-md-12 bg-white py-3 rounded-3">
                             <h3>Setup Form</h3>
                             <form action="#" class="mt-3" method="POST" enctype="multipart/form-data">
                                 <div class="row">
@@ -320,10 +324,12 @@ $row_num = 1;
                                 </div>
                             </form>
                         </div>
-                        <hr>
+                    </div>
+                    <hr>
 
-                        <!-- Social Media List -->
-                        <div class="col-md-12">
+                    <!-- Social Media List -->
+                    <div class="col-md-12" data-bs-spy="scroll" data-bs-target="#form-setup" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+                        <div class="table-responsive">
                             <?php
                             if ($sql_output->num_rows > 0) {
                             ?>
@@ -368,11 +374,11 @@ $row_num = 1;
                                         </tr>
                                     <?php } ?>
                                 </table>
+                            <?php } ?>
                         </div>
-                    <?php } ?>
                     </div>
-                </div>
 
+                </div>
             </div>
         </main>
         <!-- MAIN -->

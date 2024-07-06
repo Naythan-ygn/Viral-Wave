@@ -188,9 +188,9 @@
                                 We are in Socials :
                             </span>
                             <div class="social-link">
-                                <a href="#" class="text-dark"><i class="bi bi-twitter-x"></i></a>
-                                <a href="#" class="text-primary"><i class="Isize bi bi-facebook"></i></a>
-                                <a href="#" class="text-danger"><i class="Isize bi bi-pinterest"></i></a>
+                                <a href="https://x.com" class="text-dark"><i class="bi bi-twitter-x"></i></a>
+                                <a href="https://www.facebook.com/" class="text-primary"><i class="Isize bi bi-facebook"></i></a>
+                                <a href="https://www.pinterest.com/" class="text-danger"><i class="Isize bi bi-pinterest"></i></a>
                             </div>
                         </div>
                     </div>

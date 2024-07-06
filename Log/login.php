@@ -49,7 +49,7 @@
                                         </div>
                                         <a class="text-danger text-decoration-underline" href="#">Forgot Password ?</a>
                                     </div>
-                                    <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" value="Sign In">
+                                    <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" value="Log In">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="text-dark mb-0">New to Viral Wave?</p>
                                         <a class="text-danger text-decoration-underline ms-2" href="signup.php">Create an

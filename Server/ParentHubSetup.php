@@ -6,7 +6,139 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+// Create Content for Parent
+if (isset($_POST['btnCreate'])) {
+    $desc = $_POST['desc'];
+    $title = $_POST['phtitle'];
+    $uid = $_POST['uid'];
+
+    // File upload Variable
+    if (isset($_FILES['phfile1']) && $_FILES['phfile1']['error'] == 0) {
+        // Read the file name
+        $ContImage1 = $_FILES['phfile1']['name'];
+        // Read the file Path
+        $tmp_name1 = $_FILES['phfile1']['tmp_name'];
+    }
+    // File upload Variable
+    if (isset($_FILES['phfile2']) && $_FILES['phfile2']['error'] == 0) {
+        // Read the file name
+        $ContImage2 = $_FILES['phfile2']['name'];
+        // Read the file Path
+        $tmp_name2 = $_FILES['phfile2']['tmp_name'];
+    }
+
+    $insert_sql = "INSERT INTO parenthub (title, description, image1, image2, user_id) VALUES ('$title', '$desc', '$ContImage1', '$ContImage2', '$uid')";
+    $result_sql = $conn->query($insert_sql);
+
+    if ($result_sql) {
+        echo "<script>alert('User added successfully!');</script>";
+
+        // Upload the image to the Safety_Media folder
+        move_uploaded_file($tmp_name1, "../Images/Safety_Media/" . $ContImage1);
+
+        // Upload the image to the Safety_Media folder
+        move_uploaded_file($tmp_name2, "../Images/Safety_Media/" . $ContImage2);
+
+        // Redirect to User List Page
+        header("Location: ParentHubSetup.php");
+    } else {
+        echo "<script>alert('Failed to add user!');</script>";
+    }
+}
+
+// Edit Content Info
+// the id of the row will be selected (and show in url) when Edit button is clicked
+if (isset($_GET['edit_id'])) {
+    $Eid = $_GET['edit_id'];
+    $sql_show = "SELECT * FROM parenthub WHERE ph_id = '$Eid'";
+    $editResult = $conn->query($sql_show);
+    $row = $editResult->fetch_assoc();
+}
+
+// the related data row will be updated when Update button is clicked
+if (isset($_POST['btnEdit'])) {
+
+    $title = $_POST['phtitle'];
+    $desc = $_POST['desc'];
+    $uid = $_POST['uid'];
+
+    // File upload Variable
+    if (isset($_FILES['phfile1']) && $_FILES['phfile1']['error'] == 0) {
+        // Read the file name
+        $ContImage1 = $_FILES['phfile1']['name'];
+        // Read the file Path
+        $tmp_name1 = $_FILES['phfile1']['tmp_name'];
+    }
+
+    // File upload Variable
+    if (isset($_FILES['phfile2']) && $_FILES['phfile2']['error'] == 0) {
+        // Read the file name
+        $ContImage2 = $_FILES['phfile2']['name'];
+        // Read the file Path
+        $tmp_name2 = $_FILES['phfile2']['tmp_name'];
+    }
+
+    // Image1 and texts will be updated if image1 isn't empty and image2 is empty
+    if (!empty($ContImage1) && empty($ContImage2)) {
+        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image1 = '$ContImage1', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+    }
+    // Image2 and texts will be updated if image2 isn't empty and image1 is empty
+    else if (!empty($ContImage2) && empty($ContImage1)) {
+        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+    }
+    // Everything will be updated if both image1 and image2 aren't empty
+    else if (!empty($ContImage2) && !empty($ContImage1)) {
+        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image1 = '$ContImage1', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+    } else {
+        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+    }
+    $result_query = $conn->query($sql_update);
+
+    if ($result_query) {
+        echo "<script>alert('Content Updated');</script>";
+
+        // delete the existing image if a new image is uploaded
+        if (!empty($phfile1)) {
+            unlink("../Images/Safety_Media/" . $row['image1']);
+        }
+        // Upload to Safety_Media Folder
+        move_uploaded_file($tmp_name1, "../Images/Safety_Media/" . $ContImage1);
+
+        if (!empty($phfile2)) {
+            unlink("../Images/Safety_Media/" . $row['image2']);
+        }
+        // Upload to Safety_Media Folder        
+        move_uploaded_file($tmp_name2, "../Images/Safety_Media/" . $ContImage2);
+
+        // Redirect to ParentHubSetup.php After the update is completed
+        header("Location: ParentHubSetup.php");
+    } else {
+        echo "Error: " . $sql_update . "<br>" . $conn->error;
+    }
+}
+
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql_delete = "DELETE FROM parenthub WHERE ph_id = $id";
+    $deleted_result = $conn->query($sql_delete);
+
+    if ($deleted_result) {
+        echo "Deleted Successfully";
+        header("Location: ParentHubSetup.php");
+    } else {
+        echo "Error: " . $sql_delete . "<br>" . $conn->error;
+    }
+}
+
+$row_num = 1;
+
+// Fetch parent hub data
+$sql = "SELECT name, ph_id, title, description, image1, image2 FROM parenthub, user WHERE user_id = id";
+$result = $conn->query($sql);
+
+// Fetch user profile data
+$sql_img = "SELECT id, profile, name FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 ?>
@@ -131,8 +263,12 @@ $card = $result_img->fetch_assoc();
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                    <?php echo $card['name']; ?>
+                    <?php if (empty($card['profile'])) { ?>
+                        <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                    <?php } else { ?>
+                        <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                    <?php }
+                    echo $card['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
@@ -161,8 +297,126 @@ $card = $result_img->fetch_assoc();
                         </li>
                     </ul>
                 </div>
-
             </div>
+
+            <!-- Parent Hub Form -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Parent Hub</h2>
+                        <form action="#" method="POST" class="d-flex" enctype="multipart/form-data">
+                            <input type="hidden" name="hid" value="<?php echo (isset($card['id']) ? $card['id'] : ""); ?>">
+
+                            <input type="hidden" name="uid" value="<?php echo $card['id']; ?>">
+
+                            <!-- Upload Image -->
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label for="formFile1" class="form-label">Upload Image 1 *</label>
+                                        <input class="form-control" name="phfile1" type="file" accept="image/*" id="formFile1">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="formFile2" class="form-label">Upload Image 2*</label>
+                                        <input class="form-control" name="phfile2" type="file" accept="image/*" id="formFile2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upload Content -->
+                            <div class="col-md-6 ps-5">
+                                <!-- Content Title -->
+                                <div class="input-group flex-nowrap mb-3">
+                                    <span class="input-group-text" id="addon-wrapping">@</span>
+                                    <input type="text" class="form-control" name="phtitle" placeholder="Title Content" aria-label="Content" aria-describedby="addon-wrapping" value="<?php echo (isset($row['title']) ? $row['title'] : ""); ?>" required>
+                                </div>
+
+                                <!-- Content Description -->
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Description *</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc" placeholder="Enter your content" required><?php echo (isset($row['description']) ? $row['description'] : ""); ?></textarea>
+                                </div>
+
+                                <div class="form-group mt-4 text-end">
+                                    <?php if (isset($_GET['edit_id'])) {
+                                    ?>
+                                        <input type="submit" value="Update Content" name="btnEdit" class="btn btn-danger rounded-4 py-2 px-4">
+                                        <span class="submitting"></span>
+                                        <a href="ParentHubSetup.php">
+                                            <input type="button" class="btn btn-secondary rounded-4 py-2 px-5 ms-4" value="Cancel">
+                                            <span class="submitting"></span>
+                                        </a>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <input type="submit" value="Create Content" name="btnCreate" class="btn btn-danger rounded-4 py-2 px-4">
+                                        <span class="submitting"></span>
+                                        <input type="reset" class="btn btn-secondary rounded-4 py-2 px-5 ms-4" value="Cancel">
+                                        <span class="submitting"></span>
+                                    <?php
+                                    }
+                                    ?>
+
+                                </div>
+                            </div>
+                        </form>
+                        <hr class="mb-3">
+
+
+                        <!-- Retrieve the data from the database -->                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>Parent Hub Content</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-secondary">
+                                        <tr>
+                                            <th scope="row">#</th>
+                                            <th>User Name</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Image 1</th>
+                                            <th>Image 2</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <?php
+                                        while ($row = $result->fetch_assoc()) {
+                                        ?>
+                                            <tr>
+                                                <th><?php echo $row_num; ?></th>
+                                                <?php $row_num++; ?>
+                                                <td><?php echo $row['name'] ?></td>
+                                                <td><?php echo $row['title'] ?></td>
+                                                <td><?php echo $row['description'] ?></td>
+                                                <td>
+                                                    <img src="<?php echo "../Images/Safety_Media\\" . $row['image1'] ?>" alt="..." width="150" height="100">
+                                                </td>
+                                                <td>
+                                                    <img src="<?php echo "../Images/Safety_Media\\" . $row['image2'] ?>" alt="..." width="150" height="100">
+                                                </td>
+                                                <td>
+                                                    <!-- Edit Button -->
+                                                    <a class="btn btn-success" role="button" href="ParentHubSetup.php?edit_id=<?php echo $row['ph_id']; ?>">
+                                                        <i class="fi fi-rr-edit"></i>
+                                                        &nbsp;Edit
+                                                    </a>
+
+                                                    <!-- Delete Button -->
+                                                    <a class="btn btn-danger mt-3" role="button" href="ParentHubSetup.php?delete_id=<?php echo $row['ph_id']; ?>">
+                                                        <i class="fi fi-rr-trash"></i>
+                                                        &nbsp;Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        } ?>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
         </main>
         <!-- MAIN -->
     </section>

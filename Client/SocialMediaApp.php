@@ -11,9 +11,11 @@ $sql_privacy = "SELECT * FROM socialmedia";
 $result_privacy = $conn->query($sql_privacy);
 
 // Retrieve user information from the database
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
+
+$user = array(1, 2);
 ?>
 
 <head>
@@ -151,9 +153,11 @@ $card = $result_img->fetch_assoc();
                                                 Media Apps</a>
                                         </li>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
-                                        </li>
+                                        <?php if (($card['user_type'] <> $user[0]) && ($card['user_type'] <> $user[1])) { ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
+                                            </li>
+                                        <?php } ?>
 
                                         <li class="nav-item mx-2">
                                             <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
@@ -171,8 +175,12 @@ $card = $result_img->fetch_assoc();
                                     <!-- User Account -->
                                     <div class="dropdown open">
                                         <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <img src="<?php echo " ../Images/UploadedImages\\" . $card['profile']; ?>" width="36" height="36" class="rounded-5">
-                                            <?php echo $card['name'] ?>
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php }
+                                            echo $card['name']; ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
