@@ -172,23 +172,39 @@ $card = $result_img->fetch_assoc();
 
             <ul class="box-info">
                 <li>
-                    <i class='bx bxs-calendar-check'></i>
+                    <?php
+                    $sql_user = "SELECT * FROM user";
+                    $result_user = $conn->query($sql_user);
+
+                    if ($result_user) {
+                        $user_no = $result_user->num_rows;
+                    }
+                    ?>
+                    <i class='bx bxs-group'></i>
                     <span class="text">
-                        <h3>1020</h3>
-                        <p>New Order</p>
+                        <h3 class="text-danger"><?php echo $user_no; ?></h3>
+                        <p>Users</p>
                     </span>
                 </li>
                 <li>
-                    <i class='bx bxs-group'></i>
+                    <?php
+                    $sql_ser = "SELECT * FROM services";
+                    $result_ser = $conn->query($sql_ser);
+
+                    if ($result_ser) {
+                        $ser_no = $result_ser->num_rows;
+                    }
+                    ?>
+                    <i class='bx bxs-cog'></i>
                     <span class="text">
-                        <h3>2834</h3>
-                        <p>Visitors</p>
+                        <h3 class="text-danger"><?php echo $ser_no; ?></h3>
+                        <p>Services</p>
                     </span>
                 </li>
                 <li>
                     <i class='bx bxs-dollar-circle'></i>
                     <span class="text">
-                        <h3>$2543</h3>
+                        <h3 class="text-danger">$2543</h3>
                         <p>Total Sales</p>
                     </span>
                 </li>
@@ -198,7 +214,8 @@ $card = $result_img->fetch_assoc();
             <div class="table-data">
                 <div class="order">
                     <div class="head">
-                        <h3>Recent Orders</h3>
+                        <i class='bx bxs-book-content'></i>
+                        <h3>Parent Hub Posts</h3>
                         <i class='bx bx-search'></i>
                         <i class='bx bx-filter'></i>
                     </div>
@@ -210,77 +227,44 @@ $card = $result_img->fetch_assoc();
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status process">Process</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="img/people.png">
-                                    <p>John Doe</p>
-                                </td>
-                                <td>01-10-2021</td>
-                                <td><span class="status completed">Completed</span></td>
-                            </tr>
-                        </tbody>
+                        <?php
+                        $sql_ph = "SELECT * FROM parenthub, user WHERE user_id = id";
+                        $result_ph = $conn->query($sql_ph);
+                        while ($ph_row = $result_ph->fetch_assoc()) {
+                        ?>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="<?php echo "../Images/UploadedImages\\" . $ph_row['profile']; ?>">
+                                        <p><?php echo $ph_row['name']; ?></p>
+                                    </td>
+                                    <td><?php echo $ph_row['created_date']; ?></td>
+                                    <td><span class="status completed">Posted</span></td>
+                                </tr>
+                            </tbody>
+                        <?php } ?>
                     </table>
                 </div>
+
                 <div class="todo">
                     <div class="head">
-                        <h3>Todos</h3>
+                        <i class='bx bxs-message'></i>
+                        <h3>Messages</h3>
                         <i class='bx bx-plus'></i>
                         <i class='bx bx-filter'></i>
                     </div>
                     <ul class="todo-list">
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
-                        <li class="not-completed">
-                            <p>Todo List</p>
-                            <i class='bx bx-dots-vertical-rounded'></i>
-                        </li>
+
+                        <?php
+                        $sql_msg = "SELECT * FROM contact";
+                        $result_msg = $conn->query($sql_msg);
+                        while ($msg_row = $result_msg->fetch_assoc()) { ?>
+                            <li class="process">
+                                <p><?php echo $msg_row['message']; ?></p>
+                                <i class='bx bx-dots-vertical-rounded'></i>
+                            </li>
+                        <?php } ?>
+
                     </ul>
                 </div>
             </div>

@@ -190,7 +190,7 @@ $row_num = 1;
 
             <!-- Contact Message -->
             <section id="Cont-list">
-                <table class="table table-striped table-wrap">
+                <table class="table table-bordered table-striped table-wrap">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">First Name</th>

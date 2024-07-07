@@ -18,6 +18,7 @@ li {
     --poppins: 'Poppins', sans-serif;
     --lato: 'Lato', sans-serif;
 
+    --green: #20c997;
     --light: #F9F9F9;
     --blue: #3C91E6;
     --light-blue: #CFE8FF;
@@ -563,16 +564,16 @@ body {
     font-weight: 700;
 }
 
-#content main .table-data .order table tr td .status.completed {
-    background: var(--blue);
+#content main .table-data .order table tr td .status .completed {
+    background: var(--green);
 }
 
-#content main .table-data .order table tr td .status.process {
+#content main .table-data .order table tr td .status .process {
     background: var(--yellow);
 }
 
-#content main .table-data .order table tr td .status.pending {
-    background: var(--orange);
+#content main .table-data .order table tr td .status .pending {
+    background: var(--orange); 
 }
 
 

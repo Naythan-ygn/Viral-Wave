@@ -7,7 +7,7 @@ session_start();
 $email = $_SESSION['email'];
 
 // Fetch parent hub data
-$sql = "SELECT profile, name, title, description, image1, image2 FROM parenthub, user WHERE user_id = id";
+$sql = "SELECT profile, name, title, description, image1, image2, created_date FROM parenthub, user WHERE user_id = id";
 $result = $conn->query($sql);
 
 
@@ -225,7 +225,7 @@ $user = 3;
                                 <div class="d-flex aligns-items-center">
                                     <img src="<?php echo "../Images/UploadedImages\\" . $posts['profile']; ?>" width="36" height="36" class="border border-1 rounded-5" alt="profile">
                                     <p class="text-dark ms-3"><strong><?php echo $posts['name']; ?></strong>&nbsp;</p>
-                                    <span>| <?php echo date("y/m/d"); ?></span>
+                                    <span>| <?php echo $posts['created_date']; ?></span>
                                 </div>
                                 <h5><?php echo $posts['title']; ?></h5>
                                 <p class="text-dark"><?php echo $posts['description']; ?></p>

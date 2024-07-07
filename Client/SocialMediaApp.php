@@ -202,45 +202,51 @@ $user = array(1, 2);
 
     <main>
         <!-- The Social Media LInks -->
-        <div class="container">
+        <div class="container-xxl">
+            <div class="background"></div>
             <h2>
                 Most Popular Social Media Apps
             </h2>
             <p class="text-dark">
                 Search the online database for the latest techniques to stay safe.
             </p>
+
             <!-- The Search Bar -->
-            <div class="search-bar-wrapper w-10 text-center">
+            <div class="search-bar-wrapper text-center">
                 <input type="text" class="search-input" placeholder="Search...">
                 <button class="search-btn"><i class="bi bi-search"></i></button>
             </div>
 
-            <div class="link-card d-flex flex-wrap">
-                <?php
-                while ($privacy = $result_privacy->fetch_assoc()) {
-                ?>
-                    <div class="col-md-4 card mb-2">
-                        <div class="row g-0">
-                            <div class="col-md-3">
-                                <?php if (empty($privacy['logo'])) { ?>
-                                    <img src="../Images/Default_image.png" class="img-fluid mx-3 mt-2 rounded-5" width="100" height="100" alt="..logo">
-                                <?php } else { ?>
-                                    <img src="<?php echo "../Images/Safety_Media\\" . $privacy['logo']; ?>" class="img-fluid mx-3 mt-2 rounded-5" width="100" height="100" alt="..logo">
-                                <?php } ?>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title"><?php echo $privacy['name']; ?></h5>
-                                    <p class="card-text text-dark">
-                                        Learn the latest techniques to stay safe on <strong><?php echo $privacy['name']; ?></strong>. </p>
-                                    <a href="<?php echo $privacy['loginlink']; ?>" target="_blank" class="px-2 bg-danger text-white rounded-3">Login Here!</a>
-                                    <a href="<?php echo $privacy['privacylink']; ?>" target="_blank" class="ms-2 px-2 bg-primary text-white rounded-3">Privacy Setting</a>
+            <div class="row">
+
+                <div class="link-card text-center">
+                    <?php
+                    while ($privacy = $result_privacy->fetch_assoc()) {
+                    ?>
+                        <div class="card mb-4">
+                            <div class="row g-0">
+                                <div class="col-md-3">
+                                    <?php if (empty($privacy['logo'])) { ?>
+                                        <img src="../Images/Default_image.png" class="mx-3 my-2 rounded-5" width="100" height="100" alt="..logo">
+                                    <?php } else { ?>
+                                        <img src="<?php echo "../Images/Safety_Media\\" . $privacy['logo']; ?>" class="mx-3 my-2 rounded-5" width="100" height="100" alt="..logo">
+                                    <?php } ?>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo $privacy['name']; ?></h5>
+                                        <p class="card-text text-dark">
+                                            Learn the latest techniques to stay safe on <strong><?php echo $privacy['name']; ?></strong>. </p>
+                                        <a href="<?php echo $privacy['loginlink']; ?>" target="_blank" class="px-2 bg-danger text-white rounded-3">Login Here!</a>
+                                        <a href="<?php echo $privacy['privacylink']; ?>" target="_blank" class="ms-2 px-2 bg-primary text-white rounded-3">Privacy Setting</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
+
         </div>
 
     </main>

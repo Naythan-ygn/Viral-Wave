@@ -21,6 +21,15 @@ body {
     height: 100vh;
 }
 
+.background {
+    width: 100%;
+    height: 263px;
+    margin: 40px 0;
+    background: url('https://www.moxeemarketing.com/wp-content/uploads/2022/12/Logos-for-a-wide-range-of-social-media-platforms.jpg') no-repeat;
+    background-size: cover;
+    opacity: 0.8;
+}
+
 /* To change color of checkbox */
 .form-check-input {
     accent-color: #dc3545;
@@ -91,7 +100,9 @@ a.dropdown-item:hover {
 
 /* Responsive Navbar */
 @media (max-width: 991px) {
-    .info-bar, .search-bar-wrapper {
+
+    .info-bar,
+    .search-bar-wrapper {
         display: none
     }
 

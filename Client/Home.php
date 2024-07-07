@@ -245,45 +245,6 @@ $user = array(1, 2);
             </div>
         </section>
 
-        <!-- This is the Service Section -->
-        <section id="service">
-            <h3 class="fw-bold text-center pt-4 text-decoration-underline">Our Web Services</h3>
-            <div class="service">
-                <div class="card ser-card">
-                    <img src="https://www.aip-foundation.org/wp-content/uploads/2022/10/52441442818_45fc917a05_o-scaled.jpg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Interactive Safety Workshops</h5>
-                        <p class="card-text text-black">
-                            Interactive Safety Workshops are live or recorded sessions where teenagers can learn about
-                            various
-                            aspects of online
-                            safety through engaging and interactive content.</p>
-                    </div>
-                </div>
-                <div class="card ser-card">
-                    <img src="https://clinicaltrialsalliance.org.au/wp-content/uploads/2021/04/people-sitting-around-a-table-1024x683.jpeg" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Digital Safety Mentor Program</h5>
-                        <p class="card-text text-black">
-                            The Digital Safety Mentor Program pairs teenagers with trained mentors who provide
-                            personalized guidance
-                            on online
-                            safety. This program offers one-on-one mentoring sessions.</p>
-                    </div>
-                </div>
-                <div class="card ser-card">
-                    <img src="https://www.socialchamp.io/wp-content/uploads/2021/08/Feature-Banner_JulyOnwards-Q3-2021_1125x600_10.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Safe Social Media Challenge Platform</h5>
-                        <p class="card-text text-black">
-                            The Safe Social Media Challenge Platform is an engaging and interactive service where
-                            teenagers can participate in
-                            various challenges designed to promote online safety and digital literacy.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Content for Teen Brain and Social Media -->
         <section id="content">
             <div class="container-article">

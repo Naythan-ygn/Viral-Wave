@@ -364,12 +364,12 @@ $card = $result_img->fetch_assoc();
                         <hr class="mb-3">
 
 
-                        <!-- Retrieve the data from the database -->                        
+                        <!-- Retrieve the data from the database -->
                         <div class="row">
                             <div class="col-md-12">
                                 <h2>Parent Hub Content</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-secondary">
+                                    <table class="table table-bordered table-striped table-secondary">
                                         <tr>
                                             <th scope="row">#</th>
                                             <th>User Name</th>
