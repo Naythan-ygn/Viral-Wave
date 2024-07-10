@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/CSS/vwstyle.css">
+    <link rel="stylesheet" href="../CSS/vwstyle.css">
 
     <!-- Bootstrap Icon Cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">

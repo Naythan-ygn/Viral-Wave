@@ -45,7 +45,7 @@ if (isset($_POST['btnSignUp'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="/CSS/vwstyle.css">
+    <link rel="stylesheet" href="../CSS/vwstyle.css">
 
     <!-- Bootstrap Icon Cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -77,19 +77,19 @@ if (isset($_POST['btnSignUp'])) {
 
                                         <div class="col-md-6 mb-3">
                                             <label for="exampleInputtext1" class="form-label">Name *</label>
-                                            <input type="text" class="form-control" id="exampleInputtext1" name="name" required>
+                                            <input type="text" class="form-control" id="exampleInputtext1" name="name" placeholder="Enter Your Name" required>
                                         </div>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Email Address *</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" required>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter Your Email" required>
                                     </div>
 
                                     <div class="row">
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">New Password *</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Enter Password" required>
                                         </div>
 
                                         <div class="mb-3">

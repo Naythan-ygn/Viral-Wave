@@ -14,6 +14,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    cursor: url(../Images/games-geometry-dash-icon-kit-waves-cursor-pack.png), auto;
 }
 
 body {
@@ -83,6 +84,7 @@ body {
     color: #333;
     margin-bottom: 10px;
 }
+
 /* Newsletter Box */
 
 /* To change color of checkbox */
