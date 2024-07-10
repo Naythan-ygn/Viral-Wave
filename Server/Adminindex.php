@@ -197,14 +197,14 @@ $card = $result_img->fetch_assoc();
                     ?>
                     <i class='bx bxs-cog'></i>
                     <span class="text">
-                        <h3 class="text-danger"><?php echo $ser_no; ?></h3>
+                        <h3 class="text"><?php echo $ser_no; ?></h3>
                         <p>Services</p>
                     </span>
                 </li>
                 <li>
                     <i class='bx bxs-dollar-circle'></i>
                     <span class="text">
-                        <h3 class="text-danger">$2543</h3>
+                        <h3 class="text-success">$2543</h3>
                         <p>Total Sales</p>
                     </span>
                 </li>
@@ -259,7 +259,7 @@ $card = $result_img->fetch_assoc();
                         $sql_msg = "SELECT * FROM contact";
                         $result_msg = $conn->query($sql_msg);
                         while ($msg_row = $result_msg->fetch_assoc()) { ?>
-                            <li class="process">
+                            <li class="completed">
                                 <p><?php echo $msg_row['message']; ?></p>
                                 <i class='bx bx-dots-vertical-rounded'></i>
                             </li>

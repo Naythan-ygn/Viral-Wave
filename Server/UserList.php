@@ -106,6 +106,7 @@ if (isset($_GET['delete_id'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
 $sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $show = $result_img->fetch_assoc();

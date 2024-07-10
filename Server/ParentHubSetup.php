@@ -134,7 +134,7 @@ if (isset($_GET['delete_id'])) {
 $row_num = 1;
 
 // Fetch parent hub data
-$sql = "SELECT name, ph_id, title, description, image1, image2 FROM parenthub, user WHERE user_id = id";
+$sql = "SELECT name, ph_id, title, description, image1, image2, created_date FROM parenthub, user WHERE user_id = id";
 $result = $conn->query($sql);
 
 // Fetch user profile data
@@ -318,7 +318,7 @@ $card = $result_img->fetch_assoc();
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="formFile2" class="form-label">Upload Image 2*</label>
+                                        <label for="formFile2" class="form-label">Upload Image 2 *</label>
                                         <input class="form-control" name="phfile2" type="file" accept="image/*" id="formFile2">
                                     </div>
                                 </div>
@@ -377,6 +377,7 @@ $card = $result_img->fetch_assoc();
                                             <th>Description</th>
                                             <th>Image 1</th>
                                             <th>Image 2</th>
+                                            <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>
                                         <?php
@@ -393,6 +394,9 @@ $card = $result_img->fetch_assoc();
                                                 </td>
                                                 <td>
                                                     <img src="<?php echo "../Images/Safety_Media\\" . $row['image2'] ?>" alt="..." width="150" height="100">
+                                                </td>
+                                                <td>
+                                                    <?php echo date('M-d', strtotime($row['created_date'])); ?>
                                                 </td>
                                                 <td>
                                                     <!-- Edit Button -->

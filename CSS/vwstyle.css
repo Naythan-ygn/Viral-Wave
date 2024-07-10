@@ -30,6 +30,61 @@ body {
     opacity: 0.8;
 }
 
+/* Nesletter Box */
+.newsletter {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 25px;
+    color: #007bff;
+}
+
+.header p {
+    font-size: 1rem15px;
+    color: #6c757d;
+}
+
+.content h2 {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.content p {
+    font-size: 12px;
+    color: #333;
+}
+
+
+.image-placeholder {
+    text-align: center;
+}
+
+.image-placeholder img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.content-summary h3 {
+    font-size: 1.25rem;
+    color: #007bff;
+}
+
+.content-summary ul {
+    padding-left: 20px;
+}
+
+.content-summary ul li {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+/* Newsletter Box */
+
 /* To change color of checkbox */
 .form-check-input {
     accent-color: #dc3545;

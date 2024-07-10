@@ -60,7 +60,7 @@ if (isset($_POST['btnSignUp'])) {
         <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
             <div class="d-flex align-items-center justify-content-center w-100">
                 <div class="row justify-content-center w-100">
-                    <div class="col-md-8 col-lg-6 col-xxl-4">
+                    <div class="col-md-8">
                         <div class="card mb-0">
                             <div class="card-body">
                                 <a href="../index.php" class="text-nowrap logo-img text-center d-block py-3 w-100">
@@ -69,14 +69,16 @@ if (isset($_POST['btnSignUp'])) {
                                 <p class="text-center text-dark">Social Media Campaigns Ltd.</p>
                                 <form class="log" action="#" method="POST" enctype="multipart/form-data">
 
-                                    <div class="mb-3">
-                                        <label for="formFile" class="form-label">Upload Profile *</label>
-                                        <input class="form-control" type="file" id="formFile" accept="image/*" name="ufile">
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="formFile" class="form-label">Upload Profile *</label>
+                                            <input class="form-control" type="file" id="formFile" accept="image/*" name="ufile">
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label for="exampleInputtext1" class="form-label">Name *</label>
-                                        <input type="text" class="form-control" id="exampleInputtext1" name="name" required>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="exampleInputtext1" class="form-label">Name *</label>
+                                            <input type="text" class="form-control" id="exampleInputtext1" name="name" required>
+                                        </div>
                                     </div>
 
                                     <div class="mb-3">
@@ -84,30 +86,32 @@ if (isset($_POST['btnSignUp'])) {
                                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" required>
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label for="exampleInputPassword1" class="form-label">New Password *</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
-                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3">
+                                            <label for="exampleInputPassword1" class="form-label">New Password *</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label for="">Enter City *</label>
-                                        <select class="form-select" name="city" aria-label="Default select example">
+                                        <div class="mb-3">
+                                            <label for="">Enter City *</label>
+                                            <select class="form-select" name="city" aria-label="Default select example">
 
-                                            <option selected disabled hidden>--- Select City ---</option>
+                                                <option selected disabled hidden>--- Select City ---</option>
 
-                                            <option value="Bago">Bago</option>
-                                            <option value="Dawei">Dawei</option>
-                                            <option value="Hpa-An">Hpa-An</option>
-                                            <option value="Kalaw">Kalaw</option>
-                                            <option value="Kale">Kale</option>
-                                            <option value="Lashio">Lashio</option>
-                                            <option value="London">London</option>
-                                            <option value="Mandalay">Mandalay</option>
-                                            <option value="Mawlamyine">Mawlamyine</option>
-                                            <option value="Naypyidaw">Naypyidaw</option>
-                                            <option value="Yangon">Yangon</option>
+                                                <option value="Bago">Bago</option>
+                                                <option value="Dawei">Dawei</option>
+                                                <option value="Hpa-An">Hpa-An</option>
+                                                <option value="Kalaw">Kalaw</option>
+                                                <option value="Kale">Kale</option>
+                                                <option value="Lashio">Lashio</option>
+                                                <option value="London">London</option>
+                                                <option value="Mandalay">Mandalay</option>
+                                                <option value="Mawlamyine">Mawlamyine</option>
+                                                <option value="Naypyidaw">Naypyidaw</option>
+                                                <option value="Yangon">Yangon</option>
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -141,7 +145,12 @@ if (isset($_POST['btnSignUp'])) {
                                         </div>
                                     </div>
 
-
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" type="checkbox" autocomplete="off" id="flexCheckChecked">
+                                        <label class="form-check-label text-dark" for="flexCheckChecked">
+                                            I have read and agree to the <a href="#">privacy policy<a>
+                                        </label>
+                                    </div>
 
                                     <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" name="btnSignUp" value="sign up">
                                     <div class="d-flex align-items-center justify-content-center">

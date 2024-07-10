@@ -6,6 +6,110 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
+// Create a Newsletter
+if (isset($_POST['btnAdd'])) {
+
+    $title = $_POST['title'];
+    $desc = $_POST['description'];
+
+    // File upload Variable
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        // Read the file name
+        $newsImage = $_FILES['image']['name'];
+        // Read the file Path
+        $tmp_name = $_FILES['image']['tmp_name'];
+    }
+
+    // Use prepared statements with parameterized queries
+    $stmt = $conn->prepare("INSERT INTO newsletter (title, description, image1) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $title, $desc, $newsImage);
+
+    if ($stmt->execute()) {
+        echo "<script>alert('A Newsletter added successfully!');</script>";
+
+        // Upload the image to the Safety_Media folder
+        move_uploaded_file($tmp_name, "../Images/Safety_Media/" . $newsImage);
+
+        // Redirect to User List Page
+        header("Location: NewsletterSetup.php");
+    } else {
+        echo "<script>alert('Failed to add a newsletter!');</script>";
+    }
+
+    $stmt->close();
+}
+
+// Edit News Articles
+// the id of the row will be selected (and show in url) when Edit button is clicked
+if (isset($_GET['edit_id'])) {
+    $Eid = $_GET['edit_id'];
+    $sql_show = "SELECT * FROM newsletter WHERE id = '$Eid'";
+    $editResult = $conn->query($sql_show);
+    $cont = $editResult->fetch_assoc();
+}
+
+// the related data row will be updated when Update button is clicked
+if (isset($_POST['btnEdit'])) {
+
+    $Eid = $_POST['hid'];
+    $title = $_POST['title'];
+    $desc = $_POST['description'];
+
+    // File upload Variable
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        // Validate the file type
+        $imageInfo = getimagesize($_FILES['image']['tmp_name']);
+        if ($imageInfo !== false) {
+            // Delete the existing image file from the server
+            unlink("../Images/Safety_Media/" . $cont['image1']);
+
+            // Upload the new image file to the server
+            $newsImage = $_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], "../Images/Safety_Media/" . $newsImage);
+        } else {
+            echo "<script>alert('Invalid image file.');</script>";
+            return;
+        }
+    }
+    
+    // Prepare the SQL update statement
+    $stmt = $conn->prepare("UPDATE newsletter SET title = ?, description = ?, image1 = ? WHERE id = ?");
+
+    // Bind the parameters to the prepared statement
+    $stmt->bind_param("sssi", $title, $desc, $newsImage, $Eid);
+
+
+    // Execute the prepared statement
+    if ($stmt->execute()) {
+        echo "<script>alert('Newsletter Updated');</script>";
+
+        // Redirect to User List Page
+        header("Location: NewsletterSetup.php");
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the prepared statement
+    $stmt->close();
+}
+
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql = "DELETE FROM newsletter WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Deleted Successfully";
+        header("Location: NewsletterSetup.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+$sql_news = "SELECT * FROM newsletter";
+$result_news = $conn->query($sql_news);
+
 $sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
@@ -164,6 +268,152 @@ $card = $result_img->fetch_assoc();
                             <a class="active" href="#">Newsletter Setup</a>
                         </li>
                     </ul>
+                </div>
+            </div>
+
+            <!-- Newsletter Form Setup -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="#" method="POST" class="sticky-top" enctype="multipart/form-data">
+
+                            <h3>Create a Newsletter</h3>
+
+                            <!-- Newsletter ID -->
+                             <input type="hidden" name="hid" value="<?php echo $cont['id']; ?>">
+
+                            <!-- Newsletter Title -->
+                            <div class="form-group mt-4">
+                                <label for="title">Newsletter Title *</label>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" value="<?php echo (isset($cont['title']) ? $cont['title'] : ""); ?>" required>
+                            </div>
+
+                            <!-- Newsletter Description -->
+                            <div class="form-group mt-4">
+                                <label for="description">Newsletter Description *</label>
+                                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Write description ..." required><?php echo (isset($cont['description']) ? $cont['description'] : ""); ?></textarea>
+                            </div>
+
+                            <!-- Upload Newsletter Image -->
+                            <div class="form-group mt-4">
+                                <label for="image">Newsletter Image *</label>
+                                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            </div>
+
+                            <div class="col-md-12 form-group mt-4">
+                                <?php if (isset($_GET['edit_id'])) {
+                                ?>
+                                    <!-- UPdate Button -->
+                                    <input type="submit" value="Update" name="btnEdit" class="btn btn-danger rounded-4 py-2 px-4">
+                                    <span class="submitting"></span>
+
+                                    <!-- Cancel Button -->
+                                    <a href="NewsletterSetup.php">
+                                        <input type="button" class="btn btn-secondary rounded-4 py-2 px-5 ms-4" value="Cancel">
+                                        <span class="submitting"></span>
+                                    </a>
+                                <?php
+                                } else {
+                                ?>
+                                    <!-- Save Button -->
+                                    <input type="submit" value="Save" name="btnAdd" class="btn btn-danger rounded-4 py-2 px-4">
+                                    <span class="submitting"></span>
+
+                                    <!-- Cancel Button -->
+                                    <input type="reset" class="btn btn-secondary rounded-4 py-2 px-4 ms-4" value="Cancel">
+                                    <span class="submitting"></span>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <!-- Newsletter Content List -->
+                    <?php
+                    if (!(isset($_GET['edit_id']))) { ?>
+                        <div class="mb-3 col-md-6">
+                            <h3>
+                                Contents
+                            </h3>
+
+                            <div class="d-flex justify-content-center align-items-center mt-4">
+                                <div class="col-md-8">
+                                    <?php
+                                    while ($cont = $result_news->fetch_assoc()) {
+                                    ?>
+                                        <div class="card news-card bg-light border border-bottom border-2 mb-3">
+                                            <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" class="card-img-top text-dark" alt="...">
+
+                                            <div class="card-body mt-4 mx-3">
+
+                                                <h5 class="card-title text-dark">
+                                                    <strong>Article :</strong>
+                                                    <?php echo $cont['title']; ?>
+                                                </h5>
+
+                                                <p class="card-text text-dark desc mt-3">
+                                                    &emsp;&emsp;
+                                                    <?php echo $cont['description']; ?>
+                                                </p>
+                                                <p class="card-text mb-3">
+                                                    <!-- This content will show when did it published -->
+                                                    <small class="text-body-secondary">
+                                                        <?php
+
+                                                        // Set timezone to Bangkok to get accurate time difference 
+                                                        // Since Myanmar timezone isn't available in php server, Closest timezone, Bangkok, has been chosen
+                                                        date_default_timezone_set("Asia/Bangkok");
+
+                                                        // Get the time difference between current time and published time
+                                                        $published_time = strtotime($cont['publishdate']);
+                                                        $cur = strtotime(date('Y-m-d H:i:s'));
+
+                                                        $diff = $cur - $published_time;
+
+                                                        $days = floor($diff / (60 * 60 * 24));
+                                                        $hours = floor(($diff % (60 * 60 * 24)) / (60 * 60));
+                                                        $minutes = floor(($diff % (60 * 60)) / 60);
+                                                        $seconds = floor($diff % 60);
+
+                                                        if ($days > 0) {
+                                                            echo "Published <strong>$days</strong> days ago.";
+                                                        } else if ($hours > 0) {
+                                                            echo "Published <strong>$hours</strong> hours ago.";
+                                                        } else if ($minutes > 0) {
+                                                            echo "Published <strong>$minutes</strong> minutes ago.";
+                                                        } else if ($seconds > 0) {
+                                                            echo "Published <strong>$seconds</strong> seconds ago";
+                                                        }
+                                                        ?>
+                                                    </small>
+                                                </p>
+                                            </div>
+
+                                            <div class="card-footer border border-top text-body-secondary d-flex">
+                                                <!-- Edit Button -->
+                                                <a class="btn btn-success col-md-6 rounded-0" role="button" href="NewsletterSetup.php?edit_id=<?php echo $cont['id']; ?>">
+                                                    <i class="fi fi-rr-edit"></i>
+                                                    &nbsp;Edit
+                                                </a>
+
+                                                <!-- Delete Button -->
+                                                <a class="btn btn-danger col-md-6 rounded-0" role="button" href="NewsletterSetup.php?delete_id=<?php echo $cont['id']; ?>">
+                                                    <i class="fi fi-rr-trash"></i>
+                                                    &nbsp;Delete
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    <?php
+                                    } ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    <?php } ?>
                 </div>
 
             </div>

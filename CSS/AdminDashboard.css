@@ -302,6 +302,12 @@ body {
     align-items: center;
 }
 
+/* Newsletter */
+.news-card .container-fluid .card-body p.card-text.desc {
+    font-size: 13px;
+    text-align: justify;
+}
+
 /* Profile DropDown */
 .card {
     border-radius: 8px;
@@ -564,11 +570,11 @@ body {
     font-weight: 700;
 }
 
-#content main .table-data .order table tr td .status .completed {
+#content main .table-data .order table tr td .status.completed {
     background: var(--green);
 }
 
-#content main .table-data .order table tr td .status .process {
+#content main .table-data .order table tr td .status.process {
     background: var(--yellow);
 }
 
@@ -602,7 +608,7 @@ body {
 }
 
 #content main .table-data .todo .todo-list li.completed {
-    border-left: 10px solid var(--blue);
+    border-left: 10px solid var(--red);
 }
 
 #content main .table-data .todo .todo-list li.not-completed {

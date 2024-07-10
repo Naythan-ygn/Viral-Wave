@@ -6,19 +6,9 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-// Send the message to Admins
-if (isset($_POST['btnSubmit'])) {
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $msg = $_POST['message'];
-
-    $sql = "INSERT INTO contact (firstname, lastname, email, message) VALUES ('$fname', '$lname', '$email', '$msg')";
-    if (mysqli_query($conn, $sql)) {
-        header("Location: Contact.php");
-        echo "Message send successfully.";
-    }
-}
+$sql_news = "SELECT * FROM newsletter ORDER BY id";
+$news_result = $conn->query($sql_news);
+$cont = $news_result->fetch_assoc();
 
 $sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
@@ -44,8 +34,7 @@ $user = array(1, 2);
     <!-- Bootstrap Icon Cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
-    <!-- Bootstrap CSS v5.2.1 -->
+    <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
 
@@ -125,7 +114,7 @@ $user = array(1, 2);
                         <div class="container-fluid">
 
                             <!-- This is the Logo -->
-                            <a class="navbar-brand" href="Home.php">
+                            <a class="navbar-brand" href="#">
                                 <img src="../Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 
@@ -151,7 +140,7 @@ $user = array(1, 2);
                                     <ul class="navbar-nav justify-content-center align-items-center fs-8 flex-grow-1 pe-3">
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Home.php">Home</a>
+                                            <a id="tcolor" class="nav-link active" aria-current="page" href="Home.php">Home</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
@@ -159,16 +148,19 @@ $user = array(1, 2);
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social Media Apps</a>
+                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social Media
+                                                Apps</a>
                                         </li>
 
+                                        <!-- Free and Standard Users do not have access to this page -->
                                         <?php
                                         if (($card['user_type'] <> $user[1]) && ($card['user_type'] <> $user[0])) {
                                         ?>
                                             <li class="nav-item mx-2">
                                                 <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
                                             </li>
-                                        <?php } ?>
+                                        <?php
+                                        }  ?>
 
                                         <!-- Only Free users do not have access to this page -->
                                         <?php
@@ -226,102 +218,70 @@ $user = array(1, 2);
             </div>
         </div>
     </header>
+
     <main>
-        <!-- This is the About Us Section -->
-        <section id="Contactus">
-            <div class="container mb-5">
-                <div class="row align-items-stretch no-gutters contact-wrap">
-                    <div class="col-md-6">
-
-                        <div class="form h-100">
-                            <h3>Contact Us from HERE!</h3>
-                            <form class="mb-5" method="POST" id="contactForm" name="contactForm" action="#">
-                                <div class="row">
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="fname" class="col-form-label">First Name *</label>
-                                        <input type="text" class="form-control" name="fname" id="fname" placeholder="Your First name" required>
-                                    </div>
-                                    <div class="col-md-6 form-group mb-3">
-                                        <label for="lname" class="col-form-label">Last Name *</label>
-                                        <input type="text" class="form-control" name="lname" id="lname" placeholder="Your Last name" required>
-                                    </div>
+        <div class="container mt-5 border border-2 my-3 py-3">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="newsletter">
+                        <!-- Header Section -->
+                        <div class="row header">
+                            <div class="col-md-12 text-center">
+                                <h1>Monthly Newsletter</h1>
+                                <p class="text-dark"><strong>Issue #123 | </strong> <?php echo date('M Y', strtotime($cont['publishdate'])); ?></p>
+                            </div>
+                        </div>
+                        <hr>
+                        <!-- Content Section -->
+                        <?php
+                        while ($cont = $news_result->fetch_assoc()) {
+                        ?>
+                            <div class="row content d-flex">
+                                <div class="col-md-6">
+                                    <h2><?php echo $cont['title']; ?></h2>
+                                    <p class="text-dark"><?php echo $cont['description']; ?></p>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 form-group mb-3">
-                                        <label for="" class="col-form-label">Email *</label>
-                                        <input type="email" class="form-control" name="email" id="email" value="<?php echo $email ?>" readonly>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 form-group mb-3">
-                                        <label for="message" class="col-form-label">Message *</label>
-                                        <textarea class="form-control" name="message" id="message" cols="30" rows="3" placeholder="Write your message" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 form-group mt-4">
-                                        <button class="border-0 ">
-                                            <input type="submit" name="btnSubmit" value="Send Message" class="btn btn-danger rounded-4 py-2 px-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        </button>
-                                    </div>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Message Sent Successfully</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Thanks for the feedback. We'll reply to you as soon as possible.
-                                                </div>
-                                            </div>
+                                <?php
+                                if (!empty($cont['image1'])) {
+                                ?>
+                                    <div class="col-md-6">
+                                        <div class="image-placeholder">
+                                            <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" alt="Placeholder Image" class="img-fluid" width="200" height="200">
                                         </div>
                                     </div>
-                                </div>
-                            </form>
+                                <?php } ?>
+                            </div>
+                        <?php
+                        } ?>
+                        <div class="row">
+                            <blockquote class="blockquote bg-secondary p-3 mt-5">
+                                <p class="mb-0 text-light">"Thank you for being a part of our community. Together, we can create a safer online environment for everyone."</p>
+                            </blockquote>
 
+                            <div class="content-summary mt-5">
+                                <h3>What Will Be Inside Of The Newsletter</h3>
+                                <ul>
+                                    <li>Latest news and updates on social media safety</li>
+                                    <li>Featured articles and expert advice</li>
+                                    <li>Tips and tricks for safe online behavior</li>
+                                </ul>
+                            </div>
+
+                            <div class="footer mt-5">
+                                <p class="text-dark text-end fs-5 fw-semibold">
+                                    Stay safe and see you next week!
+                                    <br>
+                                    Best regards,<br>
+                                    The SMC Ltd. Team
+                                </p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1350.3765435649884!2d96.14146588512875!3d16.804432573562547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb5b34c3e1e7%3A0x3868066c7b2c32d3!2sStrategy%20First%20University%20-%20Teaching%20Centre%202%20(UWisara)!5e0!3m2!1sen!2smm!4v1719323267399!5m2!1sen!2smm" width="100%" height="100%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="py-2"></iframe>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- This is for the Sponsorship. -->
-            <div class="sponsorship mb-3">
-                <h3 class="text-center fw-bold text-decoration-underline">Meet Our Sponsors</h3>
 
-                <div class="logos">
-                    <div class="long-slide">
-                        <img src="https://purepng.com/public/uploads/large/purepng.com-ibm-logologobrand-logoiconslogos-251519939176ka7y8.png" alt="IBM">
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/1280px-Cisco_logo_blue_2016.svg.png" alt="CISCO">
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/F-Secure_Logo.png/1200px-F-Secure_Logo.png" alt="F-SECURE">
-
-                        <img src="https://companieslogo.com/img/orig/NVDA_BIG.D-ffbdc3fe.png?t=1633073585" alt="Nvidia">
-
-                        <img src="../Images/microsoft_PNG16.png" alt="Microsoft">
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Blackberry_Logo.svg/2560px-Blackberry_Logo.svg.png" class="bg-white" alt="BlackBerry">
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Logo_da_Rolex.png/2560px-Logo_da_Rolex.png" alt="ROLEX">
-
-                        <img src="https://seeklogo.com/images/R/rolls-royce-logo-24811DB90B-seeklogo.com.png" class="bg-white" alt="RR">
-
-                        <img src="https://i0.wp.com/precisiondriversunlimited.com/wp-content/uploads/2018/03/toyota-logo-free-download-png.png?fit=1200%2C852&ssl=1&w=640" alt="toyota" height="100px">
-
-                        <img src="https://pngimg.com/uploads/bmw_logo/bmw_logo_PNG19711.png" alt="bmw">
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
@@ -384,12 +344,15 @@ $user = array(1, 2);
                 </span>
             </div>
         </section>
+
     </footer>
+
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
+    <!-- Main JS -->
     <script src="../JS/script.js"></script>
 </body>
 

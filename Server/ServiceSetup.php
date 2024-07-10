@@ -86,6 +86,20 @@ if (isset($_POST['btnEdit'])) {
     }
 }
 
+// the related data row will be deleted when Delete button is clicked
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql = "DELETE FROM services WHERE id = $id";
+    $result = $conn->query($sql);
+
+    if ($result) {
+        echo "Deleted Successfully";
+        header("Location: ServiceSetup.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
 $row_num = 1;
 
 $sql = "SELECT * FROM services";
@@ -261,7 +275,7 @@ $card = $result_img->fetch_assoc();
 
                         <!-- Service Setup Form -->
                         <form action="#" method="POST" enctype="multipart/form-data">
-                            
+
                             <div class="row">
                                 <div class="col-md-4 mb-4">
                                     <!-- Upload Service Image -->

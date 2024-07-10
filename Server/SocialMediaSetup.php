@@ -268,8 +268,8 @@ $row_num = 1;
 
                 <!-- Social Media Setup Form -->
                 <div class="container-fluid">
-                    <div class="row sticky-top" id="form-setup">
-                        <div class="col-md-12 bg-white py-3 rounded-3">
+                    <div class="row" id="form-setup">
+                        <div class="col-md-12 py-3 rounded-3">
                             <h3>Setup Form</h3>
                             <form action="#" class="mt-3" method="POST" enctype="multipart/form-data">
                                 <div class="row">
@@ -329,7 +329,7 @@ $row_num = 1;
 
                     <!-- Social Media List -->
                     <div class="col-md-12" data-bs-spy="scroll" data-bs-target="#form-setup" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
-                        <div class="table-responsive">
+                        <div class="table-responsive overflow-auto">
                             <?php
                             if ($sql_output->num_rows > 0) {
                             ?>
@@ -350,9 +350,9 @@ $row_num = 1;
                                             <?php $row_num++; ?>
                                             <td>
                                                 <?php if (empty($row['logo'])) { ?>
-                                                    <img src="../Images/Default_image.png" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                                    <img src="../Images/Default_image.png" class="mx-4 mt-2 rounded-5" width="80" height="80" alt="image">
                                                 <?php } else { ?>
-                                                    <img src="<?php echo "../Images/Safety_Media\\" . $row['logo']; ?>" class="mx-4 mt-2 rounded-5" width="100" height="100" alt="image">
+                                                    <img src="<?php echo "../Images/Safety_Media\\" . $row['logo']; ?>" class="mx-4 mt-2 rounded-5" width="80" height="80" alt="image">
                                                 <?php } ?>
                                             </td>
                                             <td><?php echo $row['name']; ?></td>

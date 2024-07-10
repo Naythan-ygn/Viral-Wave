@@ -159,16 +159,32 @@ $user = array(1, 2);
                                             </li>
                                         <?php } ?>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
-                                        </li>
+                                        <!-- Only Free users do not have access to this page -->
+                                        <?php
+                                        if (($card['user_type'] <> $user[0])) {
+                                        ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="Newsletter.php">Newsletter</a>
+                                            </li>
+                                        <?php
+                                        }  ?>
 
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Information.php">Information</a>
-                                        </li>
-
-                                        <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Contact.php">Contact Us</a>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Other</a>
+                                            <ul class="dropdown-menu">
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
+                                                </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="Information.php">Information</a>
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="Contact.php">Contact Us</a>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
 
