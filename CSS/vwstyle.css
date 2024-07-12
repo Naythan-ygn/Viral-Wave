@@ -22,6 +22,15 @@ body {
     height: 100vh;
 }
 
+p.justify-text{
+    text-align: justify;
+    color: #676767;
+}
+
+.article {
+    border-bottom: solid 1px #000;
+}
+
 .background {
     width: 100%;
     height: 263px;

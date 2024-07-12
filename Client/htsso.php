@@ -16,10 +16,10 @@ $user = array(1, 2);
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
-
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="../CSS/vwstyle.css">
@@ -30,8 +30,7 @@ $user = array(1, 2);
     <!-- Bootstrap Icon Cdn -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
-    <!-- Bootstrap CSS v5.2.1 -->
+    <!-- Bootstrap CSS v5.3.2 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
 
@@ -111,7 +110,7 @@ $user = array(1, 2);
                         <div class="container-fluid">
 
                             <!-- This is the Logo -->
-                            <a class="navbar-brand" href="Home.php">
+                            <a class="navbar-brand" href="#">
                                 <img src="../Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 
@@ -137,7 +136,7 @@ $user = array(1, 2);
                                     <ul class="navbar-nav justify-content-center align-items-center fs-8 flex-grow-1 pe-3">
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="Home.php">Home</a>
+                                            <a id="tcolor" class="nav-link" aria-current="page" href="Home.php">Home</a>
                                         </li>
 
                                         <li class="nav-item mx-2">
@@ -145,15 +144,19 @@ $user = array(1, 2);
                                         </li>
 
                                         <li class="nav-item mx-2">
-                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social
-                                                Media Apps</a>
+                                            <a id="tcolor" class="nav-link" href="SocialMediaApp.php">Social Media
+                                                Apps</a>
                                         </li>
 
-                                        <?php if (($card['user_type'] <> $user[1]) && ($card['user_type'] <> $user[0])) { ?>
+                                        <?php
+                                        if (($card['user_type'] <> $user[1]) && ($card['user_type'] <> $user[0])) {
+                                        ?>
                                             <li class="nav-item mx-2">
                                                 <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
                                             </li>
-                                        <?php } ?>
+                                        <?php
+                                        }  ?>
+
 
                                         <!-- Only Free users do not have access to this page -->
                                         <?php
@@ -175,7 +178,7 @@ $user = array(1, 2);
                                                     <a id="tcolor" class="nav-link" href="Information.php">Information</a>
                                                 </li>
                                                 <li class="nav-item mx-2">
-                                                    <a id="tcolor" class="nav-link" href="htsso.php">How to Stay Safe Online</a>
+                                                    <a id="tcolor" class="nav-link active" href="#">How to Stay Safe Online</a>
                                                 </li>
                                                 <li>
                                                     <hr class="dropdown-divider">
@@ -216,32 +219,96 @@ $user = array(1, 2);
     </header>
 
     <main>
-        <!-- This is for the About Us -->
-        <section id="aboutus">
-            <div class="container about-us">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <img src="https://img.freepik.com/premium-photo/group-men-suits-posing-picture_1072138-2824.jpg" alt="About Us Image">
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="content">
-                            <h2 class="fs-1 text-decoration-underline fw-bold text-center mb-4">About Us</h2>
-                            <div class="mission">
-                                <h3>Mission</h3>
-                                <p class="text-dark">At Social Media Campaigns Ltd. (SMC), our mission is to empower teenagers with the knowledge and
-                                    tools they need to navigate the digital world safely and responsibly through <strong>Viral Wave Platform</strong>. We are committed to
-                                    creating a supportive and educational online environment where young people can learn about the
-                                    potential risks and rewards of social media. Through our resources, we aim to promote positive
-                                    digital citizenship and foster a community that prioritizes mental and emotional well-being.</p>
+        <section id="content">
+            <div class="container-lg">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h2 class="fw-bold">
+                            How to Stay Safe Online: <br>
+                        </h2>
+                        <span class="text-secondary fs-4">Essential Tips for Teenagers</span>
+                        <!-- How to stay safe Online Tips and Tricks Articles -->
+                        <div id="carouselExampleAutoplaying" class="carousel slide mb-3" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="../Images/protect_per_info.jpeg" class="d-block w-100 rounded-3" height="350" alt="Img1">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="../Images/Avoid_phising.jpg" class="d-block w-100 rounded-3" height="350" alt="Img2">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="../Images/staysafe.jfif" class="d-block w-100 rounded-3" height="350" alt="Img3">
+                                </div>
                             </div>
-                            <div class="vision">
-                                <h3>Vision</h3>
-                                <p class="text-dark">Our vision is a world where teenagers can confidently and safely use social media to enhance
-                                    their lives. We envision a future where digital literacy and safe online practices are integral
-                                    parts of every young person's education. By providing top-notch resources, guidance, and
-                                    support, SMC strives to become the leading authority in social media safety for teens, ensuring
-                                    they have the skills and knowledge to thrive in an increasingly digital society.</p>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <div class="container-fluid mb-3">
+                            <div class="row p-3 bg-danger text-danger bg-opacity-10 border border-danger border-bottom-0 rounded-top">
+                                <div class="col-md-12">
+                                    <h4>
+                                        Stay Safe on Any Social Media Platform
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="row p-3 bg-secondary bg-opacity-10 border border-dark border-top-0 rounded-bottom">
+                                <div class="col-md-6">
+                                    <!-- Article 1 -->
+                                    <div class="article">
+                                        <p class="text-dark"><strong>
+                                                Protect Your Personal Information
+                                            </strong></p>
+                                        <p class="justify-text">
+                                            &emsp; Your personal information is valuable, and it's important to keep it private. Avoid sharing sensitive details such as your home address, phone number, and financial information online. Be cautious about what you post on social media, as even seemingly harmless information can be used to piece together your identity.
+                                        </p>
+                                    </div>
+                                    <div class="article">
+                                        <p class="text-dark"><strong>
+                                                Create Strong, Unique Passwords
+                                            </strong></p>
+                                        <p class="justify-text">
+                                            &emsp; Using strong and unique passwords for your online accounts is one of the most effective ways to protect yourself from hacking. Avoid using easily guessable passwords such as "123456" or "password."
+                                        </p>
+                                    </div>
+                                    <div class="article">
+                                        <p class="text-dark"><strong>
+                                                Be Cautious with Online Friends
+                                            </strong></p>
+                                        <p class="justify-text">
+                                            &emsp; While the internet allows you to connect with people from all over the world, it's important to be cautious about forming relationships with strangers online. Not everyone may have good intentions.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- Article 2 -->
+                                    <div class="article">
+                                        <p class="text-dark"><strong>
+                                                Monitor Your Digital Footprint
+                                            </strong></p>
+                                        <p class="justify-text">
+                                            &emsp; Everything you do online leaves a digital footprint, which can impact your reputation and future opportunities. Be mindful of your online activities and how they reflect on you.
+                                        </p>
+                                    </div>
+                                    <div class="article my-3    ">
+                                        <img src="../Images/stayTip.jpg" class="img-fluid" alt="image">
+                                    </div>
+                                    <div class="article">
+                                        <p class="text-dark"><strong>
+                                                Stay Safe During Live Streams
+                                            </strong></p>
+                                        <p class="justify-text">
+                                            &emsp; Live streaming can be a fun way to share your experiences and interact with others in real time. However, it's important to take steps to protect your privacy and safety during live broadcasts.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

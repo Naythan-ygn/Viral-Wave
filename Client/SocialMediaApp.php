@@ -178,6 +178,9 @@ $user = array(1, 2);
                                                 <li class="nav-item mx-2">
                                                     <a id="tcolor" class="nav-link" href="Information.php">Information</a>
                                                 </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="htsso.php">How to Stay Safe Online</a>
+                                                </li>
                                                 <li>
                                                     <hr class="dropdown-divider">
                                                 </li>
