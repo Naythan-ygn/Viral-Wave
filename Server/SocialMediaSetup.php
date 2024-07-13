@@ -20,7 +20,7 @@ if (isset($_POST['btnSave'])) {
         $tmp_name = $_FILES['smfile']['tmp_name'];
     }
 
-    $insert_sql = "INSERT INTO socialmedia (name, loginlink, privacylink, logo) VALUES ('$name', '$login', '$privacy', '$smProfile')";
+    $insert_sql = "INSERT INTO popular_social_apps (name, loginlink, privacylink, logo) VALUES ('$name', '$login', '$privacy', '$smProfile')";
     $result_sql = $conn->query($insert_sql);
 
     if ($result_sql) {
@@ -40,7 +40,7 @@ if (isset($_POST['btnSave'])) {
 // the id of the row will be selected (and show in url) when Edit button is clicked
 if (isset($_GET['edit_id'])) {
     $Eid = $_GET['edit_id'];
-    $sql_select = "SELECT * FROM socialmedia WHERE id = '$Eid'";
+    $sql_select = "SELECT * FROM popular_social_apps WHERE id = '$Eid'";
     $editResult = $conn->query($sql_select);
     $row = $editResult->fetch_assoc();
 }
@@ -61,9 +61,9 @@ if (isset($_POST['btnEdit'])) {
     }
 
     if (!empty($smProfile)) {
-        $sql_update = "UPDATE socialmedia SET name = '$name', loginlink = '$login', privacylink = '$privacy', logo = '$smProfile' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE popular_social_apps SET name = '$name', loginlink = '$login', privacylink = '$privacy', logo = '$smProfile' WHERE id = " . $_GET['edit_id'];
     } else {
-        $sql_update = "UPDATE socialmedia SET name = '$name', loginlink = '$login', privacylink = '$privacy' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE popular_social_apps SET name = '$name', loginlink = '$login', privacylink = '$privacy' WHERE id = " . $_GET['edit_id'];
     }
     $result_query = $conn->query($sql_update);
 
@@ -88,7 +88,7 @@ if (isset($_POST['btnEdit'])) {
 // the related data row will be deleted when Delete button is clicked
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql = "DELETE FROM socialmedia WHERE id = $id";
+    $sql = "DELETE FROM popular_social_apps WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -100,10 +100,10 @@ if (isset($_GET['delete_id'])) {
 }
 
 // Show Social Media Campaigns
-$sql_show = "SELECT * FROM socialmedia";
+$sql_show = "SELECT * FROM popular_social_apps";
 $sql_output = $conn->query($sql_show);
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 
@@ -191,13 +191,6 @@ $row_num = 1;
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Functional is not supported -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="/Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -222,12 +215,23 @@ $row_num = 1;
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
+
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

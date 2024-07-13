@@ -146,9 +146,9 @@ if (isset($_POST['btnSignUp'])) {
                                     </div>
 
                                     <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" autocomplete="off" id="flexCheckChecked">
+                                        <input class="form-check-input" type="checkbox" autocomplete="off" id="flexCheckChecked" required>
                                         <label class="form-check-label text-dark" for="flexCheckChecked">
-                                            I have read and agree to the <a href="#">privacy policy<a>
+                                            I have read and agree to the <a href="https://www.legislation.gov.uk/" class="text-danger text-decoration-underline" target="_blank">privacy policy<a>
                                         </label>
                                     </div>
 

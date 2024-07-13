@@ -7,17 +7,17 @@ session_start();
 $email = $_SESSION['email'];
 
 
-$sql_show = "SELECT * FROM contact";
+$sql_show = "SELECT * FROM user_inquiries";
 $result = mysqli_query($conn, $sql_show);
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 
 // the related data row will be deleted when Delete button is clicked
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql = "DELETE FROM contact WHERE id = $id";
+    $sql = "DELETE FROM user_inquiries WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -111,13 +111,6 @@ $row_num = 1;
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="../Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -142,12 +135,22 @@ $row_num = 1;
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
 
             <!-- User Account -->
             <div class="dropdown open">

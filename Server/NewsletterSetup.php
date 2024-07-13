@@ -21,7 +21,7 @@ if (isset($_POST['btnAdd'])) {
     }
 
     // Use prepared statements with parameterized queries
-    $stmt = $conn->prepare("INSERT INTO newsletter (title, description, image1) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO monthly_newsletter (title, description, image1) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $title, $desc, $newsImage);
 
     if ($stmt->execute()) {
@@ -43,7 +43,7 @@ if (isset($_POST['btnAdd'])) {
 // the id of the row will be selected (and show in url) when Edit button is clicked
 if (isset($_GET['edit_id'])) {
     $Eid = $_GET['edit_id'];
-    $sql_show = "SELECT * FROM newsletter WHERE id = '$Eid'";
+    $sql_show = "SELECT * FROM monthly_newsletter WHERE id = '$Eid'";
     $editResult = $conn->query($sql_show);
     $cont = $editResult->fetch_assoc();
 }
@@ -59,6 +59,8 @@ if (isset($_POST['btnEdit'])) {
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         // Validate the file type
         $imageInfo = getimagesize($_FILES['image']['tmp_name']);
+
+
         if ($imageInfo !== false) {
             // Delete the existing image file from the server
             unlink("../Images/Safety_Media/" . $cont['image1']);
@@ -70,10 +72,13 @@ if (isset($_POST['btnEdit'])) {
             echo "<script>alert('Invalid image file.');</script>";
             return;
         }
+    } else {
+        // If no new image is uploaded, retain the existing image file
+        $newsImage = $cont['image1'];
     }
-    
+
     // Prepare the SQL update statement
-    $stmt = $conn->prepare("UPDATE newsletter SET title = ?, description = ?, image1 = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE monthly_newsletter SET title = ?, description = ?, image1 = ? WHERE id = ?");
 
     // Bind the parameters to the prepared statement
     $stmt->bind_param("sssi", $title, $desc, $newsImage, $Eid);
@@ -96,7 +101,7 @@ if (isset($_POST['btnEdit'])) {
 // the related data row will be deleted when Delete button is clicked
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql = "DELETE FROM newsletter WHERE id = $id";
+    $sql = "DELETE FROM monthly_newsletter WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -107,10 +112,10 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-$sql_news = "SELECT * FROM newsletter";
+$sql_news = "SELECT * FROM monthly_newsletter";
 $result_news = $conn->query($sql_news);
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 ?>
@@ -195,13 +200,6 @@ $card = $result_img->fetch_assoc();
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="../Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -226,12 +224,23 @@ $card = $result_img->fetch_assoc();
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+            
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
+
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -280,7 +289,7 @@ $card = $result_img->fetch_assoc();
                             <h3>Create a Newsletter</h3>
 
                             <!-- Newsletter ID -->
-                             <input type="hidden" name="hid" value="<?php echo $cont['id']; ?>">
+                            <input type="hidden" name="hid" value="<?php echo $cont['id']; ?>">
 
                             <!-- Newsletter Title -->
                             <div class="form-group mt-4">

@@ -21,7 +21,7 @@ if (isset($_POST['btnCreate'])) {
         $tmp_name = $_FILES['image']['tmp_name'];
     }
 
-    $insert_sql = "INSERT INTO services (description, information, price, image) VALUES ('$desc','$information','$price', '$ser_image')";
+    $insert_sql = "INSERT INTO web_services (description, information, price, image) VALUES ('$desc','$information','$price', '$ser_image')";
     $result_sql = $conn->query($insert_sql);
 
     if ($result_sql) {
@@ -41,7 +41,7 @@ if (isset($_POST['btnCreate'])) {
 // the id of the row will be selected (and show in url) when Edit button is clicked
 if (isset($_GET['edit_id'])) {
     $Eid = $_GET['edit_id'];
-    $sql_show = "SELECT * FROM services WHERE id = '$Eid'";
+    $sql_show = "SELECT * FROM web_services WHERE id = '$Eid'";
     $editResult = $conn->query($sql_show);
     $row = $editResult->fetch_assoc();
 }
@@ -62,9 +62,9 @@ if (isset($_POST['btnEdit'])) {
     }
 
     if (!empty($ser_image)) {
-        $sql_update = "UPDATE services SET description = '$desc', information = '$information', price = '$price', image = '$ser_image' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE web_services SET description = '$desc', information = '$information', price = '$price', image = '$ser_image' WHERE id = " . $_GET['edit_id'];
     } else {
-        $sql_update = "UPDATE services SET description = '$desc', information = '$information', price = '$price' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE web_services SET description = '$desc', information = '$information', price = '$price' WHERE id = " . $_GET['edit_id'];
     }
     $result_query = $conn->query($sql_update);
 
@@ -89,7 +89,7 @@ if (isset($_POST['btnEdit'])) {
 // the related data row will be deleted when Delete button is clicked
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql = "DELETE FROM services WHERE id = $id";
+    $sql = "DELETE FROM web_services WHERE id = $id";
     $result = $conn->query($sql);
 
     if ($result) {
@@ -102,10 +102,10 @@ if (isset($_GET['delete_id'])) {
 
 $row_num = 1;
 
-$sql = "SELECT * FROM services";
+$sql = "SELECT * FROM web_services";
 $result = $conn->query($sql);
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 ?>
@@ -191,13 +191,6 @@ $card = $result_img->fetch_assoc();
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Settings' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="/Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -222,12 +215,23 @@ $card = $result_img->fetch_assoc();
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
+
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

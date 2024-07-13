@@ -1,5 +1,23 @@
 <!doctype html>
 <html lang="en">
+<?php
+session_start();
+if (isset($_SESSION['attempt_again'])) {
+    // Set the Real time
+    $now = time();
+
+    // If the real time is greater than the current time
+    // Attempt_again is set to the current time
+    if ($now >= $_SESSION['attempt_again']) {
+
+        // Reset the attempt counter
+        unset($_SESSION['attempt']);
+        unset($_SESSION['attempt_again']);
+        unset($_SESSION['msg']);
+        unset($_SESSION['check']);
+    }
+}
+?>
 
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
@@ -31,31 +49,40 @@
                                     <img src="../Images/Web-logo-removebg-preview.png" width="180" alt="logo">
                                 </a>
                                 <p class="text-center text-dark">Social Media Campaigns Ltd.</p>
-                                <form class="log" action="login-granted.php" method="POST">
-                                    <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
-                                    </div>
-                                    <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" autocomplete="off" id="flexCheckChecked" checked>
-                                            <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Remeber this Device
-                                            </label>
+                                <?php
+                                if (isset($_SESSION['msg'])) {
+                                    echo "<p class='text-danger text-center bg-danger bg-opacity-10 border border-danger rounded-3 p-3'>" . $_SESSION['msg'] . "</p>";
+                                }
+
+                                if (!isset($_SESSION['check'])) {
+                                ?>
+                                    <form class="log" action="login-granted.php" method="POST">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail1" name="email">
                                         </div>
-                                        <a class="text-danger text-decoration-underline" href="#">Forgot Password ?</a>
-                                    </div>
-                                    <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" value="Log In">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <p class="text-dark mb-0">New to Viral Wave?</p>
-                                        <a class="text-danger text-decoration-underline ms-2" href="signup.php">Create an
-                                            account</a>
-                                    </div>
-                                </form>
+                                        <div class="mb-4">
+                                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" autocomplete="off" id="flexCheckChecked" checked>
+                                                <label class="form-check-label text-dark" for="flexCheckChecked">
+                                                    Remeber this Device
+                                                </label>
+                                            </div>
+                                            <a class="text-danger text-decoration-underline" href="#">Forgot Password ?</a>
+                                        </div>
+                                        <input class="btn btn-danger w-100 py-8 fs-4 mb-4 rounded-3" type="submit" value="Log In">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="text-dark mb-0">New to Viral Wave?</p>
+                                            <a class="text-danger text-decoration-underline ms-2" href="signup.php">Create an
+                                                account</a>
+                                        </div>
+                                    </form>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                     </div>

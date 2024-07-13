@@ -6,7 +6,7 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 ?>
@@ -92,13 +92,6 @@ $card = $result_img->fetch_assoc();
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="/Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -123,12 +116,22 @@ $card = $result_img->fetch_assoc();
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
 
             <!-- User Account -->
             <div class="dropdown open">
@@ -173,7 +176,7 @@ $card = $result_img->fetch_assoc();
             <ul class="box-info">
                 <li>
                     <?php
-                    $sql_user = "SELECT * FROM user";
+                    $sql_user = "SELECT * FROM user_info";
                     $result_user = $conn->query($sql_user);
 
                     if ($result_user) {
@@ -188,7 +191,7 @@ $card = $result_img->fetch_assoc();
                 </li>
                 <li>
                     <?php
-                    $sql_ser = "SELECT * FROM services";
+                    $sql_ser = "SELECT * FROM web_services";
                     $result_ser = $conn->query($sql_ser);
 
                     if ($result_ser) {
@@ -228,7 +231,7 @@ $card = $result_img->fetch_assoc();
                             </tr>
                         </thead>
                         <?php
-                        $sql_ph = "SELECT * FROM parenthub, user WHERE user_id = id";
+                        $sql_ph = "SELECT * FROM parent_help_content, user_info WHERE user_id = id";
                         $result_ph = $conn->query($sql_ph);
                         while ($ph_row = $result_ph->fetch_assoc()) {
                         ?>
@@ -256,7 +259,7 @@ $card = $result_img->fetch_assoc();
                     <ul class="todo-list">
 
                         <?php
-                        $sql_msg = "SELECT * FROM contact";
+                        $sql_msg = "SELECT * FROM user_inquiries";
                         $result_msg = $conn->query($sql_msg);
                         while ($msg_row = $result_msg->fetch_assoc()) { ?>
                             <li class="completed">

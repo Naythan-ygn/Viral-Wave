@@ -6,7 +6,7 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_img = "SELECT profile, name, user_type FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name, user_type FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 
@@ -169,8 +169,8 @@ $user = array(1, 2);
                                         }  ?>
 
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Other</a>
-                                            <ul class="dropdown-menu">
+                                            <a class="nav-link dropdown-toggle" id="tcolor" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Other</a>
+                                            <ul class="dropdown-menu bg-secondary">
                                                 <li class="nav-item mx-2">
                                                     <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
                                                 </li>
@@ -198,7 +198,7 @@ $user = array(1, 2);
                                             <?php } else { ?>
                                                 <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
                                             <?php }
-                                            echo $card['name']; ?>
+                                            echo "<span id='tcolor'>" . $card['name'] . "</span>"; ?>
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="triggerId">
                                             <a class="dropdown-item" href="#">
@@ -255,9 +255,9 @@ $user = array(1, 2);
                                 We are in Socials :
                             </span>
                             <div class="social-link">
-                                <a href="#" class="text-dark"><i class="bi bi-twitter-x"></i></a>
-                                <a href="#" class="text-primary"><i class="Isize bi bi-facebook"></i></a>
-                                <a href="#" class="text-danger"><i class="Isize bi bi-pinterest"></i></a>
+                                <a href="https://x.com" class="text-dark"><i class="bi bi-twitter-x"></i></a>
+                                <a href="https://www.facebook.com/" class="text-primary"><i class="Isize bi bi-facebook"></i></a>
+                                <a href="https://www.pinterest.com/" class="text-danger"><i class="Isize bi bi-pinterest"></i></a>
                             </div>
                         </div>
                     </div>

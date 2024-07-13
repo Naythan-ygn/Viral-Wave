@@ -24,7 +24,7 @@ if (isset($_POST['btnAddUser'])) {
         $tmp_name = $_FILES['ufile']['tmp_name'];
     }
 
-    $insert_sql = "INSERT INTO user (profile,name,email,password,city,subscription,user_type) VALUES ('$uProfile','$name','$email','$password','$city','$subscription','$u_type')";
+    $insert_sql = "INSERT INTO user_info (profile,name,email,password,city,subscription,user_type) VALUES ('$uProfile','$name','$email','$password','$city','$subscription','$u_type')";
     $result_sql = $conn->query($insert_sql);
 
     if ($result_sql) {
@@ -45,7 +45,7 @@ if (isset($_POST['btnAddUser'])) {
 // the id of the row will be selected (and show in url) when Edit button is clicked
 if (isset($_GET['edit_id'])) {
     $Eid = $_GET['edit_id'];
-    $sql_show = "SELECT * FROM user WHERE id = '$Eid'";
+    $sql_show = "SELECT * FROM user_info WHERE id = '$Eid'";
     $editResult = $conn->query($sql_show);
     $card = $editResult->fetch_assoc();
 }
@@ -69,9 +69,9 @@ if (isset($_POST['btnEditUser'])) {
     }
 
     if (!empty($uProfile)) {
-        $sql_update = "UPDATE user SET profile = '$uProfile', name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE user_info SET profile = '$uProfile', name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
     } else {
-        $sql_update = "UPDATE user SET name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE user_info SET name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
     }
     $result_query = $conn->query($sql_update);
 
@@ -93,25 +93,11 @@ if (isset($_POST['btnEditUser'])) {
     }
 }
 
-// the related data row will be deleted when Delete button is clicked
-if (isset($_GET['delete_id'])) {
-    $id = $_GET['delete_id'];
-    $sql = "DELETE FROM user WHERE id = $id";
-    $result = $conn->query($sql);
-
-    if ($result) {
-        echo "Deleted Successfully";
-        header("Location: UserList.php");
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
-}
-
-$sql_img = "SELECT profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $show = $result_img->fetch_assoc();
 
-$sql = "SELECT * FROM user ORDER BY user_type";
+$sql = "SELECT * FROM user_info ORDER BY user_type";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -195,13 +181,6 @@ $result = mysqli_query($conn, $sql);
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="/Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -225,12 +204,23 @@ $result = mysqli_query($conn, $sql);
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
+
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -502,24 +492,13 @@ $result = mysqli_query($conn, $sql);
                                                             <th>User Type :</th>
                                                             <td><?php echo $card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin")); ?></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <!-- Edit Button -->
-                                                                <a class="btn btn-success mt-3" role="button" href="UserList.php?edit_id=<?php echo $card['id']; ?>">
-                                                                    <i class="fi fi-rr-edit"></i>
-                                                                    &nbsp;Edit
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <!-- Delete Button -->
-                                                                <a class="btn btn-danger mt-3" role="button" href="UserList.php?delete_id=<?php echo $card['id']; ?>">
-                                                                    <i class="fi fi-rr-trash"></i>
-                                                                    &nbsp;Delete
-                                                                </a>
-                                                            </td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
+                                                <!-- Edit Button -->
+                                                <a class="btn btn-success col-md-12 mt-3" role="button" href="UserList.php?edit_id=<?php echo $card['id']; ?>">
+                                                    <i class="fi fi-rr-edit"></i>
+                                                    &nbsp;Edit
+                                                </a>
                                                 </p>
                                             </div>
                                         </div>

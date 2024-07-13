@@ -27,7 +27,7 @@ if (isset($_POST['btnCreate'])) {
         $tmp_name2 = $_FILES['phfile2']['tmp_name'];
     }
 
-    $insert_sql = "INSERT INTO parenthub (title, description, image1, image2, user_id) VALUES ('$title', '$desc', '$ContImage1', '$ContImage2', '$uid')";
+    $insert_sql = "INSERT INTO parent_help_content (title, description, image1, image2, user_id) VALUES ('$title', '$desc', '$ContImage1', '$ContImage2', '$uid')";
     $result_sql = $conn->query($insert_sql);
 
     if ($result_sql) {
@@ -50,7 +50,7 @@ if (isset($_POST['btnCreate'])) {
 // the id of the row will be selected (and show in url) when Edit button is clicked
 if (isset($_GET['edit_id'])) {
     $Eid = $_GET['edit_id'];
-    $sql_show = "SELECT * FROM parenthub WHERE ph_id = '$Eid'";
+    $sql_show = "SELECT * FROM parent_help_content WHERE ph_id = '$Eid'";
     $editResult = $conn->query($sql_show);
     $row = $editResult->fetch_assoc();
 }
@@ -80,17 +80,17 @@ if (isset($_POST['btnEdit'])) {
 
     // Image1 and texts will be updated if image1 isn't empty and image2 is empty
     if (!empty($ContImage1) && empty($ContImage2)) {
-        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image1 = '$ContImage1', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE parent_help_content SET title = '$title', description = '$desc', image1 = '$ContImage1', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
     }
     // Image2 and texts will be updated if image2 isn't empty and image1 is empty
     else if (!empty($ContImage2) && empty($ContImage1)) {
-        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE parent_help_content SET title = '$title', description = '$desc', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
     }
     // Everything will be updated if both image1 and image2 aren't empty
     else if (!empty($ContImage2) && !empty($ContImage1)) {
-        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', image1 = '$ContImage1', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE parent_help_content SET title = '$title', description = '$desc', image1 = '$ContImage1', image2 = '$ContImage2', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
     } else {
-        $sql_update = "UPDATE parenthub SET title = '$title', description = '$desc', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE parent_help_content SET title = '$title', description = '$desc', user_id = '$uid' WHERE ph_id = " . $_GET['edit_id'];
     }
     $result_query = $conn->query($sql_update);
 
@@ -120,7 +120,7 @@ if (isset($_POST['btnEdit'])) {
 // the related data row will be deleted when Delete button is clicked
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    $sql_delete = "DELETE FROM parenthub WHERE ph_id = $id";
+    $sql_delete = "DELETE FROM parent_help_content WHERE ph_id = $id";
     $deleted_result = $conn->query($sql_delete);
 
     if ($deleted_result) {
@@ -134,11 +134,11 @@ if (isset($_GET['delete_id'])) {
 $row_num = 1;
 
 // Fetch parent hub data
-$sql = "SELECT name, ph_id, title, description, image1, image2, created_date FROM parenthub, user WHERE user_id = id";
+$sql = "SELECT name, ph_id, title, description, image1, image2, created_date FROM parent_help_content, user_info WHERE user_id = id";
 $result = $conn->query($sql);
 
 // Fetch user profile data
-$sql_img = "SELECT id, profile, name FROM user WHERE email = '$email'";
+$sql_img = "SELECT id, profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 ?>
@@ -223,13 +223,6 @@ $card = $result_img->fetch_assoc();
             </li>
         </ul>
         <ul class="side-menu">
-            <!-- 'Setting' Function is not available -->
-            <li>
-                <a href="#">
-                    <i class="fi fi-rr-settings"></i>
-                    <span class="text">Settings</span>
-                </a>
-            </li>
             <li>
                 <a href="../Log/logout.php" class="logout">
                     <i class="fi fi-rr-power"></i>
@@ -254,12 +247,23 @@ $card = $result_img->fetch_assoc();
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            <input type="checkbox" id="switch-mode" hidden>
-            <label for="switch-mode" class="switch-mode"></label>
-            <a href="#" class="notification">
+
+            <!-- This is message notification -->
+            <?php
+            $sql_msg = "SELECT * FROM user_inquiries";
+            $result_msg = $conn->query($sql_msg);
+
+            if ($result_msg) {
+                $msg_no = $result_msg->num_rows;
+            }
+            ?>
+            <div class="notification">
                 <i class="fi fi-rr-bell"></i>
-                <span class="num">8</span>
-            </a>
+                <span class="num">
+                    <?php echo $msg_no; ?>
+                </span>
+            </div>
+
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
