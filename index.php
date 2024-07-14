@@ -96,7 +96,7 @@
                         <div class="container-fluid">
 
                             <!-- This is the Logo -->
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand" href="index.php">
                                 <img src="Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 

@@ -6,10 +6,32 @@ include '../Config/DBconnect.php';
 session_start();
 $email = $_SESSION['email'];
 
-$sql_news = "SELECT * FROM monthly_newsletter ORDER BY id";
+// User subscriptions Adding
+if (isset($_POST['btnNewsSubs'])) {
+    $email_form = $_POST['email'];
+
+    // Check if the user is already subscribed
+    $sql_subs = "SELECT * FROM user_info WHERE email = '$email_form'";
+    $result_subs = $conn->query($sql_subs);
+    $user_type = $result_subs->fetch_assoc()['user_type'];
+
+    if ($result_subs->num_rows > 0 && $user_type <> 1) {
+        echo "<script>alert('You are already subscribed to our newsletter!')</script>";
+    } else {
+        $sql_update = "UPDATE user_info SET subscription = 1, user_type = 2 WHERE email = '$email_form'";
+        $conn->query($sql_update);
+        echo "<script>alert('You have successfully subscribed to our newsletter!')</script>";
+        header("Location: Home.php");
+    }
+}
+
+// Newsletter Information from the database
+// Only data with current Month timestamp will show as result
+$sql_news = "SELECT * FROM monthly_newsletter WHERE MONTH(publishdate) = MONTH(CURRENT_DATE) AND YEAR(publishdate) = YEAR(CURRENT_DATE) ORDER BY id";
 $news_result = $conn->query($sql_news);
 $cont = $news_result->fetch_assoc();
 
+// Fetch user data
 $sql_img = "SELECT profile, name, user_type FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
@@ -114,7 +136,7 @@ $user = array(1, 2);
                         <div class="container-fluid">
 
                             <!-- This is the Logo -->
-                            <a class="navbar-brand" href="#">
+                            <a class="navbar-brand" href="Home.php">
                                 <img src="../Images/Web-logo-removebg-preview.png" alt="logo" width="150">
                             </a>
 
@@ -191,6 +213,10 @@ $user = array(1, 2);
                                                     <a id="tcolor" class="nav-link" href="Contact.php">Contact Us</a>
                                                 </li>
                                             </ul>
+                                        </li>
+
+                                        <li class="nav-item mx-2">
+                                            <a id="tcolor" class="nav-link" href="legitGuide.php">Legislation & Guidance</a>
                                         </li>
                                     </ul>
 
@@ -291,6 +317,7 @@ $user = array(1, 2);
 
     <footer>
         <section id="footer">
+            <p>You are Here: Newsletter</p>
             <div class="foot-logo">
                 <img src="../Images/Web-logo-removebg-textwhite.png" alt="logo">
             </div>
@@ -337,6 +364,25 @@ $user = array(1, 2);
                 <div class="finfo">
                     <h4>Need Help? We are</h4>
                     <h4>Here to Help You!</h4>
+
+                    <!-- Newsletter Subscribe Form -->
+                    <form action="#" method="POST">
+                        <label for="email" class="form-label">Subscribe our Newsletter!</label>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control" name="email" id="email" value="<?php echo $email ?>" readonly aria-describedby="button-addon2">
+                            <?php
+                            if ($card['user_type'] <> 1) {
+                            ?>
+                                <input class="btn btn-secondary rounded-start" name="btnNewsSubs" type="button" value="Subscribed" id="button-addon2">
+                            <?php
+                            } else {
+                            ?>
+                                <input class="btn btn-danger rounded-start" name="btnNewsSubs" type="submit" value="Subscribe!" id="button-addon2">
+                            <?php
+                            } ?>
+
+                        </div>
+                    </form>
                 </div>
             </div>
 

@@ -11,8 +11,9 @@ if (isset($_POST['btnSignUp'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $city = $_POST['city'];
-    $subs = $_POST['subscription'];
-    $utype = $_POST['utype'];
+    // the subscription will be unable to select for user in its initial sign up.
+    // Therefore the user type will be default as Free user type
+    $utype = 1;
 
     // File upload Variable
     if (isset($_FILES['ufile']) && $_FILES['ufile']['error'] == 0) {
@@ -22,7 +23,7 @@ if (isset($_POST['btnSignUp'])) {
         $tmp_name = $_FILES['ufile']['tmp_name'];
     }
 
-    $sql_Insert = "INSERT INTO user (profile, name, email, password, city, subscription, user_type) VALUES ('$uProfile', '$name', '$email', '$password', '$city', '$subs', '$utype')";
+    $sql_Insert = "INSERT INTO user_info (profile, name, email, password, city, user_type) VALUES ('$uProfile', '$name', '$email', '$password', '$city', '$utype')";
 
     $result_inst = $conn->query($sql_Insert);
 
@@ -87,20 +88,21 @@ if (isset($_POST['btnSignUp'])) {
                                     </div>
 
                                     <div class="row">
-                                        <div class="mb-3">
+                                        <div class="col-md-6 mb-3">
                                             <label for="exampleInputPassword1" class="form-label">New Password *</label>
                                             <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Enter Password" required>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="">Enter City *</label>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label" for="">Enter City *</label>
                                             <select class="form-select" name="city" aria-label="Default select example">
 
                                                 <option selected disabled hidden>--- Select City ---</option>
 
                                                 <option value="Bago">Bago</option>
-                                                <option value="Dawei">Dawei</option>
-                                                <option value="Hpa-An">Hpa-An</option>
+                                                <option value="Beijing">Beijing</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="Kingstom">Kingstom</option>
                                                 <option value="Kalaw">Kalaw</option>
                                                 <option value="Kale">Kale</option>
                                                 <option value="Lashio">Lashio</option>
@@ -110,37 +112,6 @@ if (isset($_POST['btnSignUp'])) {
                                                 <option value="Naypyidaw">Naypyidaw</option>
                                                 <option value="Yangon">Yangon</option>
 
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4">
-                                            <label for="" class="col-form-label">Newsletter Subscription *</label>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault1" value="1" checked>
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                    Yes
-                                                </label>
-                                            </div>
-
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="subscription" id="flexRadioDefault2" value="0">
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                    No
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 mb-4">
-                                            <label for="" class="mb-3">Enter User Type *</label>
-                                            <select class="form-select" aria-label="Default select example" name="utype">
-
-                                                <option selected hidden disabled>--- Select the User Type ---</option>
-
-                                                <option value="1">Free</option>
-                                                <option value="2">Standard</option>
-                                                <option value="3">Premium</option>
                                             </select>
                                         </div>
                                     </div>

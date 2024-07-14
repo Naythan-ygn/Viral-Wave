@@ -1,6 +1,19 @@
 <!doctype html>
 <html lang="en">
 
+<?php
+include '../Config/DBconnect.php';
+session_start();
+$email = $_SESSION['email'];
+
+// Retrieve user information from the database
+$sql_img = "SELECT profile, name, user_type FROM user_info WHERE email = '$email'";
+$result_img = $conn->query($sql_img);
+$card = $result_img->fetch_assoc();
+
+$user = array(1, 2);
+?>
+
 <head>
     <title>Viral Wave | Social Media Campaigns Ltd.</title>
     <link rel="icon" href="../Images/FavtIcon-removebg-preview.png">
@@ -93,3 +106,240 @@
                             </div>
                         </div>
                     </div>
+
+                    <nav class="navbar navbar-expand-lg bg-white">
+                        <div class="container-fluid">
+
+                            <!-- This is the Logo -->
+                            <a class="navbar-brand" href="Home.php">
+                                <img src="../Images/Web-logo-removebg-preview.png" alt="logo" width="150">
+                            </a>
+
+                            <!-- This is Toggle -->
+                            <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <!-- This is SideBar -->
+                            <div class="sidebar offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+                                <!-- Sidebar Head -->
+                                <div class="offcanvas-header text-white border-bottom">
+                                    <h3 class="offcanvas-title" id="offcanvasNavbarLabel">Viral Wave</h3>
+
+                                    <!-- The Close Button -->
+                                    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close" onclick="event.preventDefault();">
+                                    </button>
+                                </div>
+
+                                <!-- Sidebar Body -->
+                                <div class="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
+                                    <ul class="navbar-nav justify-content-center align-items-center fs-8 flex-grow-1 pe-3">
+
+                                        <li class="nav-item mx-2">
+                                            <a id="tcolor" class="nav-link" href="Home.php">Home</a>
+                                        </li>
+
+                                        <li class="nav-item mx-2">
+                                            <a id="tcolor" class="nav-link" href="Services.php">Services</a>
+                                        </li>
+
+                                        <li class="nav-item mx-2">
+                                            <a id="tcolor" class="nav-link" aria-current="page" href="#">Social
+                                                Media Apps</a>
+                                        </li>
+
+                                        <?php if (($card['user_type'] <> $user[0]) && ($card['user_type'] <> $user[1])) { ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
+                                            </li>
+                                        <?php } ?>
+
+                                        <!-- Only Free users do not have access to this page -->
+                                        <?php
+                                        if (($card['user_type'] <> $user[0])) {
+                                        ?>
+                                            <li class="nav-item mx-2">
+                                                <a id="tcolor" class="nav-link" href="Newsletter.php">Newsletter</a>
+                                            </li>
+                                        <?php
+                                        }  ?>
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="tcolor" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Other</a>
+                                            <ul class="dropdown-menu bg-secondary">
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="liveStreaming.php">LiveStreaming</a>
+                                                </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="Information.php">Information</a>
+                                                </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="htsso.php">How to Stay Safe Online</a>
+                                                </li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li class="nav-item mx-2">
+                                                    <a id="tcolor" class="nav-link" href="Contact.php">Contact Us</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="nav-item mx-2">
+                                            <a id="tcolor" class="nav-link active" href="legitGuide.php">Legislation & Guidance</a>
+                                        </li>
+                                    </ul>
+
+                                    <!-- User Account -->
+                                    <div class="dropdown open">
+                                        <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <?php if (empty($card['profile'])) { ?>
+                                                <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php } else { ?>
+                                                <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                                            <?php }
+                                            echo "<span id='tcolor'>" . $card['name'] . "</span>"; ?>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                                            <a class="dropdown-item" href="#">
+                                                <i class="fi fi-rr-circle-user"></i>
+                                                &nbsp;<?php echo $email; ?></a>
+                                            <a class="dropdown-item" href="../Log/logout.php">
+                                                <i class="fi fi-rr-power"></i>
+                                                &nbsp;Log Out</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 justify-text">
+                    <header>
+                        <h1>Legislation and Guidance: Ensuring Online Safety for Teenagers</h1>
+                        <p class="intro text-dark">Understanding the legislation and guidance related to online safety is crucial for teenagers, parents, and educators. This page provides an overview of key laws and guidelines that help protect young people on the internet.</p>
+                    </header>
+
+                    <section class="legislation">
+                        <h2>Child Online Protection Act (COPA)</h2>
+                        <p class="text-dark">The Child Online Protection Act (COPA) was enacted to protect minors from harmful online content. It mandates that websites and online services restrict access to inappropriate materials for children under 13.</p>
+                        <ul>
+                            <li>Websites must use age verification mechanisms.</li>
+                            <li>Violations can lead to fines and other penalties.</li>
+                            <li>Parents have the right to monitor and control their children's online activities.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Children's Online Privacy Protection Act (COPPA)</h2>
+                        <p class="text-dark">The Children's Online Privacy Protection Act (COPPA) focuses on protecting the privacy of children under 13. It regulates how websites collect, use, and disclose personal information from young users.</p>
+                        <ul>
+                            <li>Websites must obtain verifiable parental consent before collecting personal data from children.</li>
+                            <li>Parents can review, delete, and control the data collected about their children.</li>
+                            <li>Operators must provide a clear privacy policy.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>General Data Protection Regulation (GDPR)</h2>
+                        <p class="text-dark">The General Data Protection Regulation (GDPR) is a comprehensive data protection law in the European Union. It includes specific provisions to safeguard children's data online.</p>
+                        <ul>
+                            <li>Parental consent is required for processing personal data of children under 16.</li>
+                            <li>Children have the right to be forgotten, meaning their data can be deleted upon request.</li>
+                            <li>Websites must use age-appropriate language in their privacy notices.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Digital Economy Act</h2>
+                        <p class="text-dark">The Digital Economy Act is a UK law aimed at regulating digital services and ensuring online safety. It includes measures to protect children from harmful online content.</p>
+                        <ul>
+                            <li>Age verification is required for accessing adult content.</li>
+                            <li>Platforms must take steps to prevent minors from accessing inappropriate material.</li>
+                            <li>Enforcement mechanisms include fines and website blocking.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Online Harms White Paper</h2>
+                        <p class="text-dark">The Online Harms White Paper outlines the UK government's approach to tackling online harms and improving internet safety. It proposes a regulatory framework to hold companies accountable.</p>
+                        <ul>
+                            <li>Establishment of an independent regulator.</li>
+                            <li>Duty of care for companies to protect users from harmful content.</li>
+                            <li>Emphasis on transparency and accountability.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Cyberbullying and Harassment Laws</h2>
+                        <p class="text-dark">Various countries have specific laws to address cyberbullying and online harassment. These laws aim to protect individuals, especially teenagers, from online abuse.</p>
+                        <ul>
+                            <li>Cyberbullying is considered a criminal offense in many jurisdictions.</li>
+                            <li>Victims can report incidents to law enforcement.</li>
+                            <li>Schools and institutions often have policies and resources to support affected students.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Parental Guidance and Responsibilities</h2>
+                        <p class="text-dark">While legislation provides a framework for online safety, parental guidance is crucial in protecting children from online risks. Parents should be proactive in educating their children and monitoring their online activities.</p>
+                        <ul>
+                            <li>Encourage open communication about online experiences.</li>
+                            <li>Set clear rules and boundaries for internet use.</li>
+                            <li>Use parental control tools to restrict access to inappropriate content.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Educational Resources and Programs</h2>
+                        <p class="text-dark">Various organizations and programs offer resources to educate teenagers about online safety and digital citizenship. These initiatives aim to empower young users with the knowledge and skills to navigate the internet safely.</p>
+                        <ul>
+                            <li>Schools can integrate digital literacy into their curriculum.</li>
+                            <li>Online platforms often provide safety centers with tips and guidelines.</li>
+                            <li>Community programs and workshops can raise awareness and provide support.</li>
+                        </ul>
+                    </section>
+
+                    <section class="legislation">
+                        <h2>Conclusion</h2>
+
+                        <p class="conclusion text-dark">Understanding the legislation and guidance related to online safety is essential for protecting teenagers in the digital world. By staying informed about the laws and utilizing available resources, young people, parents, and educators can work together to create a safer online environment. Stay educated, stay vigilant, and stay safe!</p>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <a id="topBtn" href="#header"><i class="bi bi-arrow-up-square-fill"></i></a>
+
+    <footer>
+        <section id="footer">
+            <div class="cright border-top py-2">
+                <span>
+                    Copyright &copy; 2024 ViralWave by <a class="text-light" href="#header">SocialMediaCampaignsLtd</a>.
+                    All Rights Reserved.
+                </span>
+            </div>
+        </section>
+    </footer>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+    <!-- Main JS -->
+    <script src="../JS/script.js"></script>
+</body>
+
+</html>
