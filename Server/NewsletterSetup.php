@@ -147,7 +147,7 @@ $card = $result_img->fetch_assoc();
 
     <!-- SIDEBAR -->
     <section id="sidebar">
-        <a href="#" class="brand">
+        <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
             <span class="text mt-3 fs-3">
                 Viral Wave <br> (SMC Ltd.)
@@ -179,7 +179,7 @@ $card = $result_img->fetch_assoc();
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <a href="NewsletterSetup.php">
                     <i class="fi fi-rr-add-document"></i>
                     <span class="text">Newsletter Setup</span>
                 </a>
@@ -190,6 +190,12 @@ $card = $result_img->fetch_assoc();
                 <a href="UserList.php">
                     <i class="fi fi-rr-user-add"></i>
                     <span class="text">User List</span>
+                </a>
+            </li>
+            <li>
+                <a href="Sales.php">
+                    <i class="fi fi-rr-chart-mixed-up-circle-dollar"></i>
+                    <span class="text">Sales</span>
                 </a>
             </li>
             <li>
@@ -224,7 +230,7 @@ $card = $result_img->fetch_assoc();
                     <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
                 </div>
             </form>
-            
+
             <!-- This is message notification -->
             <?php
             $sql_msg = "SELECT * FROM user_inquiries";
@@ -274,7 +280,7 @@ $card = $result_img->fetch_assoc();
                         </li>
                         <li><i class="fi fi-rr-angle-small-right"></i></li>
                         <li>
-                            <a class="active" href="#">Newsletter Setup</a>
+                            <a class="active" href="NewsletterSetup.php">Newsletter Setup</a>
                         </li>
                     </ul>
                 </div>

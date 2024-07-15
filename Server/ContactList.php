@@ -58,7 +58,7 @@ $row_num = 1;
 
     <!-- SIDEBAR -->
     <section id="sidebar">
-        <a href="#" class="brand">
+        <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
             <span class="text mt-3 fs-3">
                 Viral Wave <br> (SMC Ltd.)
@@ -103,8 +103,14 @@ $row_num = 1;
                     <span class="text">User List</span>
                 </a>
             </li>
+            <li>
+                <a href="Sales.php">
+                    <i class="fi fi-rr-chart-mixed-up-circle-dollar"></i>
+                    <span class="text">Sales</span>
+                </a>
+            </li>
             <li class="active">
-                <a href="#">
+                <a href="ContactList.php">
                     <i class="fi fi-rr-comment-alt"></i>
                     <span class="text">Contact List</span>
                 </a>
@@ -185,7 +191,7 @@ $row_num = 1;
                         </li>
                         <li><i class="fi fi-rr-angle-small-right"></i></li>
                         <li>
-                            <a class="active" href="#">Contact List</a>
+                            <a class="active" href="ContactList.php">Contact List</a>
                         </li>
                     </ul>
                 </div>

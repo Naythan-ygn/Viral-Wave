@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php
 include '../Config/DBconnect.php';
 session_start();
@@ -8,7 +7,7 @@ $email = $_SESSION['email'];
 
 $sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
-$card = $result_img->fetch_assoc();
+$show = $result_img->fetch_assoc();
 ?>
 
 <head>
@@ -36,7 +35,6 @@ $card = $result_img->fetch_assoc();
 
 <body>
 
-
     <!-- SIDEBAR -->
     <section id="sidebar">
         <a href="Adminindex.php" class="brand">
@@ -46,7 +44,7 @@ $card = $result_img->fetch_assoc();
             </span>
         </a>
         <ul class="side-menu top">
-            <li class="active">
+            <li>
                 <a href="Adminindex.php">
                     <i class="fi fi-rr-layout-fluid"></i>
                     <span class="text">Dashboard</span>
@@ -77,14 +75,14 @@ $card = $result_img->fetch_assoc();
                 </a>
             </li>
         </ul>
-        <ul class="side-menu">
+        <ul class="side-menu top">
             <li>
                 <a href="UserList.php">
                     <i class="fi fi-rr-user-add"></i>
                     <span class="text">User List</span>
                 </a>
             </li>
-            <li>
+            <li class="active">
                 <a href="Sales.php">
                     <i class="fi fi-rr-chart-mixed-up-circle-dollar"></i>
                     <span class="text">Sales</span>
@@ -97,7 +95,6 @@ $card = $result_img->fetch_assoc();
                 </a>
             </li>
         </ul>
-
         <ul class="side-menu">
             <li>
                 <a href="/Log/logout.php" class="logout">
@@ -108,9 +105,6 @@ $card = $result_img->fetch_assoc();
         </ul>
     </section>
     <!-- SIDEBAR -->
-
-
-
     <!-- CONTENT -->
     <section id="content">
         <!-- NAVBAR -->
@@ -143,12 +137,12 @@ $card = $result_img->fetch_assoc();
             <!-- User Account -->
             <div class="dropdown open">
                 <a class="btn dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <?php if (empty($card['profile'])) { ?>
+                    <?php if (empty($show['profile'])) { ?>
                         <img src="../Images/default_profile.png" class="rounded-5" width="36" height="36" alt="image">
                     <?php } else { ?>
-                        <img src="<?php echo "../Images/UploadedImages\\" . $card['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
+                        <img src="<?php echo "../Images/UploadedImages\\" . $show['profile']; ?>" class="rounded-5" width="36" height="36" alt="image">
                     <?php }
-                    echo $card['name']; ?>
+                    echo $show['name']; ?>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="triggerId">
                     <a class="dropdown-item" href="#">
@@ -166,123 +160,55 @@ $card = $result_img->fetch_assoc();
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h1>Dashboard</h1>
+                    <h1>Sale Revenue</h1>
                     <ul class="breadcrumb">
                         <li>
                             <a href="#">Dashboard</a>
                         </li>
                         <li><i class="fi fi-rr-angle-small-right"></i></li>
                         <li>
-                            <a class="active" href="Adminindex.php">Home</a>
+                            <a class="active" href="Sales.php">Sales</a>
                         </li>
                     </ul>
                 </div>
-
             </div>
 
-            <ul class="box-info">
-                <li>
-                    <?php
-                    $sql_user = "SELECT * FROM user_info";
-                    $result_user = $conn->query($sql_user);
-
-                    if ($result_user) {
-                        $user_no = $result_user->num_rows;
-                    }
-                    ?>
-                    <i class='bx bxs-group'></i>
-                    <span class="text">
-                        <h3 class="text-danger"><?php echo $user_no; ?></h3>
-                        <p>Users</p>
-                    </span>
-                </li>
-                <li>
-                    <?php
-                    $sql_ser = "SELECT * FROM web_services";
-                    $result_ser = $conn->query($sql_ser);
-
-                    if ($result_ser) {
-                        $ser_no = $result_ser->num_rows;
-                    }
-                    ?>
-                    <i class='bx bxs-cog'></i>
-                    <span class="text">
-                        <h3 class="text"><?php echo $ser_no; ?></h3>
-                        <p>Services</p>
-                    </span>
-                </li>
-                <li>
-                    <!-- Sale Revenue calculation Function -->
-                    <i class='bx bxs-dollar-circle'></i>
-                    <span class="text">
-                        <h3 class="text-success">$2543</h3>
-                        <p>Total Sales</p>
-                    </span>
-                </li>
-            </ul>
-
-
-            <div class="table-data">
-                <div class="order">
-                    <div class="head">
-                        <i class='bx bxs-book-content'></i>
-                        <h3>Parent Hub Posts</h3>
-                        <i class='bx bx-search'></i>
-                        <i class='bx bx-filter'></i>
+            <!-- Account Level price setup form -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        
+                        <!-- need to go -->
+                        <form action="#" method="POST">
+                            <!-- Checking the User Type -->
+                            <div class="col-md-6 form-group mb-3">
+                                <label for="">Enter User Type *</label>
+                                <select class="form-select" aria-label="Default select example" name="utype">
+                                    <?php
+                                    if (isset($_GET['edit_id'])) {
+                                    ?>
+                                        <option value="<?php echo ($card['user_type']); ?>" selected disabled> <?php echo ($card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin"))); ?> </option>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <option selected hidden disabled>--- Select the User Type ---</option>
+                                    <?php } ?>
+                                    
+                                    <option value="1">Free</option>
+                                    <option value="2">Standard</option>
+                                    <option value="3">Premium</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Date Order</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <?php
-                        $sql_ph = "SELECT * FROM parent_help_content, user_info WHERE user_id = id";
-                        $result_ph = $conn->query($sql_ph);
-                        while ($ph_row = $result_ph->fetch_assoc()) {
-                        ?>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="<?php echo "../Images/UploadedImages\\" . $ph_row['profile']; ?>">
-                                        <p><?php echo $ph_row['name']; ?></p>
-                                    </td>
-                                    <td><?php echo $ph_row['created_date']; ?></td>
-                                    <td><span class="status completed">Posted</span></td>
-                                </tr>
-                            </tbody>
-                        <?php } ?>
-                    </table>
-                </div>
-
-                <div class="todo">
-                    <div class="head">
-                        <i class='bx bxs-message'></i>
-                        <h3>Messages</h3>
-                        <i class='bx bx-plus'></i>
-                        <i class='bx bx-filter'></i>
-                    </div>
-                    <ul class="todo-list">
-
-                        <?php
-                        $sql_msg = "SELECT * FROM user_inquiries";
-                        $result_msg = $conn->query($sql_msg);
-                        while ($msg_row = $result_msg->fetch_assoc()) { ?>
-                            <li class="completed">
-                                <p><?php echo $msg_row['message']; ?></p>
-                                <i class='bx bx-dots-vertical-rounded'></i>
-                            </li>
-                        <?php } ?>
-
-                    </ul>
                 </div>
             </div>
         </main>
         <!-- MAIN -->
     </section>
     <!-- CONTENT -->
+
+
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

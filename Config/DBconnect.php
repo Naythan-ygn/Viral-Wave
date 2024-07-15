@@ -1,7 +1,7 @@
 <?php
 // Connecting to the database
 
-    $server = 'localhost:3308'; // Server name is depend on the server_machine. Port number is optional.
+    $server = 'localhost'; // Server name is depend on the server_machine. Port number is optional.
     $user = 'root';
     $pass = '';
     $DB = 'viralwave';

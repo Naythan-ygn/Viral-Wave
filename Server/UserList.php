@@ -128,7 +128,7 @@ $result = mysqli_query($conn, $sql);
 
     <!-- SIDEBAR -->
     <section id="sidebar">
-        <a href="#" class="brand">
+        <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
             <span class="text mt-3 fs-3">
                 Viral Wave <br> (SMC Ltd.)
@@ -168,9 +168,15 @@ $result = mysqli_query($conn, $sql);
         </ul>
         <ul class="side-menu top">
             <li class="active">
-                <a href="#">
+                <a href="UserList.php">
                     <i class="fi fi-rr-user-add"></i>
                     <span class="text">User List</span>
+                </a>
+            </li>
+            <li>
+                <a href="Sales.php">
+                    <i class="fi fi-rr-chart-mixed-up-circle-dollar"></i>
+                    <span class="text">Sales</span>
                 </a>
             </li>
             <li>
@@ -254,7 +260,7 @@ $result = mysqli_query($conn, $sql);
                         </li>
                         <li><i class="fi fi-rr-angle-small-right"></i></li>
                         <li>
-                            <a class="active" href="#">User List</a>
+                            <a class="active" href="UserList.php">User List</a>
                         </li>
                     </ul>
                 </div>
@@ -450,7 +456,7 @@ $result = mysqli_query($conn, $sql);
                                     if (isset($_GET['edit_id'])) {
                                         // If the edit button is clicked, fetch the user details based on the ID.
                                         $edit_id = $_GET['edit_id'];
-                                        $query = "SELECT * FROM user WHERE id = $edit_id";
+                                        $query = "SELECT * FROM user_info WHERE id = $edit_id";
                                         $result = $conn->query($query);
                                         $card = $result->fetch_assoc();
                                     }

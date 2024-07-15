@@ -170,7 +170,7 @@ $card = $result_img->fetch_assoc();
 
     <!-- SIDEBAR -->
     <section id="sidebar">
-        <a href="#" class="brand">
+        <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
             <span class="text mt-3 fs-3">
                 Viral Wave <br> (SMC Ltd.)
@@ -190,7 +190,7 @@ $card = $result_img->fetch_assoc();
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <a href="ParentHubSetup.php">
                     <i class="fi fi-rr-family"></i>
                     <span class="text">Parent Hub Setup</span>
                 </a>
@@ -213,6 +213,12 @@ $card = $result_img->fetch_assoc();
                 <a href="UserList.php">
                     <i class="fi fi-rr-user-add"></i>
                     <span class="text">User List</span>
+                </a>
+            </li>
+            <li>
+                <a href="Sales.php">
+                    <i class="fi fi-rr-chart-mixed-up-circle-dollar"></i>
+                    <span class="text">Sales</span>
                 </a>
             </li>
             <li>
@@ -297,7 +303,7 @@ $card = $result_img->fetch_assoc();
                         </li>
                         <li><i class="fi fi-rr-angle-small-right"></i></li>
                         <li>
-                            <a class="active" href="#">Parent Hub Setup</a>
+                            <a class="active" href="ParentHubSetup.php">Parent Hub Setup</a>
                         </li>
                     </ul>
                 </div>
