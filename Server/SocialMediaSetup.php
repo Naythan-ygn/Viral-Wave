@@ -140,7 +140,7 @@ $row_num = 1;
     <section id="sidebar">
         <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
-            <span class="text mt-3 fs-3">
+            <span class="text mt-3">
                 Viral Wave <br> (SMC Ltd.)
             </span>
         </a>

@@ -41,7 +41,7 @@ $card = $result_img->fetch_assoc();
     <section id="sidebar">
         <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
-            <span class="text mt-3 fs-3">
+            <span class="text mt-3">
                 Viral Wave <br> (SMC Ltd.)
             </span>
         </a>
@@ -212,10 +212,24 @@ $card = $result_img->fetch_assoc();
                     </span>
                 </li>
                 <li>
+                    <?php
+                    $total_sales = 0;
+                    // To fetch data from the 'user_info' & 'acc_lvl_revenue' tables
+                    $sql_price = "SELECT * FROM user_info, acc_lvl_revenue WHERE user_type_id = acc_level AND user_type_id <> 0";
+                    $result_price = $conn->query($sql_price);
+
+                    while ($row_price= $result_price->fetch_assoc()) {
+                        $single_user_sales = $row_price['subs_times'] * $row_price['price'];
+                        $total_sales += $single_user_sales;
+                    }
+                     
+                    ?>
                     <!-- Sale Revenue calculation Function -->
                     <i class='bx bxs-dollar-circle'></i>
                     <span class="text">
-                        <h3 class="text-success">$2543</h3>
+                        <h3 class="text-success">
+                            $ <?php echo number_format($total_sales, 2); ?> 
+                        </h3>
                         <p>Total Sales</p>
                     </span>
                 </li>

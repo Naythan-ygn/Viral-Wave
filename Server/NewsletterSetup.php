@@ -54,6 +54,7 @@ if (isset($_POST['btnEdit'])) {
     $Eid = $_POST['hid'];
     $title = $_POST['title'];
     $desc = $_POST['description'];
+    $update_at = date("Y-m-d H:i:s");
 
     // File upload Variable
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
@@ -78,10 +79,10 @@ if (isset($_POST['btnEdit'])) {
     }
 
     // Prepare the SQL update statement
-    $stmt = $conn->prepare("UPDATE monthly_newsletter SET title = ?, description = ?, image1 = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE monthly_newsletter SET title = ?, description = ?, image1 = ?, publishdate = ? WHERE id = ?");
 
     // Bind the parameters to the prepared statement
-    $stmt->bind_param("sssi", $title, $desc, $newsImage, $Eid);
+    $stmt->bind_param("ssssi", $title, $desc, $newsImage, $update_at, $Eid);
 
 
     // Execute the prepared statement
@@ -149,7 +150,7 @@ $card = $result_img->fetch_assoc();
     <section id="sidebar">
         <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
-            <span class="text mt-3 fs-3">
+            <span class="text mt-3">
                 Viral Wave <br> (SMC Ltd.)
             </span>
         </a>
@@ -357,6 +358,7 @@ $card = $result_img->fetch_assoc();
                                 <div class="col-md-8">
                                     <?php
                                     while ($cont = $result_news->fetch_assoc()) {
+                                        
                                     ?>
                                         <div class="card news-card bg-light border border-bottom border-2 mb-3">
                                             <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" class="card-img-top text-dark" alt="...">

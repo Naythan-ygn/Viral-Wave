@@ -24,7 +24,7 @@ if (isset($_POST['btnAddUser'])) {
         $tmp_name = $_FILES['ufile']['tmp_name'];
     }
 
-    $insert_sql = "INSERT INTO user_info (profile,name,email,password,city,subscription,user_type) VALUES ('$uProfile','$name','$email','$password','$city','$subscription','$u_type')";
+    $insert_sql = "INSERT INTO user_info (profile,name,email,password,city,subscription,user_type_id) VALUES ('$uProfile','$name','$email','$password','$city','$subscription','$u_type')";
     $result_sql = $conn->query($insert_sql);
 
     if ($result_sql) {
@@ -69,9 +69,9 @@ if (isset($_POST['btnEditUser'])) {
     }
 
     if (!empty($uProfile)) {
-        $sql_update = "UPDATE user_info SET profile = '$uProfile', name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE user_info SET profile = '$uProfile', name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type_id = '$u_type' WHERE id = " . $_GET['edit_id'];
     } else {
-        $sql_update = "UPDATE user_info SET name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type = '$u_type' WHERE id = " . $_GET['edit_id'];
+        $sql_update = "UPDATE user_info SET name = '$name', email = '$email', password = '$password', city = '$city', subscription = '$subs', user_type_id = '$u_type' WHERE id = " . $_GET['edit_id'];
     }
     $result_query = $conn->query($sql_update);
 
@@ -93,11 +93,12 @@ if (isset($_POST['btnEditUser'])) {
     }
 }
 
+
 $sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $show = $result_img->fetch_assoc();
 
-$sql = "SELECT * FROM user_info ORDER BY user_type";
+$sql = "SELECT * FROM user_info ORDER BY user_type_id";
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -130,7 +131,7 @@ $result = mysqli_query($conn, $sql);
     <section id="sidebar">
         <a href="Adminindex.php" class="brand">
             <img src="../Images/FavtIcon-removebg-preview.png" alt="Logo" width="50" class="mx-2">
-            <span class="text mt-3 fs-3">
+            <span class="text mt-3">
                 Viral Wave <br> (SMC Ltd.)
             </span>
         </a>
@@ -404,7 +405,7 @@ $result = mysqli_query($conn, $sql);
                                         <?php
                                         if (isset($_GET['edit_id'])) {
                                         ?>
-                                            <option value="<?php echo ($card['user_type']); ?>" selected disabled> <?php echo ($card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin"))); ?> </option>
+                                            <option value="<?php echo ($card['user_type_id']); ?>" selected disabled> <?php echo ($card['user_type_id'] == 1 ? "Free" : ($card['user_type_id'] == 2 ? "Standard" : ($card['user_type_id'] == 3 ? "Premium" : "Admin"))); ?> </option>
                                         <?php
                                         } else {
                                         ?>
@@ -415,6 +416,10 @@ $result = mysqli_query($conn, $sql);
                                         <option value="2">Standard</option>
                                         <option value="3">Premium</option>
                                     </select>
+
+                                    <!-- Checking Subscription Times -->
+                                    <label for="" class="form-label mt-3">Subscription times</label>
+                                    <input type="number" value="<?php echo ($card['subs_times']); ?>" readonly name="subscription_times" class="form-control" placeholder="Subscription Times">
                                 </div>
                             </div>
 
@@ -437,9 +442,7 @@ $result = mysqli_query($conn, $sql);
                                 <?php
                                 }
                                 ?>
-
                             </div>
-
 
                         </form>
                     </div>
@@ -496,7 +499,7 @@ $result = mysqli_query($conn, $sql);
                                                         </tr>
                                                         <tr>
                                                             <th>User Type :</th>
-                                                            <td><?php echo $card['user_type'] == 1 ? "Free" : ($card['user_type'] == 2 ? "Standard" : ($card['user_type'] == 3 ? "Premium" : "Admin")); ?></td>
+                                                            <td><?php echo $card['user_type_id'] == 1 ? "Free" : ($card['user_type_id'] == 2 ? "Standard" : ($card['user_type_id'] == 3 ? "Premium" : "Admin")); ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

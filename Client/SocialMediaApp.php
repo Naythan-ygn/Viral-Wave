@@ -13,15 +13,15 @@ if (isset($_POST['btnNewsSubs'])) {
     // Check if the user is already subscribed
     $sql_subs = "SELECT * FROM user_info WHERE email = '$email_form'";
     $result_subs = $conn->query($sql_subs);
-    $user_type = $result_subs->fetch_assoc()['user_type'];
+    $user_type = $result_subs->fetch_assoc()['user_type_id'];
 
     if ($result_subs->num_rows > 0 && $user_type <> 1) {
         echo "<script>alert('You are already subscribed to our newsletter!')</script>";
     } else {
-        $sql_update = "UPDATE user_info SET subscription = 1, user_type = 2 WHERE email = '$email_form'";
+        $sql_update = "UPDATE user_info SET subscription = 1, user_type_id = 2 WHERE email = '$email_form'";
         $conn->query($sql_update);
         echo "<script>alert('You have successfully subscribed to our newsletter!')</script>";
-        header("Location: Home.php");
+        header("Location: ../Log/logout.php");
     }
 }
 
@@ -30,7 +30,7 @@ $sql_privacy = "SELECT * FROM popular_social_apps";
 $result_privacy = $conn->query($sql_privacy);
 
 // Retrieve user information from the database
-$sql_img = "SELECT profile, name, user_type FROM user_info WHERE email = '$email'";
+$sql_img = "SELECT profile, name, user_type_id FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $card = $result_img->fetch_assoc();
 
@@ -130,6 +130,29 @@ $user = array(1, 2);
                         </div>
                     </div>
 
+                    <div class="notification bg-warning bg-opacity-10 border border-warning">
+                        <!-- Notification -->
+                        <?php
+                        $sql_time = "SELECT * FROM user_info WHERE email = '$email'";
+                        $result_time = mysqli_query($conn, $sql_time);
+                        $row_time = $result_time->fetch_assoc();
+
+                        $update_time = strtotime($row_time['created_at']);
+                        $cur_time = strtotime(date('Y-m-d'));
+
+                        $diff = $cur_time - $update_time;
+                        $days = floor($diff / (60 * 60 * 24));
+
+                        if ($days >= 23 && $days <= 30) {
+                        ?>
+                            <p class="text-warning">
+                                <strong>Dear <?php echo $card['name']; ?> , your subscription will drop to Free tier soon!</strong>
+                            </p>
+                        <?php
+                        }
+                        ?>
+                    </div>
+
                     <nav class="navbar navbar-expand-lg bg-white">
                         <div class="container-fluid">
 
@@ -172,7 +195,7 @@ $user = array(1, 2);
                                                 Media Apps</a>
                                         </li>
 
-                                        <?php if (($card['user_type'] <> $user[0]) && ($card['user_type'] <> $user[1])) { ?>
+                                        <?php if (($card['user_type_id'] <> $user[0]) && ($card['user_type_id'] <> $user[1])) { ?>
                                             <li class="nav-item mx-2">
                                                 <a id="tcolor" class="nav-link" href="ParentHub.php">Parent Hub</a>
                                             </li>
@@ -180,7 +203,7 @@ $user = array(1, 2);
 
                                         <!-- Only Free users do not have access to this page -->
                                         <?php
-                                        if (($card['user_type'] <> $user[0])) {
+                                        if (($card['user_type_id'] <> $user[0])) {
                                         ?>
                                             <li class="nav-item mx-2">
                                                 <a id="tcolor" class="nav-link" href="Newsletter.php">Newsletter</a>
@@ -350,9 +373,9 @@ $user = array(1, 2);
                         <div class="input-group mb-3">
                             <input type="email" class="form-control" name="email" id="email" value="<?php echo $email ?>" readonly aria-describedby="button-addon2">
                             <?php
-                            if ($card['user_type'] <> 1) {
+                            if ($card['user_type_id'] <> 1) {
                             ?>
-                                <input class="btn btn-secondary rounded-start" name="btnNewsSubs" type="button" value="Subscribed" id="button-addon2">
+                                <input class="btn btn-secondary rounded-start" name="btnNewsSubs" type="button" value="Subscribed" id="button-addon2" disabled>
                             <?php
                             } else {
                             ?>

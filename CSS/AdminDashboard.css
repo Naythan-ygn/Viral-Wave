@@ -49,15 +49,12 @@ body {
 }
 
 
-
-
-
 /* SIDEBAR */
 #sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 280px;
+    width: 200px;
     height: 100%;
     background: var(--light);
     z-index: 2000;
@@ -76,7 +73,7 @@ body {
 }
 
 #sidebar .brand {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     height: 56px;
     display: flex;
@@ -185,8 +182,8 @@ body {
 /* CONTENT */
 #content {
     position: relative;
-    width: calc(100% - 280px);
-    left: 280px;
+    width: calc(100% - 200px);
+    left: 200px;
     transition: .3s ease;
 }
 
@@ -580,7 +577,7 @@ body {
 }
 
 #content main .table-data .order table tr td .status .pending {
-    background: var(--orange); 
+    background: var(--orange);
 }
 
 
@@ -643,10 +640,6 @@ body {
         display: none;
     }
 }
-
-
-
-
 
 
 @media screen and (max-width: 576px) {
