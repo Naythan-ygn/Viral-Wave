@@ -327,8 +327,11 @@ $row_num = 1;
                         <?php } ?>
                     </div>
                 </div>
-
+                <hr>
                 <div class="row">
+                    <h2>
+                        User's Subscription History
+                    </h2>
                     <div class="col-md-12">
                         <!-- List of Users Subscribed to Viralwave -->
                         <?php

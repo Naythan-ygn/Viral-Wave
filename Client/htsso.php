@@ -18,7 +18,7 @@ if (isset($_POST['btnNewsSubs'])) {
     if ($result_subs->num_rows > 0 && $user_type <> 1) {
         echo "<script>alert('You are already subscribed to our newsletter!')</script>";
     } else {
-        $sql_update = "UPDATE user_info SET subscription = 1, user_type_id = 2 WHERE email = '$email_form'";
+        $sql_update = "UPDATE user_info SET subscription = 1, user_type_id = 2, subs_times = subs_times + 1 WHERE email = '$email_form'";
         $conn->query($sql_update);
         echo "<script>alert('You have successfully subscribed to our newsletter!')</script>";
         header("Location: ../Log/logout.php");
@@ -124,29 +124,6 @@ $user = array(1, 2);
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="notification bg-warning bg-opacity-10 border border-warning">
-                        <!-- Notification -->
-                        <?php
-                        $sql_time = "SELECT * FROM user_info WHERE email = '$email'";
-                        $result_time = mysqli_query($conn, $sql_time);
-                        $row_time = $result_time->fetch_assoc();
-
-                        $update_time = strtotime($row_time['created_at']);
-                        $cur_time = strtotime(date('Y-m-d'));
-
-                        $diff = $cur_time - $update_time;
-                        $days = floor($diff / (60 * 60 * 24));
-
-                        if ($days >= 23 && $days <= 30) {
-                        ?>
-                            <p class="text-warning">
-                                <strong>Dear <?php echo $card['name']; ?> , your subscription will drop to Free tier soon!</strong>
-                            </p>
-                        <?php
-                        }
-                        ?>
                     </div>
 
                     <nav class="navbar navbar-expand-lg bg-white">
@@ -260,6 +237,31 @@ $user = array(1, 2);
                             </div>
                         </div>
                     </nav>
+
+                    <div class="notification">
+                        <!-- Notification -->
+                        <?php
+                        $sql_time = "SELECT * FROM user_info WHERE email = '$email'";
+                        $result_time = mysqli_query($conn, $sql_time);
+                        $row_time = $result_time->fetch_assoc();
+
+                        $update_time = strtotime($row_time['created_at']);
+                        $cur_time = strtotime(date('Y-m-d'));
+
+                        $diff = $cur_time - $update_time;
+                        $days = floor($diff / (60 * 60 * 24));
+
+                        $filter = $row_time['user_type_id'] <> 1;
+
+                        if ($filter && $days >= 23 && $days <= 30) {
+                        ?>
+                            <p class="text-warning bg-warning bg-opacity-10 border border-warning">
+                                <strong>Dear <?php echo $card['name']; ?> , your subscription will drop to Free tier soon!</strong>
+                            </p>
+                        <?php
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>

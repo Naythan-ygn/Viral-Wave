@@ -314,40 +314,45 @@ $card = $result_img->fetch_assoc();
                 <div class="row">
                     <div class="col-md-12">
                         <h2>Parent Hub</h2>
-                        <form action="#" method="POST" class="d-flex" enctype="multipart/form-data">
+                        <form action="#" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="hid" value="<?php echo (isset($card['id']) ? $card['id'] : ""); ?>">
 
                             <input type="hidden" name="uid" value="<?php echo $card['id']; ?>">
 
-                            <!-- Upload Image -->
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="mb-3">
-                                        <label for="formFile1" class="form-label">Upload Image 1 *</label>
-                                        <input class="form-control" name="phfile1" type="file" accept="image/*" id="formFile1">
+                            <div class="row">
+                                <!-- Upload Image -->
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="mb-3">
+                                            <label for="formFile1" class="form-label">Upload Image 1 *</label>
+                                            <input class="form-control" name="phfile1" type="file" accept="image/*" id="formFile1">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="formFile2" class="form-label">Upload Image 2 *</label>
+                                            <input class="form-control" name="phfile2" type="file" accept="image/*" id="formFile2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Upload Content -->
+                                <div class="col-md-6 ps-5">
+                                    <!-- Content Title -->
+                                    <div class="input-group flex-nowrap mb-3">
+                                        <span class="input-group-text" id="addon-wrapping">@</span>
+                                        <input type="text" class="form-control" name="phtitle" placeholder="Title Content" aria-label="Content" aria-describedby="addon-wrapping" value="<?php echo (isset($row['title']) ? $row['title'] : ""); ?>" required>
                                     </div>
 
+                                    <!-- Content Description -->
                                     <div class="mb-3">
-                                        <label for="formFile2" class="form-label">Upload Image 2 *</label>
-                                        <input class="form-control" name="phfile2" type="file" accept="image/*" id="formFile2">
+                                        <label for="exampleFormControlTextarea1" class="form-label">Description *</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc" placeholder="Enter your content" required><?php echo (isset($row['description']) ? $row['description'] : ""); ?></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Upload Content -->
-                            <div class="col-md-6 ps-5">
-                                <!-- Content Title -->
-                                <div class="input-group flex-nowrap mb-3">
-                                    <span class="input-group-text" id="addon-wrapping">@</span>
-                                    <input type="text" class="form-control" name="phtitle" placeholder="Title Content" aria-label="Content" aria-describedby="addon-wrapping" value="<?php echo (isset($row['title']) ? $row['title'] : ""); ?>" required>
-                                </div>
 
-                                <!-- Content Description -->
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Description *</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc" placeholder="Enter your content" required><?php echo (isset($row['description']) ? $row['description'] : ""); ?></textarea>
-                                </div>
-
+                            <div class="row">
                                 <div class="form-group mt-4 text-end">
                                     <?php if (isset($_GET['edit_id'])) {
                                     ?>
@@ -367,10 +372,10 @@ $card = $result_img->fetch_assoc();
                                     <?php
                                     }
                                     ?>
-
                                 </div>
                             </div>
                         </form>
+
                         <hr class="mb-3">
 
 

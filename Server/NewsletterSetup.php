@@ -347,90 +347,96 @@ $card = $result_img->fetch_assoc();
 
 
                     <!-- Newsletter Content List -->
-                    <?php
-                    if (!(isset($_GET['edit_id']))) { ?>
-                        <div class="mb-3 col-md-6">
-                            <h3>
-                                Contents
-                            </h3>
 
-                            <div class="d-flex justify-content-center align-items-center mt-4">
-                                <div class="col-md-8">
-                                    <?php
-                                    while ($cont = $result_news->fetch_assoc()) {
-                                        
-                                    ?>
-                                        <div class="card news-card bg-light border border-bottom border-2 mb-3">
-                                            <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" class="card-img-top text-dark" alt="...">
+                    <div class="mb-3 col-md-6">
+                        <h3>
+                            Contents
+                        </h3>
 
-                                            <div class="card-body mt-4 mx-3">
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            <div class="col-md-8">
+                                <?php
+                                while ($cont = $result_news->fetch_assoc()) {
 
-                                                <h5 class="card-title text-dark">
-                                                    <strong>Article :</strong>
-                                                    <?php echo $cont['title']; ?>
-                                                </h5>
+                                    if (isset($_GET['edit_id'])) {
+                                        // If the edit button is clicked, fetch the user details based on the ID.
+                                        $edit_id = $_GET['edit_id'];
+                                        $query = "SELECT * FROM monthly_newsletter WHERE id = $edit_id";
+                                        $result_news = $conn->query($query);
+                                        $cont = $result_news->fetch_assoc();
+                                    }
+                                ?>
+                                    <div class="card news-card bg-light border border-bottom border-2 mb-3">
+                                        <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" class="card-img-top text-dark" alt="...">
 
-                                                <p class="card-text text-dark desc mt-3">
-                                                    &emsp;&emsp;
-                                                    <?php echo $cont['description']; ?>
-                                                </p>
-                                                <p class="card-text mb-3">
-                                                    <!-- This content will show when did it published -->
-                                                    <small class="text-body-secondary">
-                                                        <?php
+                                        <div class="card-body mt-4 mx-3">
 
-                                                        // Set timezone to Bangkok to get accurate time difference 
-                                                        // Since Myanmar timezone isn't available in php server, Closest timezone, Bangkok, has been chosen
-                                                        date_default_timezone_set("Asia/Bangkok");
+                                            <h5 class="card-title text-dark">
+                                                <strong>Article :</strong>
+                                                <?php echo $cont['title']; ?>
+                                            </h5>
 
-                                                        // Get the time difference between current time and published time
-                                                        $published_time = strtotime($cont['publishdate']);
-                                                        $cur = strtotime(date('Y-m-d H:i:s'));
+                                            <p class="card-text text-dark desc mt-3">
+                                                &emsp;&emsp;
+                                                <?php echo $cont['description']; ?>
+                                            </p>
+                                            <p class="card-text mb-3">
+                                                <!-- This content will show when did it published -->
+                                                <small class="text-body-secondary">
+                                                    <?php
 
-                                                        $diff = $cur - $published_time;
+                                                    // Set timezone to Bangkok to get accurate time difference 
+                                                    // Since Myanmar timezone isn't available in php server, Closest timezone, Bangkok, has been chosen
+                                                    date_default_timezone_set("Asia/Bangkok");
 
-                                                        $days = floor($diff / (60 * 60 * 24));
-                                                        $hours = floor(($diff % (60 * 60 * 24)) / (60 * 60));
-                                                        $minutes = floor(($diff % (60 * 60)) / 60);
-                                                        $seconds = floor($diff % 60);
+                                                    // Get the time difference between current time and published time
+                                                    $published_time = strtotime($cont['publishdate']);
+                                                    $cur = strtotime(date('Y-m-d H:i:s'));
 
-                                                        if ($days > 0) {
-                                                            echo "Published <strong>$days</strong> days ago.";
-                                                        } else if ($hours > 0) {
-                                                            echo "Published <strong>$hours</strong> hours ago.";
-                                                        } else if ($minutes > 0) {
-                                                            echo "Published <strong>$minutes</strong> minutes ago.";
-                                                        } else if ($seconds > 0) {
-                                                            echo "Published <strong>$seconds</strong> seconds ago";
-                                                        }
-                                                        ?>
-                                                    </small>
-                                                </p>
-                                            </div>
+                                                    $diff = $cur - $published_time;
 
-                                            <div class="card-footer border border-top text-body-secondary d-flex">
-                                                <!-- Edit Button -->
-                                                <a class="btn btn-success col-md-6 rounded-0" role="button" href="NewsletterSetup.php?edit_id=<?php echo $cont['id']; ?>">
-                                                    <i class="fi fi-rr-edit"></i>
-                                                    &nbsp;Edit
-                                                </a>
+                                                    $days = floor($diff / (60 * 60 * 24));
+                                                    $hours = floor(($diff % (60 * 60 * 24)) / (60 * 60));
+                                                    $minutes = floor(($diff % (60 * 60)) / 60);
+                                                    $seconds = floor($diff % 60);
 
-                                                <!-- Delete Button -->
-                                                <a class="btn btn-danger col-md-6 rounded-0" role="button" href="NewsletterSetup.php?delete_id=<?php echo $cont['id']; ?>">
-                                                    <i class="fi fi-rr-trash"></i>
-                                                    &nbsp;Delete
-                                                </a>
-                                            </div>
+                                                    if ($days > 0) {
+                                                        echo "Published <strong>$days</strong> days ago.";
+                                                    } else if ($hours > 0) {
+                                                        echo "Published <strong>$hours</strong> hours ago.";
+                                                    } else if ($minutes > 0) {
+                                                        echo "Published <strong>$minutes</strong> minutes ago.";
+                                                    } else if ($seconds > 0) {
+                                                        echo "Published <strong>$seconds</strong> seconds ago";
+                                                    }
+                                                    ?>
+                                                </small>
+                                            </p>
                                         </div>
 
-                                    <?php
-                                    } ?>
-                                </div>
+                                        <div class="card-footer border border-top text-body-secondary d-flex">
+                                            <!-- Edit Button -->
+                                            <a class="btn btn-success col-md-6 rounded-0" role="button" href="NewsletterSetup.php?edit_id=<?php echo $cont['id']; ?>">
+                                                <i class="fi fi-rr-edit"></i>
+                                                &nbsp;Edit
+                                            </a>
 
+                                            <!-- Delete Button -->
+                                            <a class="btn btn-danger col-md-6 rounded-0" role="button" href="NewsletterSetup.php?delete_id=<?php echo $cont['id']; ?>">
+                                                <i class="fi fi-rr-trash"></i>
+                                                &nbsp;Delete
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                } ?>
                             </div>
 
                         </div>
-                    <?php } ?>
+
+                    </div>
+
                 </div>
 
             </div>

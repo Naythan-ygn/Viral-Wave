@@ -76,6 +76,7 @@ if (isset($_POST['btnEditUser'])) {
     $result_query = $conn->query($sql_update);
 
     if ($result_query) {
+
         echo "<script>alert('User Updated');</script>";
 
         // delete the existing image if a new image is uploaded
@@ -91,13 +92,28 @@ if (isset($_POST['btnEditUser'])) {
     } else {
         echo "Error: " . $sql_update . "<br>" . $conn->error;
     }
+
+    // if the user_type_id is changed into 2 or 3, the subs_times will add 1 to its original number
+    
+    $old_user_type = $card['user_type_id'];
+
+    if (($u_type == 2 || $u_type == 3) && $u_type != $old_user_type) {
+        $current_subs_times = $card['subs_times'];
+        $new_subs_times = $current_subs_times + 1;
+
+        // Update the subs_times in the database
+        $update_subs_times = "UPDATE user_info SET subs_times = $new_subs_times WHERE id = " . $_GET['edit_id'];
+        $conn->query($update_subs_times);
+    }
 }
 
 
+// Fetch the user information related to the session email
 $sql_img = "SELECT profile, name FROM user_info WHERE email = '$email'";
 $result_img = $conn->query($sql_img);
 $show = $result_img->fetch_assoc();
 
+// Fetch all the user information from the database
 $sql = "SELECT * FROM user_info ORDER BY user_type_id";
 $result = mysqli_query($conn, $sql);
 ?>
@@ -449,7 +465,7 @@ $result = mysqli_query($conn, $sql);
 
                     <!-- Retrieved Data User List -->
                     <div class="col-md-6">
-                        <h3>User List</h3>
+                        <h3>Users List</h3>
                         <div class="p-3 d-flex flex-wrap">
                             <div class="row">
                                 <?php

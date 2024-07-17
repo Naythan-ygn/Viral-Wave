@@ -107,29 +107,6 @@ $user = array(1, 2);
                         </div>
                     </div>
 
-                    <div class="notification bg-warning bg-opacity-10 border border-warning">
-                        <!-- Notification -->
-                        <?php
-                        $sql_time = "SELECT * FROM user_info WHERE email = '$email'";
-                        $result_time = mysqli_query($conn, $sql_time);
-                        $row_time = $result_time->fetch_assoc();
-
-                        $update_time = strtotime($row_time['created_at']);
-                        $cur_time = strtotime(date('Y-m-d'));
-
-                        $diff = $cur_time - $update_time;
-                        $days = floor($diff / (60 * 60 * 24));
-
-                        if ($days >= 23 && $days <= 30) {
-                        ?>
-                            <p class="text-warning">
-                                <strong>Dear <?php echo $card['name']; ?> , your subscription will drop to Free tier soon!</strong>
-                            </p>
-                        <?php
-                        }
-                        ?>
-                    </div>
-
                     <nav class="navbar navbar-expand-lg bg-white">
                         <div class="container-fluid">
 
@@ -237,6 +214,31 @@ $user = array(1, 2);
                             </div>
                         </div>
                     </nav>
+
+                    <div class="notification">
+                        <!-- Notification -->
+                        <?php
+                        $sql_time = "SELECT * FROM user_info WHERE email = '$email'";
+                        $result_time = mysqli_query($conn, $sql_time);
+                        $row_time = $result_time->fetch_assoc();
+
+                        $update_time = strtotime($row_time['created_at']);
+                        $cur_time = strtotime(date('Y-m-d'));
+
+                        $diff = $cur_time - $update_time;
+                        $days = floor($diff / (60 * 60 * 24));
+
+                        $filter = $row_time['user_type_id'] <> 1;
+
+                        if ($filter && $days >= 23 && $days <= 30) {
+                        ?>
+                            <p class="text-warning bg-warning bg-opacity-10 border border-warning">
+                                <strong>Dear <?php echo $card['name']; ?> , your subscription will drop to Free tier soon!</strong>
+                            </p>
+                        <?php
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
