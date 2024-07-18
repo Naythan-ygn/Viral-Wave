@@ -27,9 +27,16 @@ if (isset($_POST['btnNewsSubs'])) {
     }
 }
 
-// Retrieve Social Privacy settings from database
-$sql_privacy = "SELECT * FROM popular_social_apps";
-$result_privacy = $conn->query($sql_privacy);
+// Retrieve for Search Button
+if (isset($_POST['btnSearch'])) {
+    $search_query = $_POST['search'];
+    $sql_search = "SELECT * FROM popular_social_apps WHERE name LIKE '%$search_query%' OR loginlink LIKE '%$search_query%' OR privacylink LIKE '%$search_query%'";
+    $result_search = $conn->query($sql_search);
+} else {
+    // Retrieve Social search settings from database
+    $sql_search = "SELECT * FROM popular_social_apps";
+    $result_search = $conn->query($sql_search);
+}
 
 // Retrieve user information from the database
 $sql_img = "SELECT profile, name, user_type_id FROM user_info WHERE email = '$email'";
@@ -281,16 +288,19 @@ $user = array(1, 2);
             </p>
 
             <!-- The Search Bar -->
-            <div class="search-bar-wrapper text-center">
-                <input type="text" class="search-input" placeholder="Search...">
-                <button class="search-btn"><i class="bi bi-search"></i></button>
-            </div>
+            <form action="#" method="post">
+                <div class="search-bar-wrapper text-center">
+                    <input type="text" class="search-input" name="search" placeholder="Search...">
+                    <button class="search-btn" type="submit" name="btnSearch"><i class="bi bi-search"></i></button>
+                </div>
+            </form>
+
 
             <div class="row">
 
                 <div class="link-card text-center">
                     <?php
-                    while ($privacy = $result_privacy->fetch_assoc()) {
+                    while ($privacy = $result_search->fetch_assoc()) {
                     ?>
                         <div class="card mb-4">
                             <div class="row g-0">

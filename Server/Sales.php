@@ -166,12 +166,7 @@ $row_num = 1;
         <nav>
             <i class="fi fi-rr-menu-burger"></i>
             <a href="#" class="nav-link">Categories</a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search...">
-                    <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
-                </div>
-            </form>
+            <div class="col-md-8"></div>
 
             <!-- This is message notification -->
             <?php

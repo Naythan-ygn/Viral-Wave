@@ -287,12 +287,6 @@ $user = array(1, 2);
                     <div class="col-md-3"></div>
                     <div class="col-md-12">
 
-                        <!-- The Search Bar -->
-                        <div class="search-bar-wrapper w-50">
-                            <input type="text" class="search-input" placeholder="Search...">
-                            <button class="search-btn"><i class="bi bi-search"></i></button>
-                        </div>
-
 
                         <!-- This is the welcome Text -->
                         <div class="header text-start">

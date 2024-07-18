@@ -117,13 +117,8 @@ $card = $result_img->fetch_assoc();
         <nav>
             <i class="fi fi-rr-menu-burger"></i>
             <a href="#" class="nav-link">Categories</a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search...">
-                    <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
-                </div>
-            </form>
 
+            <div class="col-md-8"></div>
             <!-- This is message notification -->
             <?php
             $sql_msg = "SELECT * FROM user_inquiries";
@@ -159,6 +154,7 @@ $card = $result_img->fetch_assoc();
                         &nbsp;Log Out</a>
                 </div>
             </div>
+
         </nav>
         <!-- NAVBAR -->
 
@@ -218,17 +214,17 @@ $card = $result_img->fetch_assoc();
                     $sql_price = "SELECT * FROM user_info, acc_lvl_revenue WHERE user_type_id = acc_level AND user_type_id <> 0";
                     $result_price = $conn->query($sql_price);
 
-                    while ($row_price= $result_price->fetch_assoc()) {
+                    while ($row_price = $result_price->fetch_assoc()) {
                         $single_user_sales = $row_price['subs_times'] * $row_price['price'];
                         $total_sales += $single_user_sales;
                     }
-                     
+
                     ?>
                     <!-- Sale Revenue calculation Function -->
                     <i class='bx bxs-dollar-circle'></i>
                     <span class="text">
                         <h3 class="text-success">
-                            $ <?php echo number_format($total_sales, 2); ?> 
+                            $ <?php echo number_format($total_sales, 2); ?>
                         </h3>
                         <p>Total Sales</p>
                     </span>

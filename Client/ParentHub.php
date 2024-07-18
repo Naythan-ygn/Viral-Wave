@@ -25,9 +25,18 @@ if (isset($_POST['btnNewsSubs'])) {
     }
 }
 
-// Fetch parent hub data
-$sql = "SELECT profile, name, title, description, image1, image2, created_date FROM parent_help_content, user_info WHERE user_id = id";
-$result = $conn->query($sql);
+// Retrieve for Search Button
+if (isset($_POST['btnSearch'])) {
+    $search_query = $_POST['search'];
+    // Search for posts based on the search query
+    $sql_search = "SELECT profile, name, title, description, image1, image2, created_date FROM parent_help_content, user_info WHERE user_id = id AND (title LIKE '%$search_query%' OR description LIKE '%$search_query%')";
+    $result_search = $conn->query($sql_search);
+} else {
+    // Fetch parent hub data
+    $sql_search = "SELECT profile, name, title, description, image1, image2, created_date FROM parent_help_content, user_info WHERE user_id = id";
+    $result_search = $conn->query($sql_search);
+}
+
 
 // Fetch user profile data
 $sql_img = "SELECT profile, name, user_type_id FROM user_info WHERE email = '$email'";
@@ -275,13 +284,15 @@ $user = array(1, 3);
                     <h1 class="text-center mb-5">Explore</h1>
 
                     <!-- The Search Bar -->
-                    <div class="search-bar-wrapper float-end">
-                        <input type="text" class="search-input" placeholder="Search...">
-                        <button class="search-btn"><i class="bi bi-search"></i></button>
-                    </div>
+                    <form action="#" method="post">
+                        <div class="search-bar-wrapper text-center">
+                            <input type="text" class="search-input" name="search" placeholder="Search...">
+                            <button class="search-btn" type="submit" name="btnSearch"><i class="bi bi-search"></i></button>
+                        </div>
+                    </form>
 
                     <?php
-                    while ($posts = $result->fetch_assoc()) {
+                    while ($posts = $result_search->fetch_assoc()) {
                     ?>
                         <div class="card col-md-12 mb-3">
                             <div class="card-img d-flex">

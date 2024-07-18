@@ -161,12 +161,6 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-12">
 
-                        <!-- The Search Bar -->
-                        <div class="search-bar-wrapper w-50">
-                            <input type="text" class="search-input" placeholder="Search...">
-                            <button class="search-btn"><i class="bi bi-search"></i></button>
-                        </div>
-
                         <!-- This is Welcome Page -->
                         <div class="header text-start">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="var(--primary)" class="bi bi-broadcast" viewBox="0 0 16 16">

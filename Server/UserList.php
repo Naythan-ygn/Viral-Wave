@@ -94,7 +94,7 @@ if (isset($_POST['btnEditUser'])) {
     }
 
     // if the user_type_id is changed into 2 or 3, the subs_times will add 1 to its original number
-    
+
     $old_user_type = $card['user_type_id'];
 
     if (($u_type == 2 || $u_type == 3) && $u_type != $old_user_type) {
@@ -221,12 +221,7 @@ $result = mysqli_query($conn, $sql);
         <nav>
             <i class="fi fi-rr-menu-burger"></i>
             <a href="#" class="nav-link">Categories</a>
-            <form action="#">
-                <div class="form-input">
-                    <input type="search" placeholder="Search...">
-                    <button type="submit" class="search-btn"><i class="fi fi-rr-search"></i></button>
-                </div>
-            </form>
+            <div class="col-md-8"></div>
 
             <!-- This is message notification -->
             <?php
