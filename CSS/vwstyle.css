@@ -58,16 +58,19 @@ p.justify-text{
     color: #6c757d;
 }
 
-.content h2 {
+.content-news h2 {
     font-size: 20px;
     color: #007bff;
 }
 
-.content p {
+.content-news p {
     font-size: 12px;
     color: #333;
 }
 
+.content-news {
+    padding: 15px 0;
+}
 
 .image-placeholder {
     text-align: center;

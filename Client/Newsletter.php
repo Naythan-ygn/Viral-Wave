@@ -29,7 +29,6 @@ if (isset($_POST['btnNewsSubs'])) {
 // Only data with current Month timestamp will show as result
 $sql_news = "SELECT * FROM monthly_newsletter WHERE MONTH(publishdate) = MONTH(CURRENT_DATE) AND YEAR(publishdate) = YEAR(CURRENT_DATE) ORDER BY id";
 $news_result = $conn->query($sql_news);
-$cont = $news_result->fetch_assoc();
 
 // Fetch user data
 $sql_img = "SELECT profile, name, user_type_id FROM user_info WHERE email = '$email'";
@@ -282,31 +281,34 @@ $user = array(1, 2);
                         <div class="row header">
                             <div class="col-md-12 text-center">
                                 <h1>Monthly Newsletter</h1>
-                                <p class="text-dark"><strong>Issue #123 | </strong> <?php echo date('M Y', strtotime($cont['publishdate'])); ?></p>
+                                <p class="text-dark"><strong>Issue #123 | </strong> <?php echo date('M Y'); ?></p>
                             </div>
                         </div>
                         <hr>
-                        <!-- Content Section -->
-                        <?php
-                        while ($cont = $news_result->fetch_assoc()) {
-                        ?>
-                            <div class="row content d-flex">
-                                <div class="col-md-6">
-                                    <h2><?php echo $cont['title']; ?></h2>
-                                    <p class="text-dark"><?php echo $cont['description']; ?></p>
-                                </div>
-                                <?php
-                                if (!empty($cont['image1'])) {
-                                ?>
+                        <div class="row">
+                            <!-- Content Section -->
+                            <?php
+                            while ($cont = $news_result->fetch_assoc()) {
+                            ?>
+                                <div class="row content-news d-flex">
                                     <div class="col-md-6">
-                                        <div class="image-placeholder">
-                                            <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" alt="Placeholder Image" class="img-fluid" width="200" height="200">
-                                        </div>
+                                        <h2><?php echo $cont['title']; ?></h2>
+                                        <p class="text-dark"><?php echo $cont['description']; ?></p>
                                     </div>
-                                <?php } ?>
-                            </div>
-                        <?php
-                        } ?>
+                                    <?php
+                                    if (!empty($cont['image1'])) {
+                                    ?>
+                                        <div class="col-md-6">
+                                            <div class="image-placeholder">
+                                                <img src="<?php echo "../Images/Safety_Media\\" . $cont['image1']; ?>" alt="Placeholder Image" class="img-fluid" width="200" height="200">
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            <?php
+                            } ?>
+                        </div>
+
                         <div class="row">
                             <blockquote class="blockquote bg-secondary p-3 mt-5">
                                 <p class="mb-0 text-light">"Thank you for being a part of our community. Together, we can create a safer online environment for everyone."</p>
